@@ -38,3 +38,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/users/{id}/assign-role', [UserManagementController::class, 'assignRole'])
         ->name('admin.users.assignRole');
 });
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
