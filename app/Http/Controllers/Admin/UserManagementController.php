@@ -14,7 +14,7 @@ class UserManagementController extends Controller
     {
         $users = User::with('roles')->get();
         $roles = Role::all();
-        return view('admin.users.index', compact('users', 'roles'));
+        return view('admin.users.assign', compact('users', 'roles'));
     }
 
     // Assign role to a user
