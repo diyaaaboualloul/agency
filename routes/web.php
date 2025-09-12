@@ -10,14 +10,16 @@ use App\Http\Controllers\Admin\UserManagementController;
 |--------------------------------------------------------------------------
 */
 
+// 🔹 Home page (public)
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
-// 🔹 Dashboard (only for authenticated + verified users)
+// 🔹 Dashboard (restricted to admin + editor only)
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:admin|editor'])
+  ->name('dashboard');
 
 // 🔹 Profile management (only for authenticated users)
 Route::middleware('auth')->group(function () {
@@ -29,7 +31,7 @@ Route::middleware('auth')->group(function () {
 // 🔹 Authentication routes (login, register, etc.)
 require __DIR__ . '/auth.php';
 
-// 🔹 Admin only routes (Role-based protection using Spatie)
+// 🔹 Admin-only routes (Role-based protection using Spatie)
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/users', [UserManagementController::class, 'index'])
         ->name('admin.users.index');
