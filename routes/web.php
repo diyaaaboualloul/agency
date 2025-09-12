@@ -41,3 +41,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
+
+// 🔹 Public pages
+Route::view('/about', 'about')->name('about');
+Route::view('/contact', 'contact')->name('contact');
+Route::view('/blogs', 'blogs')->name('blogs');
+Route::view('/portfolio', 'portfolio')->name('portfolio');
+Route::view('/services', 'services')->name('services');
+Route::view('/single-service', 'singleservice')->name('singleservice');
+Route::view('/single-portfolio', 'singleportfolio')->name('singleportfolio');
