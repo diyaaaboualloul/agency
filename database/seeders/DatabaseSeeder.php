@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +11,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 👉 If you want fake users, uncomment this
+        // \App\Models\User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // 👉 No need to create test@example.com again, remove it!
+
+        $this->call([
+            ContactInfoSeeder::class,
         ]);
+          $this->call([
+        RoleSeeder::class,
+        ContactInfoSeeder::class,
+    ]);
+       $this->call([
+        PermissionsSeeder::class,
+        ContactInfoSeeder::class, // keep your contact info seeder
+    ]);
     }
 }
