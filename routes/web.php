@@ -43,10 +43,26 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::view('/about', 'about')->name('about');
 Route::view('/blogs', 'blogs')->name('blogs');
 Route::view('/portfolio', 'portfolio')->name('portfolio');
-Route::view('/services', 'services')->name('services');
 Route::view('/single-service', 'singleservice')->name('singleservice');
 Route::view('/single-portfolio', 'singleportfolio')->name('singleportfolio');
 
 // Contact page
 Route::get('/contact', [ContactPageController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactPageController::class, 'store'])->name('contact.store');
+
+
+use App\Http\Controllers\ServiceController;
+
+// 🔹 Public services pages
+Route::get('/services', [ServiceController::class, 'index'])->name('services');
+Route::get('/services/{id}', [ServiceController::class, 'show'])->name('services.show');
+
+// 🔹 Admin/Editor CRUD (restricted)
+Route::middleware(['auth', 'role:admin|editor'])->group(function () {
+    Route::get('/admin/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
+    Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
+    Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
+    Route::get('/admin/services/{id}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
+    Route::put('/admin/services/{id}', [ServiceController::class, 'update'])->name('admin.services.update');
+    Route::delete('/admin/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
+});
