@@ -66,3 +66,9 @@ Route::middleware(['auth', 'role:admin|editor'])->group(function () {
     Route::put('/admin/services/{id}', [ServiceController::class, 'update'])->name('admin.services.update');
     Route::delete('/admin/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
 });
+use App\Http\Controllers\Admin\ContactInfoController;
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/contact-info', [ContactInfoController::class, 'edit'])->name('admin.contact-info.edit');
+    Route::put('/admin/contact-info', [ContactInfoController::class, 'update'])->name('admin.contact-info.update');
+});
