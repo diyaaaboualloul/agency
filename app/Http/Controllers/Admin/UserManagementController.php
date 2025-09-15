@@ -18,15 +18,27 @@ class UserManagementController extends Controller
     }
 
     // Assign role to a user
-   // Assign role to a user
-public function assignRole(Request $request, $id)
-{
-    $user = User::findOrFail($id);
-    $user->syncRoles([$request->role]); // replace old roles with new one
+    public function assignRole(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->syncRoles([$request->role]);
 
-    return redirect()
-        ->route('dashboard')
-        ->with('success', 'Role updated successfully! You have been redirected to the dashboard.');
-}
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'Role updated successfully!');
+    }
 
+    // Delete a user
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        if (auth()->id() == $user->id) {
+            return redirect()->back()->with('error', 'You cannot delete your own account.');
+        }
+
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User deleted successfully!');
+    }
 }

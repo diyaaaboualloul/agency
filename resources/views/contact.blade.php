@@ -43,97 +43,149 @@
           </div>
         </div>
         <div class="col-lg-7">
-          <div class="aximo-main-form">
-            <form action="#">
-              <div class="aximo-main-field">
-                <label>Your name</label>
-                <input type="text">
-              </div>
-              <div class="aximo-main-field">
-                <label>Email Address</label>
-                <input type="email">
-              </div>
-              <div class="aximo-main-field">
-                <label>Phone No</label>
-                <input type="text">
-              </div>
-              <div class="aximo-main-field">
-                <label>Write your message here...</label>
-                <textarea name="textarea"></textarea>
-              </div>
-              <button id="aximo-main-btn" type="submit">Send Message</button>
-            </form>
-          </div>
+       <div class="aximo-main-form">
+    <div id="form-message"></div> {{-- 🔹 Success/Error message placeholder --}}
+
+    <form id="contactForm">
+        @csrf
+        <div class="aximo-main-field">
+            <label>Your name</label>
+            <input type="text" name="name" required>
+        </div>
+        <div class="aximo-main-field">
+            <label>Email Address</label>
+            <input type="email" name="email" required>
+        </div>
+        <div class="aximo-main-field">
+            <label>Phone No</label>
+            <input type="text" name="phone">
+        </div>
+        <div class="aximo-main-field">
+            <label>Write your message here...</label>
+            <textarea name="message" required></textarea>
+        </div>
+        <button id="aximo-main-btn" type="submit">Send Message</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    let form = e.target;
+    let formData = new FormData(form);
+
+    let response = await fetch("{{ route('contact.store') }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+        },
+        body: formData
+    });
+
+    if (response.ok) {
+        document.getElementById("form-message").innerHTML =
+            `<div class="alert alert-success" style="margin: 15px 0; padding: 10px; border: 1px solid #28a745; background: #d4edda; color: #155724; border-radius: 5px;">
+                ✅ Your message has been sent successfully!
+             </div>`;
+        form.reset(); // clear form
+    } else {
+        document.getElementById("form-message").innerHTML =
+            `<div class="alert alert-danger">❌ Something went wrong. Please try again.</div>`;
+    }
+});
+</script>
+
+
         </div>
 
       </div>
     </div>
   </div>
   <!-- End section -->
-
-  <div class="aximo-contact-info-section">
+<div class="aximo-contact-info-section">
     <div class="container">
-      <div class="aximo-contact-info-title">
-        <h2>
-          <span class="aximo-title-animation">
-          Contact Information
-          <span class="aximo-title-icon">
-            <img src="assets/images/v1/star2.png" alt="">
-          </span>
-          </span>
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-xl-4 col-md-6">
-          <a href="">
-            <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.1s">
-              <div class="aximo-contact-info-icon">
-                <img src="assets/images/icon/call2.svg" alt="">
-              </div>
-              <div class="aximo-contact-info-data">
-                <span>Call us</span>
-                <p>+088-234-6532-789</p>
-                <p>+088-456-3217-005</p>
-              </div>
-            </div>
-          </a>
+        <div class="aximo-contact-info-title">
+            <h2>
+                <span class="aximo-title-animation">
+                Contact Information
+                <span class="aximo-title-icon">
+                    <img src="assets/images/v1/star2.png" alt="">
+                </span>
+                </span>
+            </h2>
         </div>
-        <div class="col-xl-4 col-md-6">
-          <a href="">
-            <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.2s">
-              <div class="aximo-contact-info-icon">
-                <img src="assets/images/icon/email.svg" alt="">
-              </div>
-              <div class="aximo-contact-info-data">
-                <span>Call us</span>
-                <p>example@gmail.com</p>
-                <p>example@gmail.com</p>
-              </div>
+        <div class="row">
+            {{-- Phone --}}
+            <div class="col-xl-4 col-md-6">
+                <a href="tel:{{ $contactInfo->phone }}">
+                    <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.1s">
+                        <div class="aximo-contact-info-icon">
+                            <img src="assets/images/icon/call2.svg" alt="">
+                        </div>
+                        <div class="aximo-contact-info-data">
+                            <span>Call us</span>
+                            <p>{{ $contactInfo->phone }}</p>
+                            <p>{{ $contactInfo->whatsapp }}</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-          </a>
-        </div>
-        <div class="col-xl-4 col-md-6">
-          <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.3s">
-            <div class="aximo-contact-info-icon">
-              <img src="assets/images/icon/map.svg" alt="">
-            </div>
-            <div class="aximo-contact-info-data">
-              <span>Office address</span>
-              <p>4132 Thornridge City, New York.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- end section -->
 
-  <div class="section">
-    <div class="container">
-      <div class="aximo-map-wrap">
-        <div id="map"></div>
-      </div>
+            {{-- Email --}}
+            <div class="col-xl-4 col-md-6">
+                <a href="mailto:{{ $contactInfo->email }}">
+                    <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.2s">
+                        <div class="aximo-contact-info-icon">
+                            <img src="assets/images/icon/email.svg" alt="">
+                        </div>
+                        <div class="aximo-contact-info-data">
+                            <span>Email us</span>
+                            <p>{{ $contactInfo->email }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            {{-- Address --}}
+            <div class="col-xl-4 col-md-6">
+                <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.3s">
+                    <div class="aximo-contact-info-icon">
+                        <img src="assets/images/icon/map.svg" alt="">
+                    </div>
+                    <div class="aximo-contact-info-data">
+                        <span>Office address</span>
+                        <p>{{ $contactInfo->address_line1 }}, {{ $contactInfo->city }}, {{ $contactInfo->state }} {{ $contactInfo->postal_code }}</p>
+                        <p>{{ $contactInfo->country }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+ <div class="section">
+    <div class="container">
+        <div class="aximo-map-wrap">
+            @if($contactInfo && $contactInfo->map_embed_url)
+                {{-- ✅ Show Google Map from DB --}}
+                <iframe 
+                    src="{{ $contactInfo->map_embed_url }}" 
+                    width="100%" 
+                    height="400" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            @else
+                {{-- ❌ Fallback if no map is set in DB --}}
+                <p style="color: gray; text-align: center;">Map location is not available yet.</p>
+            @endif
+        </div>
+    </div>
+</div>
+
   </div>
   <!-- end section -->
 

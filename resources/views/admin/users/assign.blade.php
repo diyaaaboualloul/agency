@@ -15,7 +15,7 @@
                             <th class="border p-2">Name</th>
                             <th class="border p-2">Email</th>
                             <th class="border p-2">Current Role</th>
-                            <th class="border p-2">Change Role</th>
+                            <th class="border p-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,18 +28,28 @@
                                     {{ $user->roles->pluck('name')->implode(', ') ?: 'No role' }}
                                 </td>
                                 <td class="border p-2">
-                                    <form method="POST" action="{{ route('admin.users.assignRole', $user->id) }}">
+                                    {{-- Update Role --}}
+                                    <form method="POST" action="{{ route('admin.users.assignRole', $user->id) }}" style="display:inline;">
                                         @csrf
                                         <select name="role" class="border rounded p-1">
                                             @foreach($roles as $role)
-                                                <option value="{{ $role->name }}" 
-                                                    {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                                <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
                                                     {{ ucfirst($role->name) }}
                                                 </option>
                                             @endforeach
                                         </select>
                                         <button type="submit" class="ml-2 px-3 py-1 bg-blue-500 text-white rounded">
                                             Update
+                                        </button>
+                                    </form>
+
+                                    {{-- Delete --}}
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="ml-2 px-3 py-1 onclick="return confirm('Are you sure you want to delete this user?')" 
+                                            class="ml-2 px-3 py-1 bg-red-500 text-white rounded">
+                                            Delete
                                         </button>
                                     </form>
                                 </td>
