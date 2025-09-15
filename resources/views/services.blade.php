@@ -9,7 +9,7 @@
         <nav class="breadcrumbs">
             <ul>
                 <li><a href="{{ url('/') }}">Home</a></li>
-                <li aria-current="page"> Our Services</li>
+                <li aria-current="page">Our Services</li>
             </ul>
         </nav>
     </div>
@@ -18,8 +18,10 @@
 <div class="section aximo-section-padding3">
     <div class="container">
         <div class="aximo-section-title center">
-            <h2>We provide effective
-                <span class="aximo-title-animation">design solutions
+            <h2>
+                We provide effective
+                <span class="aximo-title-animation">
+                    design solutions
                     <span class="aximo-title-icon">
                         <img src="{{ asset('assets/images/v1/star2.png') }}" alt="">
                     </span>
@@ -28,34 +30,45 @@
         </div>
 
         <div class="row">
-            @foreach($services as $service)
+            @forelse($services as $service)
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="aximo-iconbox-wrap wow fadeInUpX h-100" 
-                         style="display: flex; flex-direction: column; justify-content: space-between;">
-                         
-                        <div class="aximo-iconbox-icon mb-3 text-center">
-                            @if($service->image)
-                                <img src="{{ asset('storage/' . $service->image) }}" 
-                                     alt="{{ $service->name }}" 
-                                     style="width:80px; height:80px; object-fit:cover;">
-                            @else
-                                <i class="icon-design-tools"></i>
-                            @endif
-                        </div>
+                    <div class="aximo-iconbox-wrap wow fadeInUpX h-100 d-flex flex-column justify-content-between p-3 shadow-sm rounded"
+                         data-wow-delay="0s">
 
-                        <div class="aximo-iconbox-data">
-                            <h3>{{ $service->name }}</h3>
-                            <p style="max-height: 70px; overflow: hidden; text-overflow: ellipsis;">
+                        {{-- Service Image / Icon --}}
+                       <div class="aximo-iconbox-icon mb-3 text-center">
+    @if($service->image)
+        <img src="{{ asset('storage/' . $service->image) }}"
+             alt="{{ $service->name }}"
+             class="rounded shadow-sm"
+             style="width:200px; height:200px; object-fit:cover;">
+    @else
+        <i class="icon-design-tools" style="font-size:80px;"></i>
+    @endif
+</div>
+
+
+                        {{-- Service Info --}}
+                        <div class="aximo-iconbox-data text-center">
+                            <h3 class="mb-2">{{ $service->name }}</h3>
+                            <p class="text-muted"
+                               style="max-height: 70px; overflow: hidden; text-overflow: ellipsis;">
                                 {{ $service->description }}
                             </p>
                         </div>
 
-                        <a class="aximo-icon mt-auto" href="{{ route('services.show', $service->id) }}">
-                            <img src="{{ asset('assets/images/icon/arrow-right.svg') }}" alt="">
-                        </a>
+                        {{-- Link to details --}}
+                        <div class="text-center mt-auto">
+                            <a class="aximo-icon d-inline-block mt-3"
+                               href="{{ route('services.show', $service->id) }}">
+                                <img src="{{ asset('assets/images/icon/arrow-right.svg') }}" alt="">
+                            </a>
+                        </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <p class="text-center text-muted">No services available at the moment.</p>
+            @endforelse
         </div>
     </div>
 </div>
