@@ -37,6 +37,10 @@
                 <a href="{{ route('admin.contact-info.edit') }}" class="btn btn-info text-white">
                     📞 Edit Contact Info
                 </a>
+                <a href="{{ route('admin.blogs.index') }}" class="btn btn-dark">
+    📰 Manage Blogs
+</a>
+
             </div>
         @endrole
 

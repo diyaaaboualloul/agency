@@ -11,7 +11,7 @@
       <li><a href="{{ route('about') }}" class="nav-link-item">About Us</a></li>
       <li><a href="{{ route('services') }}" class="nav-link-item">Services</a></li>
       <li><a href="{{ route('portfolio') }}" class="nav-link-item">Portfolio</a></li>
-      <li><a href="{{ route('blogs') }}" class="nav-link-item">Blogs</a></li>
+      <li><a href="{{ route('blogs.index') }}" class="nav-link-item">Blogs</a></li>
       <li><a href="{{ route('contact') }}" class="nav-link-item">Contact</a></li>
 
       @guest
