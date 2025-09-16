@@ -1,13 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="h4 mb-0">{{ __('Services') }}</h2>
-            <div class="d-flex gap-2">
-                <a href="{{ route('admin.services.create') }}" class="btn btn-primary">+ Add Service</a>
-                <a href="{{ route('admin.services.trash') }}" class="btn btn-outline-secondary">
-                    🗑️ Trash ({{ $trashCount }})
-                </a>
-            </div>
+            <h2 class="h4 mb-0">{{ __('Services — Trash') }}</h2>
+            <a href="{{ route('admin.services.index') }}" class="btn btn-outline-primary">← Back to Services</a>
         </div>
     </x-slot>
 
@@ -22,7 +17,7 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Created</th>
+                        <th>Deleted At</th>
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
@@ -31,18 +26,22 @@
                         <tr>
                             <td>{{ $service->id }}</td>
                             <td>{{ $service->name }}</td>
-                            <td>{{ $service->created_at->format('M d, Y') }}</td>
+                            <td>{{ $service->deleted_at?->format('M d, Y H:i') }}</td>
                             <td class="text-end">
-                                <a href="{{ route('admin.services.edit', $service->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('admin.services.destroy', $service->id) }}" method="POST" class="d-inline"
-                                      onsubmit="return confirm('Move this service to Trash?')">
+                                <form action="{{ route('admin.services.restore', $service->id) }}" method="POST" class="d-inline">
+                                    @csrf @method('PUT')
+                                    <button class="btn btn-sm btn-success">Restore</button>
+                                </form>
+
+                                <form action="{{ route('admin.services.forceDelete', $service->id) }}" method="POST" class="d-inline"
+                                      onsubmit="return confirm('PERMANENTLY delete this service? This cannot be undone.')">
                                     @csrf @method('DELETE')
-                                    <button class="btn btn-sm btn-danger">Move to Trash</button>
+                                    <button class="btn btn-sm btn-outline-danger">Delete Forever</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="4" class="text-center text-muted">No services found.</td></tr>
+                        <tr><td colspan="4" class="text-center text-muted">Trash is empty.</td></tr>
                     @endforelse
                 </tbody>
             </table>

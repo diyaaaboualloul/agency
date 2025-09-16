@@ -8,116 +8,52 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    // 🔹 Public: show all services
-    public function index()
-    {
-        $services = Service::all();
-        return view('services', compact('services'));
-    }
-
-    // 🔹 Public: show single service with prev/next navigation
-    public function show($id)
-    {
-        $service = Service::findOrFail($id);
-
-        // Previous service (smaller ID)
-        $previous = Service::where('id', '<', $service->id)
-            ->orderBy('id', 'desc')
-            ->first();
-
-        // Next service (larger ID)
-        $next = Service::where('id', '>', $service->id)
-            ->orderBy('id', 'asc')
-            ->first();
-
-    $service = Service::with('projects')->findOrFail($id);
-
-    $previous = Service::where('id', '<', $service->id)->orderBy('id', 'desc')->first();
-    $next     = Service::where('id', '>', $service->id)->orderBy('id', 'asc')->first();
-
-    return view('single-service', compact('service', 'previous', 'next'));
-}
-
- 
-
-    // 🔹 Admin/Editor: list services
+    // Admin: list services
     public function adminIndex()
     {
-        $services = Service::all();
-        return view('admin.services.index', compact('services'));
+        $services = Service::latest()->paginate(15);
+        $trashCount = Service::onlyTrashed()->count();
+
+        return view('admin.services.index', compact('services', 'trashCount'));
     }
 
-    // 🔹 Admin/Editor: show create form
-    public function create()
+    // Trash list
+    public function trash()
     {
-        return view('admin.services.create');
+        $services = Service::onlyTrashed()->latest('deleted_at')->paginate(15);
+        return view('admin.services.trash', compact('services'));
     }
 
-    // 🔹 Admin/Editor: store new service
-    public function store(Request $request)
+    // Restore from trash
+    public function restore($id)
     {
-        $data = $request->validate([
-            'name'        => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        $service = Service::withTrashed()->findOrFail($id);
+        $service->restore();
 
-        // Save image if uploaded
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('services', 'public');
-        }
-
-        Service::create($data);
-
-        return redirect()->route('admin.services.index')
-                         ->with('success', 'Service created successfully!');
+        return redirect()->route('admin.services.trash')->with('success', 'Service restored successfully!');
     }
 
-    // 🔹 Admin/Editor: show edit form
-    public function edit($id)
+    // Permanently delete
+    public function forceDelete($id)
     {
-        $service = Service::findOrFail($id);
-        return view('admin.services.edit', compact('service'));
-    }
+        $service = Service::withTrashed()->findOrFail($id);
 
-    // 🔹 Admin/Editor: update service
-    public function update(Request $request, $id)
-    {
-        $service = Service::findOrFail($id);
-
-        $data = $request->validate([
-            'name'        => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
-
-        // Replace image if new one uploaded
-        if ($request->hasFile('image')) {
-            if ($service->image && Storage::disk('public')->exists($service->image)) {
-                Storage::disk('public')->delete($service->image);
-            }
-            $data['image'] = $request->file('image')->store('services', 'public');
-        }
-
-        $service->update($data);
-
-        return redirect()->route('admin.services.index')
-                         ->with('success', 'Service updated successfully!');
-    }
-
-    // 🔹 Admin/Editor: delete service
-    public function destroy($id)
-    {
-        $service = Service::findOrFail($id);
-
-        // Delete image if exists
+        // delete image if exists
         if ($service->image && Storage::disk('public')->exists($service->image)) {
             Storage::disk('public')->delete($service->image);
         }
 
-        $service->delete();
+        $service->forceDelete();
 
-        return redirect()->route('admin.services.index')
-                         ->with('success', 'Service deleted successfully!');
+        return redirect()->route('admin.services.trash')->with('success', 'Service permanently deleted.');
+    }
+
+    // Soft delete (override old destroy)
+    public function destroy($id)
+    {
+        $service = Service::findOrFail($id);
+        $service->delete(); // sets deleted_at
+
+        return redirect()->route('admin.services.index')->with('success', 'Service moved to Trash.');
     }
 }

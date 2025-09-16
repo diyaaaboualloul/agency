@@ -7,77 +7,101 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    // 🔹 Public: all blogs
+    /* ------------------ Public ------------------ */
+
+    // List public blogs
     public function index()
     {
-        $blogs = Blog::latest()->paginate(6); // paginate 6 blogs
+        $blogs = Blog::latest()->paginate(6);
         return view('blog', compact('blogs'));
     }
 
-    // 🔹 Public: single blog
+    // Single public blog
     public function show($id)
     {
         $blog = Blog::findOrFail($id);
         return view('single-blog', compact('blog'));
     }
 
-    // 🔹 Admin CRUD (optional for now)
-  
-    // 🔹 Admin: list all blogs
-public function adminIndex()
-{
-    $blogs = Blog::latest()->paginate(15);
-    return view('admin.blogs.index', compact('blogs'));
-}
+    /* ------------------ Admin ------------------ */
 
-// 🔹 Admin: create form
-public function create()
-{
-    return view('admin.blogs.create');
-}
+    // List (non-deleted)
+    public function adminIndex()
+    {
+        $blogs = Blog::latest()->paginate(15);
+        $trashCount = Blog::onlyTrashed()->count();
 
-// 🔹 Admin: store
-public function store(Request $request)
-{
-    $data = $request->validate([
-        'title'       => 'required|string|max:255',
-        'description' => 'required|string',
-    ]);
+        return view('admin.blogs.index', compact('blogs', 'trashCount'));
+    }
 
-    Blog::create($data);
+    public function create()
+    {
+        return view('admin.blogs.create');
+    }
 
-    return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully!');
-}
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
 
-// 🔹 Admin: edit form
-public function edit($id)
-{
-    $blog = Blog::findOrFail($id);
-    return view('admin.blogs.edit', compact('blog'));
-}
+        Blog::create($data);
 
-// 🔹 Admin: update
-public function update(Request $request, $id)
-{
-    $blog = Blog::findOrFail($id);
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully!');
+    }
 
-    $data = $request->validate([
-        'title'       => 'required|string|max:255',
-        'description' => 'required|string',
-    ]);
+    public function edit($id)
+    {
+        $blog = Blog::findOrFail($id);
+        return view('admin.blogs.edit', compact('blog'));
+    }
 
-    $blog->update($data);
+    public function update(Request $request, $id)
+    {
+        $blog = Blog::findOrFail($id);
 
-    return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully!');
-}
+        $data = $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
 
-// 🔹 Admin: delete
-public function destroy($id)
-{
-    $blog = Blog::findOrFail($id);
-    $blog->delete();
+        $blog->update($data);
 
-    return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully!');
-}
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully!');
+    }
 
+    // SOFT DELETE: moves to trash
+    public function destroy($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blog->delete(); // sets deleted_at
+
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog moved to Trash.');
+    }
+
+    // Trash list (only deleted)
+    public function trash()
+    {
+        $blogs = Blog::onlyTrashed()->latest('deleted_at')->paginate(15);
+        return view('admin.blogs.trash', compact('blogs'));
+    }
+
+    // Restore from trash
+    public function restore($id)
+    {
+        $blog = Blog::withTrashed()->findOrFail($id);
+        $blog->restore();
+
+        return redirect()->route('admin.blogs.trash')->with('success', 'Blog restored successfully!');
+    }
+
+    // Permanently delete
+    public function forceDelete($id)
+    {
+        $blog = Blog::withTrashed()->findOrFail($id);
+        $blog->forceDelete();
+
+        return redirect()->route('admin.blogs.trash')->with('success', 'Blog permanently deleted.');
+    }
 }

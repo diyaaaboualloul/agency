@@ -56,15 +56,22 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/contact-info', [ContactInfoController::class, 'update'])->name('admin.contact-info.update');
 });
 
-// 🔹 Admin + Editor routes (Service CRUD)
-Route::middleware(['auth', 'role:admin|editor'])->group(function () {
-    Route::get('/admin/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
-    Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
-    Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
-    Route::get('/admin/services/{id}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
-    Route::put('/admin/services/{id}', [ServiceController::class, 'update'])->name('admin.services.update');
-    Route::delete('/admin/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
+
+Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->group(function () {
+    // Existing service CRUD
+    Route::get('/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
+    Route::get('/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
+    Route::post('/services', [ServiceController::class, 'store'])->name('admin.services.store');
+    Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
+    Route::put('/services/{id}', [ServiceController::class, 'update'])->name('admin.services.update');
+
+    // Soft delete (Trash system)
+    Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
+    Route::get('/services/trash', [ServiceController::class, 'trash'])->name('admin.services.trash');
+    Route::put('/services/{id}/restore', [ServiceController::class, 'restore'])->name('admin.services.restore');
+    Route::delete('/services/{id}/force-delete', [ServiceController::class, 'forceDelete'])->name('admin.services.forceDelete');
 });
+
 
 use App\Http\Controllers\ProjectController;
 
@@ -93,13 +100,19 @@ use App\Http\Controllers\BlogController;
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 
-// Admin (CRUD)
+// Admin (CRUD + soft delete tools)
 Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->group(function () {
     Route::get('/blogs', [BlogController::class, 'adminIndex'])->name('admin.blogs.index');
     Route::get('/blogs/create', [BlogController::class, 'create'])->name('admin.blogs.create');
     Route::post('/blogs', [BlogController::class, 'store'])->name('admin.blogs.store');
     Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('admin.blogs.edit');
     Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('admin.blogs.update');
-    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('admin.blogs.destroy');
+
+    // Soft-delete actions
+    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('admin.blogs.destroy'); // moves to trash
+    Route::get('/blogs/trash', [BlogController::class, 'trash'])->name('admin.blogs.trash');
+    Route::put('/blogs/{id}/restore', [BlogController::class, 'restore'])->name('admin.blogs.restore');
+    Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])->name('admin.blogs.forceDelete');
 });
+
 
