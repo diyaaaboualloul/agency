@@ -30,8 +30,15 @@ class ServiceController extends Controller
             ->orderBy('id', 'asc')
             ->first();
 
-        return view('single-service', compact('service', 'previous', 'next'));
-    }
+    $service = Service::with('projects')->findOrFail($id);
+
+    $previous = Service::where('id', '<', $service->id)->orderBy('id', 'desc')->first();
+    $next     = Service::where('id', '>', $service->id)->orderBy('id', 'asc')->first();
+
+    return view('single-service', compact('service', 'previous', 'next'));
+}
+
+ 
 
     // 🔹 Admin/Editor: list services
     public function adminIndex()

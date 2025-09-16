@@ -66,5 +66,21 @@ Route::middleware(['auth', 'role:admin|editor'])->group(function () {
     Route::delete('/admin/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
 });
 
+use App\Http\Controllers\ProjectController;
+
+// 🔹 Public Portfolio
+Route::get('/portfolio', [ProjectController::class, 'index'])->name('portfolio');
+Route::get('/portfolio/{slug}', [ProjectController::class, 'show'])->name('singleportfolio');
+
+// 🔹 Admin Portfolio (restricted: admin + editor)
+Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->group(function () {
+    Route::get('/projects', [ProjectController::class, 'adminIndex'])->name('admin.projects.index');
+    Route::get('/projects/create', [ProjectController::class, 'create'])->name('admin.projects.create');
+    Route::post('/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
+    Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('admin.projects.edit');
+    Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('admin.projects.update');
+    Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
+});
+
 // 🔹 Auth routes (login, register, etc.)
 require __DIR__ . '/auth.php';

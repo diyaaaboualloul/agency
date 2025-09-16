@@ -3,17 +3,21 @@
 @section('title', 'Our Services')
 
 @section('content')
-<div class="aximo-breadcrumb">
-    <div class="container">
-        <h1 class="post__title">Our Services</h1>
-        <nav class="breadcrumbs">
-            <ul>
-                <li><a href="{{ url('/') }}">Home</a></li>
-                <li aria-current="page">Our Services</li>
-            </ul>
-        </nav>
+  {{-- Breadcrumb with background image --}}
+  <div class="aximo-breadcrumb" 
+       style="margin-top: 70px;background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
+    <div class="container text-center">
+      <h1 class="post__title fw-bold" style="color: #fff;">Services</h1>
+      <nav class="breadcrumbs">
+        <ul class="d-inline-flex list-unstyled justify-content-center gap-2">
+          <li><a href="{{ url('/') }}" class="text-white fw-semibold">Home</a></li>
+          <li aria-current="page" class="text-light">/ Services</li>
+        </ul>
+      </nav>
     </div>
-</div>
+  </div>
+  <!-- End breadcrumb -->
+
 
 <div class="section aximo-section-padding3">
     <div class="container">

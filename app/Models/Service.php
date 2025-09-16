@@ -14,4 +14,11 @@ class Service extends Model
         'description',
         'image',   // ✅ allow mass assignment
     ];
+
+    // ...
+public function projects()
+{
+    return $this->hasMany(\App\Models\Project::class);
+}
+
 }

@@ -30,6 +30,10 @@
                     🛠️ Manage Services
                 </a>
 
+                <a href="{{ route('admin.projects.index') }}" class="btn btn-warning">
+                    📂 Manage Projects
+                </a>
+
                 <a href="{{ route('admin.contact-info.edit') }}" class="btn btn-info text-white">
                     📞 Edit Contact Info
                 </a>
@@ -45,6 +49,10 @@
             <div class="mt-4 d-flex gap-3 flex-wrap">
                 <a href="{{ route('admin.services.index') }}" class="btn btn-success">
                     🛠️ Manage Services
+                </a>
+
+                <a href="{{ route('admin.projects.index') }}" class="btn btn-warning">
+                    📂 Manage Projects
                 </a>
             </div>
         @endrole

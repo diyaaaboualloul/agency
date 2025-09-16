@@ -1,75 +1,51 @@
 @extends('layouts.frontend')
 
-@section('title', 'About Us')
+@section('title', 'Our Portfolio')
 
 @section('content')
-
- <div class="aximo-breadcrumb">
-    <div class="container">
-      <h1 class="post__title">Portfolio One Column</h1>
+  {{-- Breadcrumb with background image --}}
+  <div class="aximo-breadcrumb" 
+       style="margin-top: 70px;margin-bottom: 40px; background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
+    <div class="container text-center">
+      <h1 class="post__title fw-bold" style="color: #fff;">Portfolio</h1>
       <nav class="breadcrumbs">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li aria-current="page"> Portfolio One Column</li>
+        <ul class="d-inline-flex list-unstyled justify-content-center gap-2">
+          <li><a href="{{ url('/') }}" class="text-white fw-semibold">Home</a></li>
+          <li aria-current="page" class="text-light">/ Portfolio</li>
         </ul>
       </nav>
-
     </div>
   </div>
   <!-- End breadcrumb -->
-
-  <div class="aximo-project-one-column">
-    <div class="container">
-      <div class="aximo-section-title center">
-        <h2>
-          Have a wide range of
-          <span class="aximo-title-animation">
-          creative projects
-          <span class="aximo-title-icon">
-            <img src="assets/images/v1/star2.png" alt="">
-          </span>
-          </span>
-        </h2>
-      </div>
-      <div class="aximo-project-wrap3 wow fadeInUpX" data-wow-delay="0.1s">
-        <div class="aximo-project-thumb3">
-          <img src="assets/images/portfolio/p_9.png" alt="">
-          <a href="single-portfolio.html" class="aximo-project-link">
-            <img src="assets/images/icon/link2.svg" alt="">
-          </a>
+<div class="row g-4">
+    @forelse($projects as $project)
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 rounded-3 portfolio-card">
+                <a href="{{ route('singleportfolio', $project->slug) }}" class="text-decoration-none">
+                    <img src="{{ $project->cover_url }}" 
+                         alt="{{ $project->title }}" 
+                         class="card-img-top rounded-top" 
+                         style="height: 220px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-dark">{{ $project->title }}</h5>
+                        <p class="card-text text-muted small">
+                            {{ Str::limit($project->summary, 100) }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <span class="badge bg-primary">{{ $project->service->name }}</span>
+                        @if($project->completed_at)
+                            <span class="badge bg-light text-dark">
+                                {{ $project->completed_at->format('M Y') }}
+                            </span>
+                        @endif
+                    </div>
+                </a>
+            </div>
         </div>
-        <div class="aximo-project-data3">
-          <h3><a href="single-portfolio.html">Product Design</a></h3>
-          <p>Developing the look and feel of physical products, considering ergonomics, aesthetics, & functionality.</p>
-        </div>
-      </div>
-      <div class="aximo-project-wrap3 wow fadeInUpX" data-wow-delay="0.2s">
-        <div class="aximo-project-thumb3">
-          <img src="assets/images/portfolio/p_10.png" alt="">
-          <a href="single-portfolio.html" class="aximo-project-link">
-            <img src="assets/images/icon/link2.svg" alt="">
-          </a>
-        </div>
-        <div class="aximo-project-data3">
-          <h3> <a href="single-portfolio.html">Market Expansion Blueprint</a></h3>
-          <p>Develop a comprehensive strategy to expand your market reach, identify new opportunities, and grow</p>
-        </div>
-      </div>
-      <div class="aximo-project-wrap3 wow fadeInUpX" data-wow-delay="0.3s">
-        <div class="aximo-project-thumb3">
-          <img src="assets/images/portfolio/p_11.png" alt="">
-          <a href="single-portfolio.html" class="aximo-project-link">
-            <img src="assets/images/icon/link2.svg" alt="">
-          </a>
-        </div>
-        <div class="aximo-project-data3">
-          <h3><a href="single-portfolio.html">Strategic Growth Accelerator</a></h3>
-          <p>Develop a growth-focused on strategy, including all the market expansion, and the product development.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End section -->
-
+    @empty
+        <p class="text-center text-muted">No projects available yet.</p>
+    @endforelse
+</div>
 
 @endsection
