@@ -1,13 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-            <h2 class="h4 mb-0">{{ __('Projects') }}</h2>
-            <div class="d-flex gap-2">
-                <a href="{{ route('admin.projects.create') }}" class="btn btn-primary">+ Add Project</a>
-                <a href="{{ route('admin.projects.trash') }}" class="btn btn-outline-secondary">
-                    🗑️ Trash ({{ $trashCount }})
-                </a>
-            </div>
+            <h2 class="h4 mb-0">{{ __('Projects — Trash') }}</h2>
+            <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-primary">← Back to Projects</a>
         </div>
     </x-slot>
 
@@ -23,7 +18,7 @@
                         <th>#</th>
                         <th>Title</th>
                         <th>Service</th>
-                        <th>Created</th>
+                        <th>Deleted At</th>
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
@@ -33,18 +28,22 @@
                             <td>{{ $project->id }}</td>
                             <td>{{ $project->title }}</td>
                             <td>{{ $project->service->name ?? '-' }}</td>
-                            <td>{{ $project->created_at->format('M d, Y') }}</td>
+                            <td>{{ $project->deleted_at?->format('M d, Y H:i') }}</td>
                             <td class="text-end">
-                                <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="d-inline"
-                                      onsubmit="return confirm('Move this project to Trash?')">
+                                <form action="{{ route('admin.projects.restore', $project->id) }}" method="POST" class="d-inline">
+                                    @csrf @method('PUT')
+                                    <button class="btn btn-sm btn-success">Restore</button>
+                                </form>
+
+                                <form action="{{ route('admin.projects.forceDelete', $project->id) }}" method="POST" class="d-inline"
+                                      onsubmit="return confirm('PERMANENTLY delete this project? This cannot be undone.')">
                                     @csrf @method('DELETE')
-                                    <button class="btn btn-sm btn-danger">Move to Trash</button>
+                                    <button class="btn btn-sm btn-outline-danger">Delete Forever</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="text-center text-muted">No projects found.</td></tr>
+                        <tr><td colspan="5" class="text-center text-muted">Trash is empty.</td></tr>
                     @endforelse
                 </tbody>
             </table>

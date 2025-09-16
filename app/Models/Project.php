@@ -1,33 +1,36 @@
 <?php
 
-
 namespace App\Models;
+
+use Illuminate\Support\Str;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'service_id',
         'title',
-        'slug',
-        'cover_image',
         'summary',
         'description',
         'client',
         'location',
         'completed_at',
         'is_published',
+        'cover_image',
+        'slug',
     ];
 
     protected $casts = [
-        'completed_at' => 'date',
+        'deleted_at' => 'datetime',
+        'completed_at' => 'datetime',
         'is_published' => 'boolean',
     ];
+
 
     // Relations
     public function service()
