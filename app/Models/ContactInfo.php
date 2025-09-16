@@ -7,11 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class ContactInfo extends Model
 {
     protected $fillable = [
-        'agency_name','email','phone','whatsapp','address_line1','address_line2',
-        'city','state','postal_code','country','map_embed_url','social_links'
+        'agency_name',
+        'email',
+        'phone',
+        'whatsapp',
+        'address_line1',
+        'address_line2',
+        'city',
+        'state',
+        'postal_code',
+        'country',
+        'map_embed_url',
+        'social_links',
+        'latitude',      // ✅ add this
+        'longitude',     // ✅ add this
     ];
 
     protected $casts = [
         'social_links' => 'array',
+        'latitude'     => 'decimal:7',  // ✅ format as decimal
+        'longitude'    => 'decimal:7',
     ];
 }

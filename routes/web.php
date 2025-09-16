@@ -23,21 +23,21 @@ Route::view('/blogs', 'blogs')->name('blogs');
 Route::view('/portfolio', 'portfolio')->name('portfolio');
 Route::view('/single-portfolio', 'singleportfolio')->name('singleportfolio');
 
-// 🔹 Contact page
+// 🔹 Contact page (public)
 Route::get('/contact', [ContactPageController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactPageController::class, 'store'])->name('contact.store');
 
-// 🔹 Public services
+// 🔹 Public services (frontend)
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
 Route::get('/services/{id}', [ServiceController::class, 'show'])->name('services.show');
 
-// 🔹 Dashboard (admin + editor only)
+// 🔹 Dashboard (restricted: admin + editor)
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified', 'role:admin|editor'])
   ->name('dashboard');
 
-// 🔹 Profile management
+// 🔹 Profile management (authenticated users only)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/contact-info', [ContactInfoController::class, 'update'])->name('admin.contact-info.update');
 });
 
-// 🔹 Admin/Editor: Service CRUD
+// 🔹 Admin + Editor routes (Service CRUD)
 Route::middleware(['auth', 'role:admin|editor'])->group(function () {
     Route::get('/admin/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
     Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');

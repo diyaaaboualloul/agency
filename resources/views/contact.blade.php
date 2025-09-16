@@ -1,275 +1,162 @@
 @extends('layouts.frontend')
 
-@section('title', 'About Us')
+@section('title', 'Contact Us')
 
 @section('content')
 
-  <div class="aximo-breadcrumb">
-    <div class="container">
-      <h1 class="post__title">Contact Us</h1>
+  {{-- Breadcrumb with background image --}}
+  <div class="aximo-breadcrumb" 
+       style="margin-top: 70px; background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
+    <div class="container text-center">
+      <h1 class="post__title fw-bold" style="color: #fff;">Contact Us</h1>
       <nav class="breadcrumbs">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li aria-current="page"> Contact Us</li>
+        <ul class="d-inline-flex list-unstyled justify-content-center gap-2">
+          <li><a href="{{ url('/') }}" class="text-white fw-semibold">Home</a></li>
+          <li aria-current="page" class="text-light">/ Contact Us</li>
         </ul>
       </nav>
-
     </div>
   </div>
   <!-- End breadcrumb -->
 
-  <div class="section aximo-section-padding">
+  {{-- Contact Form --}}
+  <div class="section py-5">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="aximo-section-title">
-            <h2>
-              <span class="aximo-title-animation">
-              Contact us for a
-              <span class="aximo-title-icon">
-                <img src="assets/images/v1/star2.png" alt="">
-              </span>
-              </span>
-              personal experience
-            </h2>
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6">
+          <div class="mb-4">
+            <h2 class="fw-bold">Let’s Talk 📩</h2>
+            <p class="text-muted">We’d love to hear from you! Fill in the form and our team will get back to you as soon as possible.</p>
+          </div>
+
+          {{-- Success / Error Message --}}
+          <div id="form-message"></div>
+
+          <form id="contactForm" class="p-4 bg-light shadow rounded">
+            @csrf
+            <div class="mb-3">
+              <label class="form-label">Your Name</label>
+              <input type="text" name="name" class="form-control" placeholder="John Doe" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email Address</label>
+              <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Phone Number</label>
+              <input type="text" name="phone" class="form-control" placeholder="+961 70 123 456">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Message</label>
+              <textarea name="message" class="form-control" rows="4" placeholder="Write your message..." required></textarea>
+            </div>
+            <button id="aximo-main-btn" type="submit" class="btn btn-primary w-100 fw-semibold">
+              Send Message 🚀
+            </button>
+          </form>
+        </div>
+
+        <div class="col-lg-6 text-center">
+          <img src="{{ asset('assets/images/contact/ContactUs_3.jpg') }}" 
+               alt="Contact Illustration" 
+               class="img-fluid wow fadeInRight rounded shadow">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Contact Info --}}
+  <div class="section py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">📌 Get in Touch</h2>
+        <p class="text-muted">Here’s how you can reach us directly.</p>
+      </div>
+      <div class="row g-4">
+        {{-- Phone --}}
+        <div class="col-md-4">
+          <div class="card shadow h-100 border-0 text-center p-4">
+            <div class="mb-3">
+              <i class="bi bi-telephone-fill text-primary fs-1"></i>
+            </div>
+            <h5 class="fw-bold">Call Us</h5>
+            <p class="mb-1">{{ $contactInfo->phone }}</p>
+            <p class="mb-0 text-muted">WhatsApp: {{ $contactInfo->whatsapp }}</p>
+          </div>
+        </div>
+        {{-- Email --}}
+        <div class="col-md-4">
+          <div class="card shadow h-100 border-0 text-center p-4">
+            <div class="mb-3">
+              <i class="bi bi-envelope-fill text-success fs-1"></i>
+            </div>
+            <h5 class="fw-bold">Email Us</h5>
+            <p class="mb-0">{{ $contactInfo->email }}</p>
+          </div>
+        </div>
+        {{-- Address --}}
+        <div class="col-md-4">
+          <div class="card shadow h-100 border-0 text-center p-4">
+            <div class="mb-3">
+              <i class="bi bi-geo-alt-fill text-danger fs-1"></i>
+            </div>
+            <h5 class="fw-bold">Visit Us</h5>
+            <p class="mb-0">
+              {{ $contactInfo->address_line1 }} <br>
+              {{ $contactInfo->city }}, {{ $contactInfo->state }}
+            </p>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="row">
-        <div class="col-lg-5 order-lg-2">
-          <div class="aximo-contact-thumb wow fadeInRight" data-wow-delay="0.1s">
-            <img src="assets/images/contact/contact-thumb.png" alt="">
-          </div>
-        </div>
-        <div class="col-lg-7">
-       <div class="aximo-main-form">
-    <div id="form-message"></div> {{-- 🔹 Success/Error message placeholder --}}
+  {{-- Map --}}
+  <div class="section py-0">
+    <div class="container-fluid px-0">
+      @if($contactInfo && $contactInfo->latitude && $contactInfo->longitude)
+        <iframe 
+          width="100%" 
+          height="450" 
+          style="border:0;" 
+          loading="lazy" 
+          allowfullscreen 
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q={{ $contactInfo->latitude }},{{ $contactInfo->longitude }}&hl=en&z=15&output=embed">
+        </iframe>
+      @else
+        <p class="text-center text-muted py-5">📍 Map location not available yet.</p>
+      @endif
+    </div>
+  </div>
 
-    <form id="contactForm">
-        @csrf
-        <div class="aximo-main-field">
-            <label>Your name</label>
-            <input type="text" name="name" required>
-        </div>
-        <div class="aximo-main-field">
-            <label>Email Address</label>
-            <input type="email" name="email" required>
-        </div>
-        <div class="aximo-main-field">
-            <label>Phone No</label>
-            <input type="text" name="phone">
-        </div>
-        <div class="aximo-main-field">
-            <label>Write your message here...</label>
-            <textarea name="message" required></textarea>
-        </div>
-        <button id="aximo-main-btn" type="submit">Send Message</button>
-    </form>
-</div>
+  {{-- AJAX Form Submission --}}
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
 
-<script>
-document.getElementById("contactForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+      let form = e.target;
+      let formData = new FormData(form);
 
-    let form = e.target;
-    let formData = new FormData(form);
-
-    let response = await fetch("{{ route('contact.store') }}", {
+      let response = await fetch("{{ route('contact.store') }}", {
         method: "POST",
         headers: {
-            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+          "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
         },
         body: formData
+      });
+
+      let messageBox = document.getElementById("form-message");
+
+      if (response.ok) {
+        messageBox.innerHTML =
+          `<div class="alert alert-success mt-3">✅ Your message has been sent successfully!</div>`;
+        form.reset();
+      } else {
+        messageBox.innerHTML =
+          `<div class="alert alert-danger mt-3">❌ Something went wrong. Please try again.</div>`;
+      }
     });
-
-    if (response.ok) {
-        document.getElementById("form-message").innerHTML =
-            `<div class="alert alert-success" style="margin: 15px 0; padding: 10px; border: 1px solid #28a745; background: #d4edda; color: #155724; border-radius: 5px;">
-                ✅ Your message has been sent successfully!
-             </div>`;
-        form.reset(); // clear form
-    } else {
-        document.getElementById("form-message").innerHTML =
-            `<div class="alert alert-danger">❌ Something went wrong. Please try again.</div>`;
-    }
-});
-</script>
-
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <!-- End section -->
-<div class="aximo-contact-info-section">
-    <div class="container">
-        <div class="aximo-contact-info-title">
-            <h2>
-                <span class="aximo-title-animation">
-                Contact Information
-                <span class="aximo-title-icon">
-                    <img src="assets/images/v1/star2.png" alt="">
-                </span>
-                </span>
-            </h2>
-        </div>
-        <div class="row">
-            {{-- Phone --}}
-            <div class="col-xl-4 col-md-6">
-                <a href="tel:{{ $contactInfo->phone }}">
-                    <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.1s">
-                        <div class="aximo-contact-info-icon">
-                            <img src="assets/images/icon/call2.svg" alt="">
-                        </div>
-                        <div class="aximo-contact-info-data">
-                            <span>Call us</span>
-                            <p>{{ $contactInfo->phone }}</p>
-                            <p>{{ $contactInfo->whatsapp }}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            {{-- Email --}}
-            <div class="col-xl-4 col-md-6">
-                <a href="mailto:{{ $contactInfo->email }}">
-                    <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.2s">
-                        <div class="aximo-contact-info-icon">
-                            <img src="assets/images/icon/email.svg" alt="">
-                        </div>
-                        <div class="aximo-contact-info-data">
-                            <span>Email us</span>
-                            <p>{{ $contactInfo->email }}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            {{-- Address --}}
-            <div class="col-xl-4 col-md-6">
-                <div class="aximo-contact-info-box wow fadeInUpX" data-wow-delay="0.3s">
-                    <div class="aximo-contact-info-icon">
-                        <img src="assets/images/icon/map.svg" alt="">
-                    </div>
-                    <div class="aximo-contact-info-data">
-                        <span>Office address</span>
-                        <p>{{ $contactInfo->address_line1 }}, {{ $contactInfo->city }}, {{ $contactInfo->state }} {{ $contactInfo->postal_code }}</p>
-                        <p>{{ $contactInfo->country }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
- <div class="section">
-    <div class="container">
-        <div class="aximo-map-wrap">
-            @if($contactInfo && $contactInfo->map_embed_url)
-                {{-- ✅ Show Google Map from DB --}}
-                <iframe 
-                    src="{{ $contactInfo->map_embed_url }}" 
-                    width="100%" 
-                    height="400" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            @else
-                {{-- ❌ Fallback if no map is set in DB --}}
-                <p style="color: gray; text-align: center;">Map location is not available yet.</p>
-            @endif
-        </div>
-    </div>
-</div>
-
-  </div>
-  <!-- end section -->
-
-  <div class="section aximo-section-padding">
-    <div class="container">
-      <div class="aximo-section-title center">
-        <h2>
-          These FAQs help
-          <span class="aximo-title-animation">
-          clients learn about us
-          <span class="aximo-title-icon">
-            <img src="assets/images/v1/star2.png" alt="">
-          </span>
-          </span>
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="aximo-accordion-normal-wrap responsive-margin">
-            <div class="aximo-accordion-normal-item">
-              <div class="aximo-accordion-normal-icon">
-                <img src="assets/images/icon/question.svg" alt="">
-              </div>
-              <div class="aximo-accordion-normal-data">
-                <h3>What services does agency offer?</h3>
-                <p>Clients often seek to understand the range of design services an agency provides, such as graphic design, web design, branding.</p>
-              </div>
-            </div>
-            <div class="aximo-accordion-normal-item">
-              <div class="aximo-accordion-normal-icon">
-                <img src="assets/images/icon/question.svg" alt="">
-              </div>
-              <div class="aximo-accordion-normal-data">
-                <h3>What is your design process like?</h3>
-                <p>Explaining the design agency's process from initial concept to final delivery helps clients understand what to expect.</p>
-              </div>
-            </div>
-            <div class="aximo-accordion-normal-item">
-              <div class="aximo-accordion-normal-icon">
-                <img src="assets/images/icon/question.svg" alt="">
-              </div>
-              <div class="aximo-accordion-normal-data">
-                <h3>How much does design work cost?</h3>
-                <p>The cost of our design services varies depending on the scope of the project. We provide customized quotes after discussing requirements.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="aximo-accordion-normal-wrap">
-            <div class="aximo-accordion-normal-item">
-              <div class="aximo-accordion-normal-icon">
-                <img src="assets/images/icon/question.svg" alt="">
-              </div>
-              <div class="aximo-accordion-normal-data">
-                <h3>What's your design process like?</h3>
-                <p>Our design process typically involves discovery, concept development, design, revisions based on feedback, and finalization.</p>
-              </div>
-            </div>
-            <div class="aximo-accordion-normal-item">
-              <div class="aximo-accordion-normal-icon">
-                <img src="assets/images/icon/question.svg" alt="">
-              </div>
-              <div class="aximo-accordion-normal-data">
-                <h3>How do you handle user feedback?</h3>
-                <p>We value client feedback and work closely with you to make sure user happy with the final design. We offer a specific number of revisions.</p>
-              </div>
-            </div>
-            <div class="aximo-accordion-normal-item">
-              <div class="aximo-accordion-normal-icon">
-                <img src="assets/images/icon/question.svg" alt="">
-              </div>
-              <div class="aximo-accordion-normal-data">
-                <h3>Can we see samples of your work?</h3>
-                <p>Yes, we're proud to showcase a portfolio of our previous projects. You can find examples of our work on our website or view our portfolio.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End section -->
-
+  </script>
 
 @endsection

@@ -25,12 +25,16 @@ public function update(Request $request)
         'address_line2' => 'nullable|string|max:255',
         'city'          => 'nullable|string|max:100',
         'state'         => 'nullable|string|max:100',
+        'latitude'      => 'nullable|numeric',
+        'longitude'     => 'nullable|numeric',
     ]);
 
-    $contactInfo = ContactInfo::first();
-    $contactInfo->update($data);
+$contactInfo = ContactInfo::firstOrCreate([]);
+$contactInfo->update($data);
+
 
     return redirect()->route('admin.contact-info.edit')
                      ->with('success', 'Contact info updated successfully!');
 }
+
 }
