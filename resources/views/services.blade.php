@@ -3,31 +3,32 @@
 @section('title', 'Our Services')
 
 @section('content')
+
   {{-- Breadcrumb with background image --}}
-  <div class="aximo-breadcrumb" 
-       style="margin-top: 70px;background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
-    <div class="container text-center">
-      <h1 class="post__title fw-bold" style="color: #fff;">Services</h1>
+  <div class="aximo-breadcrumb position-relative d-flex align-items-center justify-content-center text-white"
+       style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 100px 0;">
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+    <div class="container position-relative text-center">
+      <h1 class="fw-bold display-4">Services</h1>
       <nav class="breadcrumbs">
         <ul class="d-inline-flex list-unstyled justify-content-center gap-2">
-          <li><a href="{{ url('/') }}" class="text-white fw-semibold">Home</a></li>
-          <li aria-current="page" class="text-light">/ Services</li>
+          <li><a href="{{ url('/') }}" class="text-white fw-semibold text-decoration-none">Home</a></li>
+          <li class="text-light">/ Services</li>
         </ul>
       </nav>
     </div>
   </div>
   <!-- End breadcrumb -->
 
-
-<div class="section aximo-section-padding3">
+  <div class="section py-5">
     <div class="container">
-        <div class="aximo-section-title center">
-            <h2>
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">
                 We provide effective
-                <span class="aximo-title-animation">
+                <span class="text-primary position-relative">
                     design solutions
-                    <span class="aximo-title-icon">
-                        <img src="{{ asset('assets/images/v1/star2.png') }}" alt="">
+                    <span class="position-absolute top-0 start-100 translate-middle">
+                        <img src="{{ asset('assets/images/v1/star2.png') }}" alt="" style="width:25px;">
                     </span>
                 </span>
             </h2>
@@ -36,36 +37,34 @@
         <div class="row">
             @forelse($services as $service)
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="aximo-iconbox-wrap wow fadeInUpX h-100 d-flex flex-column justify-content-between p-3 shadow-sm rounded"
-                         data-wow-delay="0s">
-
+                    <div class="card border-0 shadow-lg h-100 text-center service-card animate__animated animate__fadeInUp">
                         {{-- Service Image / Icon --}}
-                       <div class="aximo-iconbox-icon mb-3 text-center">
-    @if($service->image)
-        <img src="{{ asset('storage/' . $service->image) }}"
-             alt="{{ $service->name }}"
-             class="rounded shadow-sm"
-             style="width:200px; height:200px; object-fit:cover;">
-    @else
-        <i class="icon-design-tools" style="font-size:80px;"></i>
-    @endif
-</div>
-
+                        <div class="card-img-top d-flex justify-content-center align-items-center p-4">
+                            @if($service->image)
+                                <img src="{{ asset('storage/' . $service->image) }}"
+                                     alt="{{ $service->name }}"
+                                     class="rounded-circle shadow-sm img-fluid"
+                                     style="width:200px; height:200px; object-fit:cover;">
+                            @else
+                                <i class="icon-design-tools text-primary" style="font-size:80px;"></i>
+                            @endif
+                        </div>
 
                         {{-- Service Info --}}
-                        <div class="aximo-iconbox-data text-center">
-                            <h3 class="mb-2">{{ $service->name }}</h3>
-                            <p class="text-muted"
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ $service->name }}</h5>
+                            <p class="card-text text-muted"
                                style="max-height: 70px; overflow: hidden; text-overflow: ellipsis;">
                                 {{ $service->description }}
                             </p>
                         </div>
 
                         {{-- Link to details --}}
-                        <div class="text-center mt-auto">
-                            <a class="aximo-icon d-inline-block mt-3"
-                               href="{{ route('services.show', $service->id) }}">
-                                <img src="{{ asset('assets/images/icon/arrow-right.svg') }}" alt="">
+                        <div class="card-footer bg-white border-0">
+                            <a href="{{ route('services.show', $service->id) }}"
+                               class="btn btn-outline-primary rounded-pill px-4 py-2 hover-btn">
+                                Learn More
+                                <i class="bi bi-arrow-right ms-2"></i>
                             </a>
                         </div>
                     </div>
@@ -75,5 +74,5 @@
             @endforelse
         </div>
     </div>
-</div>
+  </div>
 @endsection

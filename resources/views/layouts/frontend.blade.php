@@ -29,12 +29,14 @@
   <link rel="stylesheet" href="{{ asset('assets/css/icomoon.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
 </head>
 
 <body class="light">
 
   <!-- 🔹 Navbar -->
-  <header class="site-header aximo-header-section aximo-header1 dark-bg" id="sticky-menu">
+<header class="site-header aximo-header-section aximo-header1" id="sticky-menu">
       @include('partials.navbar')
   </header>
 
