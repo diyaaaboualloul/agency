@@ -40,7 +40,7 @@ Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 
 // 🔹 Dashboard (restricted: admin + editor)
 Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+    return view('admin.dashboard2');
 })->middleware(['auth', 'verified', 'role:admin|editor'])
   ->name('dashboard');
 
