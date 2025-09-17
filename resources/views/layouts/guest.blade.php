@@ -10,20 +10,37 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+        <style>
+            body {
+                background: url('{{ asset("assets/images/contact/hso-glass-skyscrapers-reflecting-clouds.webp") }}') center center / cover no-repeat fixed;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .auth-card {
+                background: rgba(255, 255, 255, 0.9); /* white overlay for readability */
+                backdrop-filter: blur(6px);
+                border-radius: 12px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+            <div>
+                <!-- <a href="/" class="d-flex justify-content-center mb-4">
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a> -->
+                <div class="auth-card p-4">
+                    {{ $slot }}
+                </div>
             </div>
         </div>
     </body>

@@ -6,7 +6,7 @@
 
   {{-- Breadcrumb with background image --}}
   <div class="aximo-breadcrumb" 
-       style="margin-top: 70px; background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
+       style=" background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
     <div class="container text-center">
       <h1 class="post__title fw-bold" style="color: #fff;">Contact Us</h1>
       <nav class="breadcrumbs">
@@ -19,10 +19,12 @@
   </div>
   <!-- End breadcrumb -->
 
-  {{-- Contact Form --}}
+  {{-- Contact Form + Map --}}
   <div class="section py-5">
     <div class="container">
-      <div class="row g-4 align-items-center">
+      <div class="row g-4 align-items-stretch">
+
+        <!-- Contact Form -->
         <div class="col-lg-6">
           <div class="mb-4">
             <h2 class="fw-bold">Let’s Talk 📩</h2>
@@ -32,7 +34,7 @@
           {{-- Success / Error Message --}}
           <div id="form-message"></div>
 
-          <form id="contactForm" class="p-4 bg-light shadow rounded">
+          <form id="contactForm" class="p-4 bg-light shadow rounded h-80">
             @csrf
             <div class="mb-3">
               <label class="form-label">Your Name</label>
@@ -56,11 +58,31 @@
           </form>
         </div>
 
-        <div class="col-lg-6 text-center">
-          <img src="{{ asset('assets/images/contact/ContactUs_3.jpg') }}" 
-               alt="Contact Illustration" 
-               class="img-fluid wow fadeInRight rounded shadow">
+        <!-- Map -->
+        <div class="col-lg-6">
+          <div class="h-100 shadow rounded overflow-hidden">
+            @if($contactInfo && $contactInfo->latitude && $contactInfo->longitude)
+              <iframe 
+                width="100%" 
+                height="100%" 
+                style="border:0; min-height: 500px;" 
+                loading="lazy" 
+                allowfullscreen 
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q={{ $contactInfo->latitude }},{{ $contactInfo->longitude }}&hl=en&z=15&output=embed">
+              </iframe>
+              <div class="text-center py-2 bg-light">
+                <a href="https://www.google.com/maps?q={{ $contactInfo->latitude }},{{ $contactInfo->longitude }}" 
+                   target="_blank" class="btn btn-sm btn-outline-primary rounded-pill">
+                  📍 Get Directions
+                </a>
+              </div>
+            @else
+              <p class="text-center text-muted py-5">📍 Map location not available yet.</p>
+            @endif
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -68,7 +90,7 @@
   {{-- Contact Info --}}
   <div class="section py-5 bg-light">
     <div class="container">
-      <div class="text-center mb-5">
+      <div class="text-center mb-5 mt-5">
         <h2 class="fw-bold">📌 Get in Touch</h2>
         <p class="text-muted">Here’s how you can reach us directly.</p>
       </div>
@@ -108,25 +130,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  {{-- Map --}}
-  <div class="section py-0">
-    <div class="container-fluid px-0">
-      @if($contactInfo && $contactInfo->latitude && $contactInfo->longitude)
-        <iframe 
-          width="100%" 
-          height="450" 
-          style="border:0;" 
-          loading="lazy" 
-          allowfullscreen 
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q={{ $contactInfo->latitude }},{{ $contactInfo->longitude }}&hl=en&z=15&output=embed">
-        </iframe>
-      @else
-        <p class="text-center text-muted py-5">📍 Map location not available yet.</p>
-      @endif
     </div>
   </div>
 

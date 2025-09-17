@@ -5,7 +5,7 @@
 @section('content')
   {{-- Breadcrumb with background image --}}
   <div class="aximo-breadcrumb" 
-       style="margin-top: 70px; background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
+       style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
     <div class="container text-center">
       <h1 class="post__title fw-bold" style="color: #fff;">Blogs</h1>
       <nav class="breadcrumbs">
@@ -21,33 +21,31 @@
 <div class="section aximo-section-padding2">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8">
-
-        @forelse($blogs as $blog)
-          <div class="single-post-item mb-4">
-            <div class="post-content">
-              <div class="post-meta">
-                <div class="post-date">
-                  {{ $blog->created_at->format('F d, Y') }}
-                </div>
-              </div>
-              <a href="{{ route('blogs.show', $blog->id) }}">
-                <h3 class="entry-title">{{ $blog->title }}</h3>
-              </a>
-              <p>{{ Str::limit($blog->description, 150) }}</p>
-              <a class="post-read-more" href="{{ route('blogs.show', $blog->id) }}">
-                read more →
-              </a>
-            </div>
-          </div>
-        @empty
-          <p>No blog posts yet.</p>
-        @endforelse
-
-        <div class="mt-4">
-          {{ $blogs->links('pagination::bootstrap-5') }}
+    <div class="col-lg-8">
+  @forelse($blogs as $blog)
+    <div class="single-post-item mb-4 blog-card shadow-sm border-0 rounded-3">
+      <div class="post-content p-4">
+        <div class="post-meta d-flex justify-content-between align-items-center mb-2">
+          <span class="post-date text-muted small">
+            📅 {{ $blog->created_at->format('F d, Y') }}
+          </span>
         </div>
+        <a href="{{ route('blogs.show', $blog->id) }}" class="text-decoration-none">
+          <h3 class="entry-title fw-bold mb-2">{{ $blog->title }}</h3>
+        </a>
+        <p class="mb-3">{{ Str::limit($blog->description, 150) }}</p>
+        <a class="post-read-more fw-bold" href="{{ route('blogs.show', $blog->id) }}">
+          Read more →
+        </a>
       </div>
+    </div>
+  @empty
+    <p>No blog posts yet.</p>
+  @endforelse
+  <div class="mt-4">
+    {{ $blogs->links('pagination::bootstrap-5') }}
+  </div>
+</div>
 
       <!-- Sidebar -->
       <div class="col-lg-4">

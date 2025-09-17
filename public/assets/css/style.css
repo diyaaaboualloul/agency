@@ -436,3 +436,233 @@ h3 {
   background: var(--accent);
   transform: translateY(-2px);
 }
+/* ================================
+   Portfolio Cards
+================================ */
+.portfolio-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+}
+.portfolio-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+}
+
+/* Image Wrapper */
+.portfolio-img-wrapper {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+.portfolio-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.portfolio-card:hover .portfolio-img-wrapper img {
+  transform: scale(1.08);
+}
+
+/* Overlay */
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(44, 99, 244, 0.75); /* var(--primary) */
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.portfolio-card:hover .portfolio-overlay {
+  opacity: 1;
+}
+.portfolio-overlay h6 {
+  font-size: 0.95rem;
+}
+.portfolio-overlay .btn {
+  font-size: 0.8rem;
+  border-radius: 20px;
+}
+
+/* Card Body */
+.portfolio-card .card-body {
+  padding: 0.8rem 1rem;
+}
+.portfolio-card .card-title {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.portfolio-card .card-text {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Card Footer */
+.portfolio-card .card-footer {
+  background: #fff;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+.portfolio-card .badge {
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
+.portfolio-card .badge.bg-primary {
+  background: var(--primary) !important;
+}
+.portfolio-card .badge.bg-light {
+  background: var(--background) !important;
+  color: var(--text-dark) !important;
+}
+/* ================================
+   Blog Cards
+================================ */
+.blog-card {
+  background: #fff;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* Blog Titles */
+.blog-card .entry-title {
+  color: var(--primary);
+  font-size: 1.35rem;
+  transition: color 0.3s ease;
+}
+.blog-card .entry-title:hover {
+  color: var(--secondary);
+}
+
+/* Post Date */
+.blog-card .post-date {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+/* Read More */
+.blog-card .post-read-more {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.blog-card .post-read-more:hover {
+  color: var(--secondary);
+  margin-left: 5px;
+}
+
+/* ================================
+   Sidebar
+================================ */
+.right-sidebar .widget {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+.right-sidebar .widget h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+/* Recent Post Items */
+.right-sidebar .post-item {
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #eee;
+}
+.right-sidebar .post-item:last-child {
+  border-bottom: none;
+}
+.right-sidebar .post-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.right-sidebar .post-title:hover {
+  color: var(--secondary);
+}
+.right-sidebar .post-date {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 0.3rem;
+}
+
+/* ================================
+   Animations
+================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.blog-card, .right-sidebar .widget {
+  animation: fadeUp 0.8s ease-in-out;
+}
+/* Single Project Styling */
+
+/* Card hover effect */
+.card {
+  transition: all 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12) !important;
+}
+
+/* Title */
+h1 {
+  font-weight: 800;
+  animation: fadeDown 0.8s ease-in-out;
+}
+
+/* List items */
+.list-group-item {
+  border: none;
+  padding: 0.6rem 0;
+  font-size: 0.95rem;
+}
+.list-group-item strong {
+  color: var(--secondary);
+}
+
+/* Buttons */
+.btn-outline-success {
+  border: 2px solid var(--secondary);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-outline-success:hover {
+  background: var(--secondary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.btn-primary {
+  background: var(--primary);
+  border: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
