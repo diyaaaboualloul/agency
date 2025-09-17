@@ -24,9 +24,9 @@
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="fw-bold">
-                We provide effective
+                Our
                 <span class="text-primary position-relative">
-                    design solutions
+                    Services
                     <span class="position-absolute top-0 start-100 translate-middle">
                         <img src="{{ asset('assets/images/v1/star2.png') }}" alt="" style="width:25px;">
                     </span>
