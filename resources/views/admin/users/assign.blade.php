@@ -1,6 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="h4 mb-0">👥 Manage Users & Roles</h2>
+         <div class="d-flex justify-content-between align-items-center">
+            <h2 class="h4 mb-0">👥 Manage Users & Roles</h2>
+            {{-- New Button to Roles Management --}}
+            <a href="{{ route('admin.roles.index') }}" class="btn btn-sm btn-success">
+                ➕ Manage Roles & Permissions
+            </a>
+        </div>
     </x-slot>
 
     <div class="container py-5">

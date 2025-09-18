@@ -101,6 +101,14 @@ Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->group(functio
     Route::put('/blogs/{id}/restore', [BlogController::class, 'restore'])->name('admin.blogs.restore');
     Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])->name('admin.blogs.forceDelete');
 });
+use App\Http\Controllers\Admin\RoleController;
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/roles', [RoleController::class, 'index'])->name('admin.roles.index');
+    Route::post('/roles', [RoleController::class, 'store'])->name('admin.roles.store');
+    Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('admin.roles.destroy');
+});
+
 
 // 🔹 Auth routes
 require __DIR__ . '/auth.php';
