@@ -14,18 +14,10 @@ class DatabaseSeeder extends Seeder
         // 👉 If you want fake users, uncomment this
         // \App\Models\User::factory(10)->create();
 
-        // 👉 No need to create test@example.com again, remove it!
-
+        // Call all seeders here in order
         $this->call([
-            ContactInfoSeeder::class,
+            ContactInfoSeeder::class,      // your existing contact info
+            RolePermissionSeeder::class,   // roles, permissions, and admin user
         ]);
-          $this->call([
-        RoleSeeder::class,
-        ContactInfoSeeder::class,
-    ]);
-       $this->call([
-        PermissionsSeeder::class,
-        ContactInfoSeeder::class, // keep your contact info seeder
-    ]);
     }
 }
