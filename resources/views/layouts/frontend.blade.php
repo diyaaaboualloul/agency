@@ -112,6 +112,25 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 </script>
+<script>
+  const menuToggle = document.getElementById("menuToggle");
+  const navbarMenu = document.getElementById("navbarMenu");
+
+  // Toggle on hamburger click
+  menuToggle.addEventListener("click", () => {
+    navbarMenu.classList.toggle("show-menu");
+  });
+
+  // Auto close when clicking a link (on mobile)
+  document.querySelectorAll("#navbarMenu a").forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth < 992) {
+        navbarMenu.classList.remove("show-menu");
+      }
+    });
+  });
+</script>
+
 
 
 

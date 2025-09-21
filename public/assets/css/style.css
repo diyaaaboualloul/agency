@@ -679,7 +679,7 @@ h1 {
   color: var(--secondary) !important;
 }
 
-/* Active state (apply on <li> and fall back on <a>) */
+/* Active state */
 .site-menu-main li.active > .nav-link-item,
 .site-menu-main .nav-link-item.active {
   color: var(--secondary) !important;
@@ -697,4 +697,57 @@ h1 {
   height: 2px !important;
   background: var(--secondary) !important;
   border-radius: 2px !important;
+}
+
+/* Desktop (>=992px) → menu visible inline */
+@media (min-width: 992px) {
+  #navbarMenu {
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+}
+
+/* Mobile (<992px) → hidden by default */
+@media (max-width: 991px) {
+  #navbarMenu {
+    display: none !important; /* hidden by default */
+    position: absolute;
+    top: 70px; /* adjust for your header height */
+    left: 0;
+    right: 0;
+    background: #111;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    z-index: 999;
+  }
+
+  #navbarMenu li {
+    margin: 10px 0;
+  }
+
+  #navbarMenu.show-menu {
+    display: flex !important;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  /* Hamburger bars */
+  #menuToggle .toggler-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+}
+
+/* Small fade-in effect */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

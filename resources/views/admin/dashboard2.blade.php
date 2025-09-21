@@ -12,6 +12,9 @@
             <div class="card-body">
                 <p class="mb-0">{{ __("You're logged in!") }}</p>
             </div>
+              <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-info">
+                👀 View Website
+            </a>
         </div>
 
         {{-- Role-based messages --}}
@@ -55,7 +58,7 @@
 
         @role('editor')
             <div class="alert alert-primary mt-4">
-                ✍️ You are an <strong>Editor</strong>. You can edit projects, services, and blogs.
+                ✍️ You are an <strong>Editor</strong>.
             </div>
 
             {{-- Editor quick links --}}
