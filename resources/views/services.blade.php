@@ -4,21 +4,26 @@
 
 @section('content')
 
-  {{-- Breadcrumb with background image --}}
-  <div class="aximo-breadcrumb position-relative d-flex align-items-center justify-content-center text-white"
-       style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 100px 0;">
-    <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
-    <div class="container position-relative text-center">
-      <h1 class="fw-bold display-4">Services</h1>
-      <nav class="breadcrumbs">
-        <ul class="d-inline-flex list-unstyled justify-content-center gap-2">
-          <li><a href="{{ url('/') }}" class="text-white fw-semibold text-decoration-none">Home</a></li>
-          <li class="text-light">/ Services</li>
-        </ul>
-      </nav>
+{{-- Breadcrumb with background image & overlay --}}
+<div class="aximo-breadcrumb position-relative" 
+     style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
+
+    {{-- Dark overlay --}}
+    <div class="position-absolute top-0 start-0 w-100 h-100" 
+         style="background: rgba(0,0,0,0.6);"></div>
+
+    <div class="container text-center position-relative" style="z-index: 2;">
+        <h1 class="post__title fw-bold text-white">Services</h1>
+        <nav class="breadcrumbs">
+            <ul class="d-inline-flex list-unstyled justify-content-center gap-2">
+                <li><a href="{{ url('/') }}" class="text-white fw-semibold">Home</a></li>
+                <li aria-current="page" class="text-light">/ Services</li>
+            </ul>
+        </nav>
     </div>
-  </div>
-  <!-- End breadcrumb -->
+</div>
+<!-- End breadcrumb -->
+
 
   <div class="section py-5">
     <div class="container">
