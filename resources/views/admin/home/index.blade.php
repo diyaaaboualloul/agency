@@ -1,6 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 mb-0">🏠 Manage Homepage Sections</h2>
+         <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-info">
+                👀 View Home Page
+            </a>
     </x-slot>
 
     <div class="container my-4">

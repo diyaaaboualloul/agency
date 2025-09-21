@@ -1,28 +1,37 @@
 <?php
-
+// app/Http/Controllers/Admin/AboutSectionController.php
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AboutSection;
+use App\Models\AboutpageSection;
 use Illuminate\Http\Request;
 
 class AboutSectionController extends Controller
 {
+    // Public frontend
+    public function frontend()
+    {
+        $sections = AboutpageSection::all()->keyBy('section_key');
+        return view('about', compact('sections'));
+    }
+
+    // Admin index
     public function index()
     {
-        $sections = AboutSection::orderBy('sort_order')->get();
+        $sections = AboutpageSection::all();
         return view('admin.about.index', compact('sections'));
     }
 
-    public function edit(AboutSection $aboutSection)
+    // Admin edit
+    public function edit(AboutpageSection $aboutSection)
     {
         return view('admin.about.edit', compact('aboutSection'));
     }
 
-    public function update(Request $request, AboutSection $aboutSection)
+    // Admin update
+    public function update(Request $request, AboutpageSection $aboutSection)
     {
         $data = $request->validate([
-            'title'       => 'nullable|string|max:255',
             'heading'     => 'nullable|string|max:255',
             'subtitle'    => 'nullable|string|max:255',
             'description' => 'nullable|string',
@@ -46,3 +55,4 @@ class AboutSectionController extends Controller
         return redirect()->route('admin.about.index')->with('success', 'Section updated!');
     }
 }
+

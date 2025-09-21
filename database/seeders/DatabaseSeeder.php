@@ -19,11 +19,13 @@ class DatabaseSeeder extends Seeder
             ContactInfoSeeder::class,      // your existing contact info
             RolePermissionSeeder::class,   // roles, permissions, and admin user
         ]);
-          $this->call([
-        HomeSectionsSeeder::class,
-    ]);
+   
         $this->call([
         HomepageSectionsSeeder::class,
     ]);
+    $this->call([
+    AboutpageSectionsSeeder::class,
+]);
+
     }
 }

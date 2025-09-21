@@ -99,5 +99,32 @@
         <a href="{{ route('portfolio') }}" class="btn btn-primary mt-3">View All Projects</a>
     </div>
 </section>
+{{-- 🔹 Blogs Section --}}
+<section class="blogs py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Latest Blogs</h2>
+        <div class="row">
+            @foreach(\App\Models\Blog::latest()->take(3)->get() as $blog)
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ $blog->title }}</h5>
+                            <p class="card-text text-muted">
+                                {{ Str::limit($blog->description, 120) }}
+                            </p>
+                            <a href="{{ route('blogs.show', $blog->id) }}" class="btn btn-sm btn-outline-primary">
+                                Read More
+                            </a>
+                        </div>
+                        <div class="card-footer text-muted small">
+                            {{ $blog->created_at->format('M d, Y') }}
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <a href="{{ route('blogs.index') }}" class="btn btn-primary mt-3">View All Blogs</a>
+    </div>
+</section>
 
 @endsection
