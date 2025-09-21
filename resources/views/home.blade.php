@@ -3,695 +3,101 @@
 @section('title', 'Home')
 
 @section('content')
-  <div class="aximo-hero-section dark-bg">
-    <div class="container position-relative">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="aximo-hero-content">
-            <h1>
-              <span class="aximo-title-animation">
-                A creative
-                <img src="assets/images/v1/star.png" alt="">
-              </span>
-              design studio
-            </h1>
-            <p>We're a creative design studio specializing in meeting the needs of the new generation. We offer innovative and cutting-edge design solutions to help our clients stand out in today's fast-paced.</p>
-            <div class="aximo-hero-user-wrap">
-              <div class="aximo-hero-user-thumb">
-                <div class="aximo-hero-user-thumb-item wow fadeInUpX" data-wow-delay="0s">
-                  <img src="assets/images/v1/user1.png" alt="">
-                </div>
-                <div class="aximo-hero-user-thumb-item wow fadeInUpX" data-wow-delay="0.25s">
-                  <img src="assets/images/v1/user3.png" alt="">
-                </div>
-                <div class="aximo-hero-user-thumb-item wow fadeInUpX" data-wow-delay="0.4s">
-                  <img src="assets/images/v1/user2.png" alt="">
-                </div>
-              </div>
-              <div class="aximo-hero-user-data">
-                <p>Believed by more than a thousand people</p>
-              </div>
-            </div>
-            <a class="aximo-call-btn" href="contact-us.html">Book a free consultation <i class="icon-call"></i></a>
-            <div class="aximo-hero-shape">
-              <img src="assets/images/v1/shape1.png" alt="">
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="aximo-hero-thumb wow fadeInRight" data-wow-delay="0s">
-            <img src="assets/images/v1/hero-thumb.png" alt="">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End section -->
 
-  <div class="section aximo-section-padding4">
-    <div class="container">
-      <div class="aximo-section-title center">
-        <h2>
-          We provide effective
-          <span class="aximo-title-animation">
-            design solutions
-            <span class="aximo-title-icon">
-              <img src="assets/images/v1/star2.png" alt="">
-            </span>
-          </span>
-        </h2>
-      </div>
-      <div class="aximo-service-wrap">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="aximo-iconbox-wrap wow fadeInUpX" data-wow-delay="0.1s">
-              <div class="aximo-iconbox-icon">
-                <i class="icon-design-tools"></i>
-              </div>
-              <div class="aximo-iconbox-data">
-                <h3>UI/UX Design</h3>
-                <p>Focusing on user interface (UI) and user experience (UX) design enhance the usability and accessibility of digital products & app.</p>
-                <a class="aximo-icon" href="service.html"><img src="assets/images/icon/arrow-right.svg" alt=""></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="aximo-iconbox-wrap wow fadeInUpX" data-wow-delay="0.2s">
-              <div class="aximo-iconbox-icon">
-                <i class="icon-branding"></i>
-              </div>
-              <div class="aximo-iconbox-data">
-                <h3>Graphic Design</h3>
-                <p>Creating visual elements such as logos, branding materials, page layout techniques, brochures, & other marketing collateral.</p>
-                <a class="aximo-icon" href="service.html"><img src="assets/images/icon/arrow-right.svg" alt=""></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="aximo-iconbox-wrap wow fadeInUpX" data-wow-delay="0.3s">
-              <div class="aximo-iconbox-icon">
-                <i class="icon-web"></i>
-              </div>
-              <div class="aximo-iconbox-data">
-                <h3>Web Design</h3>
-                <p>Designing and developing websites to ensure they are visually look and appealing, user-friendly, and functional your website.</p>
-                <a class="aximo-icon" href="service.html"><img src="assets/images/icon/arrow-right.svg" alt=""></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="aximo-iconbox-wrap wow fadeInUpX" data-wow-delay="0.4s">
-              <div class="aximo-iconbox-icon">
-                <i class="icon-design-thinking"></i>
-              </div>
-              <div class="aximo-iconbox-data">
-                <h3>Motion Graphics</h3>
-                <p>Creating animate graphics, videos for various purposes, including marketing and entertainment. To help sell a product or service.</p>
-                <a class="aximo-icon" href="service.html"><img src="assets/images/icon/arrow-right.svg" alt=""></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End section -->
+{{-- 🔹 Hero Section --}}
+@if($hero && $hero->is_active)
+<section class="hero d-flex align-items-center text-white position-relative" 
+    style="background-image: url('{{ $hero->bg_image ? asset('storage/'.$hero->bg_image) : '' }}'); 
+           background-size:cover; 
+           background-position:center; 
+           min-height:95vh;">
 
-  <div class="section aximo-section-padding">
-    <div id="aximo-counter"></div>
-    <div class="container">
-      <div class="aximo-section-title">
-        <div class="row">
-          <div class="col-lg-7">
-            <h2>
-              <span class="aximo-title-animation">
-                We make your
-                <span class="aximo-title-icon">
-                  <img src="assets/images/v1/star2.png" alt="">
-                </span>
-              </span>
-              business stand out
-            </h2>
-          </div>
-          <div class="col-lg-4 offset-lg-1 d-flex align-items-center">
-            <p>We work closely with our clients to know their objectives, target audience, unique needs, and practical design solutions.</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="aximo-video-wrap wow fadeInUpX" data-wow-delay="0s">
-            <img src="assets/images/v1/video-bg.png" alt="">
-            <a class="aximo-video-popup play-btn1 video-init" href="https://www.youtube.com/watch?v=Vx2aLNgGoAE">
-              <img src="assets/images/v1/play-btn.svg" alt="">
+    {{-- Overlay --}}
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100" 
+         style="background: rgba(0,0,0,0.55);"></div>
+
+    <div class="container text-center position-relative">
+        <h1 class="display-4 fw-bold">{{ $hero->heading }}</h1>
+        <p class="lead">{{ $hero->description }}</p>
+
+        @if($hero->button_text && $hero->button_url)
+            <a href="{{ $hero->button_url }}" class="btn btn-lg btn-primary mt-3">
+                {{ $hero->button_text }}
             </a>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="aximo-counter-wrap">
-            <div class="aximo-counter-data">
-              <h2 class="aximo-counter-number"><span data-percentage="15" class="aximo-counter"></span>+</h2>
-              <p>Years of experience</p>
-            </div>
-            <div class="aximo-counter-data">
-              <h2 class="aximo-counter-number"><span data-percentage="120" class="aximo-counter"></span>k</h2>
-              <p>Successful projects</p>
-            </div>
-            <div class="aximo-counter-data">
-              <h2 class="aximo-counter-number"><span data-percentage="100" class="aximo-counter"></span>%</h2>
-              <p>Client satisfaction rate</p>
-            </div>
-          </div>
-        </div>
-      </div>
+        @endif
     </div>
-  </div>
-  <!-- End section -->
+</section>
+@endif
 
-  <div class="section dark-bg aximo-section-padding">
-    <div class="container">
-      <div class="aximo-section-title center light">
-        <h2>
-          Have a wide range of
-          <span class="aximo-title-animation">
-            creative projects
-            <span class="aximo-title-icon">
-              <img src="assets/images/v1/star2.png" alt="">
-            </span>
-          </span>
-        </h2>
-      </div>
-    </div>
-    <div class="swiper aximo-project-slider">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="aximo-project-thumb">
-            <img src="assets/images/v1/project1.png" alt="">
-            <div class="aximo-project-wrap">
-              <div class="aximo-project-data">
-                <a href="single-portfolio.html">
-                  <h3>Product Design</h3>
-                </a>
-                <p>Developing the look and feel of physical products, aesthetics, and functionality.</p>
-              </div>
-              <a class="aximo-project-icon" href="single-portfolio.html">
-                <svg width="34" height="28" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.9795 2C19.9795 2 20.5 8 25.9795 11.2C28.4887 12.6653 31.9795 14 31.9795 14M31.9795 14H2M31.9795 14C31.9795 14 28.5339 15.415 25.9795 16.8C19.9795 20.0533 19.9795 26 19.9795 26" stroke="#FDFDE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-project-thumb">
-            <img src="assets/images/v1/project2.png" alt="">
-            <div class="aximo-project-wrap">
-              <div class="aximo-project-data">
-                <a href="single-portfolio.html">
-                  <h3>Logo and Branding</h3>
-                </a>
-                <p>Creating or refreshing a company's logo and developing a cohesive visual identity.</p>
-              </div>
-              <a class="aximo-project-icon" href="single-portfolio.html">
-                <svg width="34" height="28" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.9795 2C19.9795 2 20.5 8 25.9795 11.2C28.4887 12.6653 31.9795 14 31.9795 14M31.9795 14H2M31.9795 14C31.9795 14 28.5339 15.415 25.9795 16.8C19.9795 20.0533 19.9795 26 19.9795 26" stroke="#FDFDE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-project-thumb">
-            <img src="assets/images/v1/project3.png" alt="">
-            <div class="aximo-project-wrap">
-              <div class="aximo-project-data">
-                <a href="single-portfolio.html">
-                  <h3>App UI/UX Design</h3>
-                </a>
-                <p>Designing the UI/UXe for mobile apps and web applications to ensure usability & engagement.</p>
-              </div>
-              <a class="aximo-project-icon" href="single-portfolio.html">
-                <svg width="34" height="28" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.9795 2C19.9795 2 20.5 8 25.9795 11.2C28.4887 12.6653 31.9795 14 31.9795 14M31.9795 14H2M31.9795 14C31.9795 14 28.5339 15.415 25.9795 16.8C19.9795 20.0533 19.9795 26 19.9795 26" stroke="#FDFDE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-project-thumb">
-            <img src="assets/images/v1/project4.png" alt="">
-            <div class="aximo-project-wrap">
-              <div class="aximo-project-data">
-                <a href="single-portfolio.html">
-                  <h3>Packaging Design</h3>
-                </a>
-                <p>Creating packaging solutions for products that not only protect attract customers on store.</p>
-              </div>
-              <a class="aximo-project-icon" href="single-portfolio.html">
-                <svg width="34" height="28" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.9795 2C19.9795 2 20.5 8 25.9795 11.2C28.4887 12.6653 31.9795 14 31.9795 14M31.9795 14H2M31.9795 14C31.9795 14 28.5339 15.415 25.9795 16.8C19.9795 20.0533 19.9795 26 19.9795 26" stroke="#FDFDE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-project-thumb">
-            <img src="assets/images/v1/project1.png" alt="">
-            <div class="aximo-project-wrap">
-              <div class="aximo-project-data">
-                <a href="single-portfolio.html">
-                  <h3>Product Design</h3>
-                </a>
-                <p>Developing the look and feel of physical products, aesthetics, and functionality.</p>
-              </div>
-              <a class="aximo-project-icon" href="single-portfolio.html">
-                <svg width="34" height="28" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.9795 2C19.9795 2 20.5 8 25.9795 11.2C28.4887 12.6653 31.9795 14 31.9795 14M31.9795 14H2M31.9795 14C31.9795 14 28.5339 15.415 25.9795 16.8C19.9795 20.0533 19.9795 26 19.9795 26" stroke="#FDFDE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-project-thumb">
-            <img src="assets/images/v1/project2.png" alt="">
-            <div class="aximo-project-wrap">
-              <div class="aximo-project-data">
-                <a href="single-portfolio.html">
-                  <h3>Logo and Branding</h3>
-                </a>
-                <p>Creating or refreshing a company's logo and developing a cohesive visual identity.</p>
-              </div>
-              <a class="aximo-project-icon" href="single-portfolio.html">
-                <svg width="34" height="28" viewBox="0 0 34 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.9795 2C19.9795 2 20.5 8 25.9795 11.2C28.4887 12.6653 31.9795 14 31.9795 14M31.9795 14H2M31.9795 14C31.9795 14 28.5339 15.415 25.9795 16.8C19.9795 20.0533 19.9795 26 19.9795 26" stroke="#FDFDE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </div>
-  <!-- End section -->
 
-  <div class="section">
+{{-- 🔹 About Us Section --}}
+@if($about && $about->is_active)
+<section class="about py-5">
     <div class="container">
-      <div class="aximo-faq-wrap">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                @if($about->image)
+                    <img src="{{ asset('storage/'.$about->image) }}" alt="About Us" class="img-fluid rounded shadow">
+                @endif
+            </div>
+            <div class="col-md-6">
+                <h2 class="fw-bold">{{ $about->heading }}</h2>
+                <p class="text-muted">{{ $about->description }}</p>
+                @if($about->button_text && $about->button_url)
+                    <a href="{{ $about->button_url }}" class="btn btn-outline-primary">{{ $about->button_text }}</a>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- 🔹 Services Section --}}
+<section class="services py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Our Services</h2>
         <div class="row">
-          <div class="col-lg-7 d-flex align-items-center">
-            <div class="aximo-default-content">
-              <h2>
-                <span class="aximo-title-animation">
-                  Our high-quality
-                  <span class="aximo-title-icon">
-                    <img src="assets/images/v1/star2.png" alt="">
-                  </span>
-                </span>
-                working processes
-              </h2>
-              <p>We focus at every stage on effective communication and collaboration between the client and ensuring that the final design meets the client's objectives and expectations.</p>
-              <p>It is important to note that these are simplified steps, and the actual work process may vary depending on the complexity of the project.</p>
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <div class="aximo-accordion-wrap wow fadeInUpX" data-wow-delay="0s" id="aximo-accordion">
-              <div class="aximo-accordion-item open">
-                <div class="aximo-accordion-header">
-                  <h3>01/ Project idea</h3>
+            @foreach(\App\Models\Service::latest()->take(4)->get() as $service)
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        @if($service->image)
+                            <img src="{{ asset('storage/'.$service->image) }}" class="card-img-top" alt="{{ $service->name }}">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ $service->name }}</h5>
+                            <p class="card-text text-muted">{{ Str::limit($service->description, 80) }}</p>
+                            <a href="{{ route('services.show', $service->id) }}" class="btn btn-sm btn-outline-primary">View</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="aximo-accordion-body">
-                  <p>The process starts with a detailed discussion with the client to understand their idea & goals.</p>
-                </div>
-              </div>
-              <div class="aximo-accordion-item">
-                <div class="aximo-accordion-header">
-                  <h3>02/ Brainstorming</h3>
-                </div>
-                <div class="aximo-accordion-body">
-                  <p>Brainstorming is a group creativity technique in which members attempt to find a conclusion.</p>
-                </div>
-              </div>
-              <div class="aximo-accordion-item">
-                <div class="aximo-accordion-header">
-                  <h3>03/ Launch</h3>
-                </div>
-                <div class="aximo-accordion-body">
-                  <p>The completed design assets or final product are delivered with necessary documentation.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+            @endforeach
         </div>
-      </div>
+        <a href="{{ route('services') }}" class="btn btn-primary mt-3">View All Services</a>
     </div>
-  </div>
-  <!-- End section -->
+</section>
 
-  <div class="section aximo-section-padding3">
-    <div class="container">
-      <div class="aximo-section-title center">
-        <h2>
-          Clients are always
-          <span class="aximo-title-animation">
-            satisfied with us
-            <span class="aximo-title-icon">
-              <img src="assets/images/v1/star2.png" alt="">
-            </span>
-          </span>
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="aximo-testimonial-wrap wow fadeInUpX" data-wow-delay="0.1s">
-            <div class="aximo-testimonial-rating">
-              <ul>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-              </ul>
-            </div>
-            <div class="aximo-testimonial-data">
-              <h3>Super customer service!</h3>
-              <p>Excellent customer service and I was really impressed and happy with my purchase especially as it was a last minute order which got to me in time, and when it arrived I was very happy with the design and size and so was the recipient.</p>
-            </div>
-            <div class="aximo-testimonial-author">
-              <div class="aximo-testimonial-author-thumb">
-                <img src="assets/images/v1/t_thumb1.png" alt="">
-              </div>
-              <div class="aximo-testimonial-author-data">
-                <p>William Jack <span>Founder@XYZ</span></p>
-              </div>
-            </div>
-          </div>
+{{-- 🔹 Projects Section --}}
+<section class="projects py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Our Projects</h2>
+        <div class="row">
+            @foreach(\App\Models\Project::latest()->take(4)->get() as $project)
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm h-100 border-0">
+                        @if($project->cover_image)
+                            <img src="{{ asset('storage/'.$project->cover_image) }}" class="card-img-top" alt="{{ $project->title }}">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ $project->title }}</h5>
+                            <p class="card-text text-muted">{{ Str::limit($project->summary, 80) }}</p>
+                            <a href="{{ route('singleportfolio', $project->slug) }}" class="btn btn-sm btn-outline-dark">Details</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
-        <div class="col-lg-6">
-          <div class="aximo-testimonial-wrap wow fadeInUpX" data-wow-delay="0.2s">
-            <div class="aximo-testimonial-rating">
-              <ul>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-              </ul>
-            </div>
-            <div class="aximo-testimonial-data">
-              <h3>Exceptional creativity and vision</h3>
-              <p>Working Mthemeus was a game-changer for our brand. Their exceptional creativity & vision breathed new life into our visual. The logo they perfectly captures our essence & has become instantly recognizable. We couldn't be happier the results!</p>
-            </div>
-            <div class="aximo-testimonial-author">
-              <div class="aximo-testimonial-author-thumb">
-                <img src="assets/images/v1/t_thumb2.png" alt="">
-              </div>
-              <div class="aximo-testimonial-author-data">
-                <p>Smith Align <span>Businessman</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="aximo-testimonial-wrap wow fadeInUpX" data-wow-delay="0.3s">
-            <div class="aximo-testimonial-rating">
-              <ul>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-              </ul>
-            </div>
-            <div class="aximo-testimonial-data">
-              <h3>Innovative and professional</h3>
-              <p>I can't say enough good things about them. Their team is not only incredibly talented but also highly professional. They listened to our ideas and brought to life in ways we couldn't have imagined. Their innovative approach and dedication to our project.</p>
-            </div>
-            <div class="aximo-testimonial-author">
-              <div class="aximo-testimonial-author-thumb">
-                <img src="assets/images/v1/t_thumb3.png" alt="">
-              </div>
-              <div class="aximo-testimonial-author-data">
-                <p>Milano Joe <span>Creative Director</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="aximo-testimonial-wrap wow fadeInUpX" data-wow-delay="0.4s">
-            <div class="aximo-testimonial-rating">
-              <ul>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-                <li><i class="icon-star"></i></li>
-              </ul>
-            </div>
-            <div class="aximo-testimonial-data">
-              <h3>Transformed our brand</h3>
-              <p>Our partnership with Mthemeus transformed our brand from ordinary to extraordinary. Their branding expertise and design work elevated our marketing materials to a whole new level. Our customers have taken notice, and boost in brand recognition.</p>
-            </div>
-            <div class="aximo-testimonial-author">
-              <div class="aximo-testimonial-author-thumb">
-                <img src="assets/images/v1/t_thumb4.png" alt="">
-              </div>
-              <div class="aximo-testimonial-author-data">
-                <p>Danial Mark <span>Marketing Director</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+        <a href="{{ route('portfolio') }}" class="btn btn-primary mt-3">View All Projects</a>
     </div>
-  </div>
-  <!-- End section -->
+</section>
 
-  <div class="aximo-auto-slider-section">
-    <div class="swiper aximo-auto-slider">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="aximo-auto-slider-item">
-            <h3>Let's create new experiences</h3>
-            <img src="assets/images/v1/star3.png" alt="">
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-auto-slider-item">
-            <h3>Let's create new experiences</h3>
-            <img src="assets/images/v1/star3.png" alt="">
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-auto-slider-item">
-            <h3>Let's create new experiences</h3>
-            <img src="assets/images/v1/star3.png" alt="">
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-auto-slider-item">
-            <h3>Let's create new experiences</h3>
-            <img src="assets/images/v1/star3.png" alt="">
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-auto-slider-item">
-            <h3>Let's create new experiences</h3>
-            <img src="assets/images/v1/star3.png" alt="">
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-auto-slider-item">
-            <h3>Let's create new experiences</h3>
-            <img src="assets/images/v1/star3.png" alt="">
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-auto-slider-item">
-            <h3>Let's create new experiences</h3>
-            <img src="assets/images/v1/star3.png" alt="">
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="aximo-auto-slider-item">
-            <h3>Let's create new experiences</h3>
-            <img src="assets/images/v1/star3.png" alt="">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End section -->
-
-  <div class="section aximo-section-padding3">
-    <div class="container">
-      <div class="aximo-section-title center">
-        <h2>
-          We have a team of
-          <span class="aximo-title-animation">
-            creative people
-            <span class="aximo-title-icon">
-              <img src="assets/images/v1/star2.png" alt="">
-            </span>
-          </span>
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-xl-3 col-md-6">
-          <div class="aximo-team-wrap wow fadeInUpX" data-wow-delay="0.1s">
-            <div class="aximo-team-thumb">
-              <img src="assets/images/team/team1.png" alt="">
-              <div class="aximo-social-icon team-social">
-                <ul>
-                  <li>
-                    <a href="https://twitter.com/" target="_blank">
-                      <i class="icon-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://facebook.com/" target="_blank">
-                      <i class="icon-facebook"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://www.instagram.com/" target="_blank">
-                      <i class="icon-instagram"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://www.linkedin.com/" target="_blank">
-                      <i class="icon-linkedin"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="aximo-team-data">
-              <a href="single-team.html">
-                <h3>Andrew Mark</h3>
-              </a>
-              <p>Creative Director</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="aximo-team-wrap wow fadeInUpX" data-wow-delay="0.2s">
-            <div class="aximo-team-thumb">
-              <img src="assets/images/team/team2.png" alt="">
-              <div class="aximo-social-icon team-social">
-                <ul>
-                  <li>
-                    <a href="">
-                      <i class="icon-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-facebook"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-instagram"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-linkedin"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="aximo-team-data">
-              <a href="single-team.html">
-                <h3>Jack Taylor</h3>
-              </a>
-              <p>Senior Designer</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="aximo-team-wrap wow fadeInUpX" data-wow-delay="0.3s">
-            <div class="aximo-team-thumb">
-              <img src="assets/images/team/team3.png" alt="">
-              <div class="aximo-social-icon team-social">
-                <ul>
-                  <li>
-                    <a href="">
-                      <i class="icon-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-facebook"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-instagram"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-linkedin"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="aximo-team-data">
-              <a href="single-team.html">
-                <h3>Martine Joy</h3>
-              </a>
-              <p>Project Manager</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="aximo-team-wrap wow fadeInUpX" data-wow-delay="0.4s">
-            <div class="aximo-team-thumb">
-              <img src="assets/images/team/team4.png" alt="">
-              <div class="aximo-social-icon team-social">
-                <ul>
-                  <li>
-                    <a href="">
-                      <i class="icon-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-facebook"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-instagram"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <i class="icon-linkedin"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="aximo-team-data">
-              <a href="single-team.html">
-                <h3>Adam Straw</h3>
-              </a>
-              <p>Web Developer</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <!-- End section -->
 @endsection

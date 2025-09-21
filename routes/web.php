@@ -16,9 +16,10 @@ use App\Http\Controllers\BlogController;
 */
 
 // 🔹 Public pages
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+use App\Http\Controllers\Admin\HomeSectionController;
+
+Route::get('/', [HomeSectionController::class, 'frontend'])->name('home');
+
 
 Route::view('/about', 'about')->name('about');
 
@@ -101,6 +102,22 @@ Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->group(functio
     Route::put('/blogs/{id}/restore', [BlogController::class, 'restore'])->name('admin.blogs.restore');
     Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])->name('admin.blogs.forceDelete');
 });
+
+
+
+Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->group(function () {
+    Route::get('/home-sections', [HomeSectionController::class, 'index'])->name('admin.home.index');
+    Route::get('/home-sections/{homeSection}/edit', [HomeSectionController::class, 'edit'])->name('admin.home.edit');
+    Route::put('/home-sections/{homeSection}', [HomeSectionController::class, 'update'])->name('admin.home.update');
+
+    // About
+    Route::get('/about-sections', [\App\Http\Controllers\Admin\AboutSectionController::class, 'index'])->name('admin.about.index');
+    Route::get('/about-sections/{aboutSection}/edit', [\App\Http\Controllers\Admin\AboutSectionController::class, 'edit'])->name('admin.about.edit');
+    Route::put('/about-sections/{aboutSection}', [\App\Http\Controllers\Admin\AboutSectionController::class, 'update'])->name('admin.about.update');
+});
+
+
+
 
 // 🔹 Auth routes
 require __DIR__ . '/auth.php';
