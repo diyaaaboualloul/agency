@@ -1,5 +1,5 @@
 <?php
-// database/seeders/AboutpageSectionsSeeder.php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -15,7 +15,7 @@ class AboutpageSectionsSeeder extends Seeder
                 'heading'     => 'About Our Agency',
                 'subtitle'    => 'Who we are & what we stand for.',
                 'description' => 'We are committed to innovation, creativity, and excellence in every project.',
-                'bg_image'    => 'sections/about-hero.jpg',
+                'bg_image'    => 'assets/images/seeders/homeabout.jpg',
                 'button_text' => 'Our Services',
                 'button_url'  => '/services',
                 'is_active'   => true,
@@ -27,7 +27,7 @@ class AboutpageSectionsSeeder extends Seeder
             [
                 'heading'     => 'Our Mission',
                 'description' => 'Deliver outstanding digital solutions to empower businesses worldwide.',
-                'image'       => 'sections/mission.jpg',
+                'image'       => 'assets/images/seeders/mission.jpg',
                 'is_active'   => true,
             ]
         );
@@ -37,7 +37,7 @@ class AboutpageSectionsSeeder extends Seeder
             [
                 'heading'     => 'Our Vision',
                 'description' => 'To be the most trusted digital partner, helping brands thrive in the digital era.',
-                'image'       => 'sections/vision.jpg',
+                'image'       => 'assets/images/seeders/vision.jpg',
                 'is_active'   => true,
             ]
         );

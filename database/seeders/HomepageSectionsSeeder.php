@@ -16,7 +16,7 @@ class HomepageSectionsSeeder extends Seeder
                 'heading'     => 'Welcome to Our Agency',
                 'subtitle'    => 'We build digital solutions that grow your business.',
                 'description' => 'A creative digital agency focused on delivering exceptional results through design, development, and strategy.',
-                'bg_image'    => 'sections/hero-bg.jpg', // upload later in storage
+                'bg_image'    => 'assets/images/seeders/homehero.jpg',
                 'button_text' => 'Get Started',
                 'button_url'  => '/contact',
                 'is_active'   => true,
@@ -30,7 +30,7 @@ class HomepageSectionsSeeder extends Seeder
                 'heading'     => 'Who We Are',
                 'subtitle'    => 'Your trusted digital partner.',
                 'description' => 'We are a passionate team of designers, developers, and strategists helping businesses create lasting impact through digital experiences.',
-                'image'       => 'sections/about-img.jpg',
+                'image'       => 'assets/images/seeders/homeabout.jpg',
                 'button_text' => 'Learn More',
                 'button_url'  => '/about',
                 'is_active'   => true,
