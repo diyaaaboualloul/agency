@@ -12,6 +12,9 @@
             <div class="card-body">
                 <p class="mb-0">{{ __("You're logged in!") }}</p>
             </div>
+              <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-info">
+                👀 View Website
+            </a>
         </div>
 
         {{-- Role-based messages --}}
@@ -37,17 +40,25 @@
                 <a href="{{ route('admin.contact-info.edit') }}" class="btn btn-info text-white">
                     📞 Edit Contact Info
                 </a>
+
                 <a href="{{ route('admin.blogs.index') }}" class="btn btn-dark">
-    📰 Manage Blogs
-</a>
+                    📰 Manage Blogs
+                </a>
 
+                {{-- 🔹 New Buttons --}}
+                <a href="{{ route('admin.home.index') }}" class="btn btn-outline-primary">
+                    🏠 Edit Home Content
+                </a>
 
+                <a href="{{ route('admin.about.index') }}" class="btn btn-outline-secondary">
+                    ℹ️ Edit About Content
+                </a>
             </div>
         @endrole
 
         @role('editor')
             <div class="alert alert-primary mt-4">
-                ✍️ You are an <strong>Editor</strong>. You can edit projects, services, and blogs.
+                ✍️ You are an <strong>Editor</strong>.
             </div>
 
             {{-- Editor quick links --}}
@@ -58,6 +69,19 @@
 
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-warning">
                     📂 Manage Projects
+                </a>
+
+                <a href="{{ route('admin.blogs.index') }}" class="btn btn-dark">
+                    📰 Manage Blogs
+                </a>
+
+                {{-- 🔹 New Buttons (also for editors) --}}
+                <a href="{{ route('admin.home.index') }}" class="btn btn-outline-primary">
+                    🏠 Edit Home Content
+                </a>
+
+                <a href="{{ route('admin.about.index') }}" class="btn btn-outline-secondary">
+                    ℹ️ Edit About Content
                 </a>
             </div>
         @endrole

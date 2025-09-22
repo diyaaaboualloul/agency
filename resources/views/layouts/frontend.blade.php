@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+  
 </head>
 
 <body class="light">
@@ -67,5 +68,71 @@
   <script src="{{ asset('assets/js/image-resizing.js') }}"></script>
   <script src="{{ asset('assets/js/faq.js') }}"></script>
   <script src="{{ asset('assets/js/app.js') }}"></script>
+<!-- Scroll to Top Arrow -->
+<a href="#" id="scrollTopBtn">
+    <i class="bi bi-arrow-up"></i>
+</a>
+
+<style>
+  #scrollTopBtn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-size: 28px;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 25%;
+    display: none;
+    z-index: 9999;
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+
+  #scrollTopBtn:hover {
+    color: #0d6efd; /* Bootstrap blue */
+  }
+</style>
+
+<script>
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+  // Show/hide on scroll
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      scrollTopBtn.style.display = "flex";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  });
+
+  // Smooth scroll to top
+  scrollTopBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+<script>
+  const menuToggle = document.getElementById("menuToggle");
+  const navbarMenu = document.getElementById("navbarMenu");
+
+  // Toggle on hamburger click
+  menuToggle.addEventListener("click", () => {
+    navbarMenu.classList.toggle("show-menu");
+  });
+
+  // Auto close when clicking a link (on mobile)
+  document.querySelectorAll("#navbarMenu a").forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth < 992) {
+        navbarMenu.classList.remove("show-menu");
+      }
+    });
+  });
+</script>
+
+
+
+
 </body>
 </html>

@@ -3,20 +3,26 @@
 @section('title', 'Our Blog')
 
 @section('content')
-  {{-- Breadcrumb with background image --}}
-  <div class="aximo-breadcrumb" 
-       style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
-    <div class="container text-center">
-      <h1 class="post__title fw-bold" style="color: #fff;">Blogs</h1>
-      <nav class="breadcrumbs">
-        <ul class="d-inline-flex list-unstyled justify-content-center gap-2">
-          <li><a href="{{ url('/') }}" class="text-white fw-semibold">Home</a></li>
-          <li aria-current="page" class="text-light">/ Blogs</li>
-        </ul>
-      </nav>
+{{-- Breadcrumb with background image & overlay --}}
+<div class="aximo-breadcrumb position-relative" 
+     style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
+
+    {{-- Dark overlay --}}
+    <div class="position-absolute top-0 start-0 w-100 h-100" 
+         style="background: rgba(0,0,0,0.6);"></div>
+
+    <div class="container text-center position-relative" style="z-index: 2;">
+        <h1 class="post__title fw-bold text-white">Blogs</h1>
+        <nav class="breadcrumbs">
+            <ul class="d-inline-flex list-unstyled justify-content-center gap-2">
+                <li><a href="{{ url('/') }}" class="text-white fw-semibold">Home</a></li>
+                <li aria-current="page" class="text-light">/ Blogs</li>
+            </ul>
+        </nav>
     </div>
-  </div>
-  <!-- End breadcrumb -->
+</div>
+<!-- End breadcrumb -->
+
 
 <div class="section aximo-section-padding2">
   <div class="container">
