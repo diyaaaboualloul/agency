@@ -11,7 +11,7 @@ use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Rouutes
 |--------------------------------------------------------------------------
 */
 
@@ -104,3 +104,15 @@ Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->group(functio
 
 // 🔹 Auth routes
 require __DIR__ . '/auth.php';
+use App\Http\Controllers\TeamController;
+
+Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+    Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
+    Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
+    Route::get('/teams/{id}/edit', [TeamController::class, 'edit'])->name('teams.edit');
+    Route::put('/teams/{id}', [TeamController::class, 'update'])->name('teams.update');
+    Route::delete('/teams/{id}', [TeamController::class, 'destroy'])->name('teams.destroy');
+});
+
+

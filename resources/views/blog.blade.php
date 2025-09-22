@@ -3,7 +3,7 @@
 @section('title', 'Our Blog')
 
 @section('content')
-  {{-- Breadcrumb with background image --}}
+  {{-- Breadcrumb with backgroujnd image --}}
   <div class="aximo-breadcrumb" 
        style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
     <div class="container text-center">
