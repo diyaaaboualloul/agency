@@ -32,30 +32,31 @@ class HomeSectionController extends Controller
     }
 
     // 🔹 Admin: update section
-    public function update(Request $request, HomepageSection $homeSection)
-    {
-        $data = $request->validate([
-            'heading'     => 'nullable|string|max:255',
-            'subtitle'    => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'image'       => 'nullable|image|max:2048',
-            'bg_image'    => 'nullable|image|max:2048',
-            'video_url'   => 'nullable|string|max:255',
-            'button_text' => 'nullable|string|max:255',
-            'button_url'  => 'nullable|string|max:255',
-            'is_active'   => 'boolean',
-        ]);
+public function update(Request $request, HomepageSection $homeSection)
+{
+    $data = $request->validate([
+        'heading'     => 'nullable|string|max:255',
+        'subtitle'    => 'nullable|string|max:255',
+        'description' => 'nullable|string',
+        'image'       => 'nullable|image|max:2048',
+        'bg_image'    => 'nullable|image|max:2048',
+        'video_url'   => 'nullable|string|max:255',
+        'button_text' => 'nullable|string|max:255',
+        'button_url'  => 'nullable|string|max:255',
+        'is_active'   => 'boolean',
+    ]);
 
-        // Handle file upload
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('sections', 'public');
-        }
-        if ($request->hasFile('bg_image')) {
-            $data['bg_image'] = $request->file('bg_image')->store('sections', 'public');
-        }
-
-        $homeSection->update($data);
-
-        return redirect()->route('admin.home.index')->with('success', 'Section updated!');
+    if ($request->hasFile('image')) {
+        $data['image'] = $request->file('image')->store('sections', 'public');
     }
+
+    if ($request->hasFile('bg_image')) {
+        $data['bg_image'] = $request->file('bg_image')->store('sections', 'public');
+    }
+
+    $homeSection->update($data);
+
+    return redirect()->route('admin.home.index')->with('success', 'Section updated!');
+}
+
 }
