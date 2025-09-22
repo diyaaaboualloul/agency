@@ -63,28 +63,48 @@
 </section>
 @endif
 
-{{-- 🔹 Team Section (Optional if you add later) --}}
-@if(isset($sections['team']) && $sections['team']->is_active)
+{{-- Team Section --}}
 <section class="team py-5">
     <div class="container text-center">
         <h2 class="fw-bold mb-4">{{ $sections['team']->heading ?? 'Meet Our Team' }}</h2>
-        <p class="text-muted mb-5">{{ $sections['team']->description }}</p>
-        
-        {{-- Later we can add dynamic team members from another table --}}
+
         <div class="row">
-            <div class="col-md-4 mb-3">
-                <div class="card shadow-sm">
-                    <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Team Member">
-                    <div class="card-body">
-                        <h5 class="fw-bold">John Doe</h5>
-                        <p class="text-muted">CEO</p>
+            @foreach($teamMembers as $member)
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm h-100">
+                        {{-- Image --}}
+                        @if($member->image)
+                            <img src="{{ asset('storage/'.$member->image) }}" 
+                                 class="card-img-top" alt="{{ $member->name }}">
+                        @else
+                            <img src="https://via.placeholder.com/400x300" 
+                                 class="card-img-top" alt="Team Member">
+                        @endif
+
+                        <div class="card-body">
+                            <h5 class="fw-bold">{{ $member->name }}</h5>
+                            <p class="text-muted">{{ $member->title_job }}</p>
+
+                            {{-- Social Links --}}
+                            <div class="d-flex justify-content-center gap-3 mt-3">
+                                @if($member->facebook_link)
+                                    <a href="{{ $member->facebook_link }}" target="_blank" class="text-primary">
+                                        <i class="fab fa-facebook fa-lg"></i>
+                                    </a>
+                                @endif
+                                @if($member->insta_link)
+                                    <a href="{{ $member->insta_link }}" target="_blank" class="text-danger">
+                                        <i class="fab fa-instagram fa-lg"></i>
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {{-- Repeat more team members --}}
+            @endforeach
         </div>
     </div>
 </section>
-@endif
+
 
 @endsection

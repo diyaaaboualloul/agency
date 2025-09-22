@@ -5,15 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AboutpageSection;
 use Illuminate\Http\Request;
+use App\Models\Team;
 
 class AboutSectionController extends Controller
 {
     // Public frontend
-    public function frontend()
-    {
-        $sections = AboutpageSection::all()->keyBy('section_key');
-        return view('about', compact('sections'));
-    }
+public function frontend()
+{
+    $sections = AboutpageSection::all()->keyBy('section_key');
+    $teamMembers = Team::all();   // ✅
+
+    return view('about', compact('sections', 'teamMembers'));  // ✅ make sure both are passed
+}
+
 
     // Admin index
     public function index()

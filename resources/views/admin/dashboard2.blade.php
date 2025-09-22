@@ -53,6 +53,10 @@
                 <a href="{{ route('admin.about.index') }}" class="btn btn-outline-secondary">
                     ℹ️ Edit About Content
                 </a>
+                <a href="{{ route('admin.teams.index') }}" class="btn btn-outline-success">
+    👥 Manage Teams
+</a>
+
             </div>
         @endrole
 
