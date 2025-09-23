@@ -18,6 +18,9 @@ use App\Http\Controllers\BlogController;
 // 🔹 Public pages
 use App\Http\Controllers\Admin\HomeSectionController;
 
+
+
+
 Route::get('/', [HomeSectionController::class, 'frontend'])->name('home');
 
 
@@ -145,3 +148,6 @@ Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->name('admin.'
 });
 
 
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
