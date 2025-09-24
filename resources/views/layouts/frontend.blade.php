@@ -131,6 +131,16 @@
 </script>
 
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('img').forEach(function(img) {
+        // إذا ما فيها خاصية loading
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+});
+</script>
 
 
 </body>
