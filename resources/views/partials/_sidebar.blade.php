@@ -8,8 +8,6 @@
       <small class="brand-sub">Admin Panel</small>
     </li>
 
-    {{-- Main Menu --}}
-
     {{-- Dashboard --}}
     <li class="nav-item">
       <a class="nav-link" href="{{ route('dashboard') }}">
@@ -123,17 +121,14 @@
       </div>
     </li>
 
-    {{-- User Menu --}}
-
-    {{-- View Website --}}
-    <li class="nav-item">
+    {{-- User Links --}}
+    <li class="nav-item mt-3">
       <a class="nav-link special-link" target="_blank" href="{{ route('home') }}">
         <i class="menu-icon typcn typcn-world"></i>
         <span class="menu-title">👀 View Website</span>
       </a>
     </li>
 
-    {{-- Profile --}}
     <li class="nav-item">
       <a class="nav-link special-link" href="#">
         <i class="menu-icon typcn typcn-user"></i>
@@ -141,7 +136,6 @@
       </a>
     </li>
 
-    {{-- Logout --}}
     <li class="nav-item">
       <form method="POST" action="{{ route('logout') }}">
         @csrf
@@ -155,4 +149,62 @@
 </nav>
 
 {{-- Sidebar Styles --}}
+<style>
+  /* Make sidebar transparent */
+  .sidebar {
+    background: rgba(0, 0, 0, 0.4) !important; /* semi-transparent */
+    backdrop-filter: blur(6px); /* modern glass effect */
+  }
 
+  /* Links */
+  .nav .nav-link {
+    color: #fff;
+    transition: all 0.3s ease;
+  }
+  .nav .nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #0d6efd;
+    transform: translateX(4px);
+  }
+
+  /* Special links */
+  .special-link {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    margin: 6px 12px;
+    transition: all 0.3s ease;
+  }
+  .special-link:hover {
+    background: #0d6efd;
+    color: #fff !important;
+  }
+  .special-link i {
+    color: #0d6efd;
+  }
+  .special-link:hover i {
+    color: #fff;
+  }
+
+  /* Branding block */
+  .company-brand {
+    background: transparent;
+  }
+  .company-brand .menu-icon {
+    font-size: 32px;
+    color: #0d6efd;
+    animation: spinIcon 6s linear infinite;
+  }
+  .company-brand .brand-name {
+    color: #fff;
+    font-weight: bold;
+  }
+  .company-brand .brand-sub {
+    font-size: 13px;
+    color: #ddd;
+  }
+
+  @keyframes spinIcon {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+</style>

@@ -103,6 +103,13 @@
     .special-link:hover i {
       color: #fff;
     }
+    .glass-bg {
+  background: rgba(255, 255, 255, 0.3); /* white with 70% opacity */
+  backdrop-filter: blur(6px);           /* adds a glass blur effect */
+  -webkit-backdrop-filter: blur(6px);   /* Safari support */
+  border-radius: 8px;
+  padding: 20px;
+}
   </style>
 </head>
 <body>
@@ -117,12 +124,11 @@
 
       {{-- Main content --}}
       <div class="main-panel">
-        <div class="content-wrapper">
-          @yield('content')
+<div class="content-wrapper glass-bg">
+            @yield('content')
         </div>
 
         {{-- Footer --}}
-        @include('partials._footer')
       </div>
     </div>
   </div>
