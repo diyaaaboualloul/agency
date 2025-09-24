@@ -147,6 +147,10 @@ Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->name('admin.'
     Route::delete('/teams/{id}', [TeamController::class, 'destroy'])->name('teams.destroy');
 });
 
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth'])->name('dashboard');
+
 
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
