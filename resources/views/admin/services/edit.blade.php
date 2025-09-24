@@ -1,9 +1,14 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4">✏️ Edit Service</h2>
-    </x-slot>
+@extends('layouts.admin')
 
-    <div class="container py-5">
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+     <x-slot name="header">
+        <h2 class="h4">✏️ Edit Service</h2>
+    </div>
+     <div class="container py-5">
         <div class="card shadow-sm">
             <div class="card-body">
                 <form method="POST" action="{{ route('admin.services.update', $service->id) }}" enctype="multipart/form-data">
@@ -59,4 +64,5 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+  </div>
+@endsection

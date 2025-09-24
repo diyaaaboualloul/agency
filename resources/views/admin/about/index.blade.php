@@ -1,12 +1,18 @@
-<x-app-layout>
-    <x-slot name="header">
+
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
         <h2 class="h4 mb-0">📑 Manage About Page Sections</h2>
          <a href="{{ route('about') }}" target="_blank" class="btn btn-outline-info">
                 👀 View About Page
             </a>
-    </x-slot>
 
-    <div class="container my-4">
+    </div>
+     <div class="container my-4">
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
@@ -45,4 +51,7 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+  </div>
+@endsection
+
+

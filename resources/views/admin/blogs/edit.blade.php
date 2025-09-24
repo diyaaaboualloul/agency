@@ -1,6 +1,11 @@
-<x-app-layout>
+@extends('layouts.admin')
 
-<div class="container py-4">
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+     <div class="container py-4">
     <h2>Edit Blog</h2>
 
     <form action="{{ route('admin.blogs.update', $blog->id) }}" method="POST" class="mt-3">
@@ -20,4 +25,8 @@
         <a href="{{ route('admin.blogs.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+
+

@@ -1,9 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 mb-0">✏️ Edit About Section: {{ ucfirst($aboutSection->section_key) }}</h2>
-    </x-slot>
+@extends('layouts.admin')
 
-    <div class="container my-4">
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+             <h2 class="h4 mb-0">✏️ Edit About Section: {{ ucfirst($aboutSection->section_key) }}</h2>
+<div class="container my-4">
         <div class="card shadow-sm">
             <div class="card-body">
                 <form method="POST" action="{{ route('admin.about.update', $aboutSection->id) }}" enctype="multipart/form-data">
@@ -78,4 +81,8 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+
+

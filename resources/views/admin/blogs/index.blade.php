@@ -1,6 +1,11 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
             <h2 class="h4 mb-0">{{ __('Blogs') }}</h2>
             <div class="d-flex gap-2">
                 <a href="{{ route('admin.blogs.create') }}" class="btn btn-primary">+ Add Blog</a>
@@ -9,9 +14,7 @@
                 </a>
             </div>
         </div>
-    </x-slot>
-
-    <div class="container py-4">
+         <div class="container py-4">
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
@@ -50,4 +53,8 @@
 
         {{ $blogs->links('pagination::bootstrap-5') }}
     </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+
+

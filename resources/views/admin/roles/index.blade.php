@@ -1,11 +1,14 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 mb-0 fw-bold text-primary">
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+     <h2 class="h4 mb-0 fw-bold text-primary">
             🔑 Manage Roles & Permissions
         </h2>
-    </x-slot>
-
-    <div class="container py-5">
+          <div class="container py-5">
 
         {{-- ✅ Success Alert --}}
         @if(session('success'))
@@ -101,4 +104,7 @@
         </div>
 
     </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+

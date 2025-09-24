@@ -1,9 +1,13 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4">✏️ Edit Contact Info</h2>
-    </x-slot>
+@extends('layouts.admin')
 
-    <div class="container py-5">
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+             <h2 class="h4">✏️ Edit Contact Info</h2>
+
+  <div class="container py-5">
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -92,8 +96,9 @@
             </div>
         </div>
     </div>
-{{-- Leaflet JS & Script --}}
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    </div>
+  </div>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -129,5 +134,6 @@
         updateInputs(lat, lng);
     });
 </script>
+@endsection
 
-</x-app-layout>
+

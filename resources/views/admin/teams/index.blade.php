@@ -1,5 +1,12 @@
-<x-app-layout>
-    <div class="container">
+
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+       <div class="container">
         <h1>Teams</h1>
 
         <a href="{{ route('admin.teams.create') }}" class="btn btn-primary mb-3">Add Team</a>
@@ -53,4 +60,7 @@
             </tbody>
         </table>
     </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+

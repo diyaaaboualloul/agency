@@ -1,7 +1,11 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4">➕ Add Service</h2>
-    </x-slot>
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+             <h2 class="h4">➕ Add Service</h2>
 
     <div class="container py-5">
         <div class="card shadow-sm">
@@ -31,4 +35,7 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+

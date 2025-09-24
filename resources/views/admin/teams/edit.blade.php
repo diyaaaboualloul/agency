@@ -1,5 +1,11 @@
-<x-app-layout>
-    <div class="container">
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="container">
         <h1>Edit Team</h1>
 
         {{-- عرض رسائل الأخطاء --}}
@@ -51,4 +57,8 @@
             <button type="submit" class="btn btn-success">Update</button>
         </form>
     </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+
+

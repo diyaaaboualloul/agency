@@ -1,12 +1,15 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 mb-0">🏠 Manage Homepage Sections</h2>
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+     <h2 class="h4 mb-0">🏠 Manage Homepage Sections</h2>
          <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-info">
                 👀 View Home Page
             </a>
-    </x-slot>
-
-    <div class="container my-4">
+ <div class="container my-4">
         <div class="card shadow-sm">
             <div class="card-body">
                 <table class="table table-striped table-hover align-middle">
@@ -42,4 +45,7 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+

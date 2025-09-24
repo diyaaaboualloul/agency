@@ -1,6 +1,11 @@
-<x-app-layout>
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+     <div class="d-flex justify-content-between align-items-center">
             <h2 class="h4 mb-0">{{ __('Services') }}</h2>
             <div class="d-flex gap-2">
                 <a href="{{ route('admin.services.create') }}" class="btn btn-primary">+ Add Service</a>
@@ -8,8 +13,6 @@
                     🗑️ Trash ({{ $trashCount }})
                 </a>
             </div>
-        </div>
-    </x-slot>
 
     <div class="container py-4">
         @if(session('success'))
@@ -50,4 +53,9 @@
 
         {{ $services->links('pagination::bootstrap-5') }}
     </div>
-</x-app-layout>
+        </div>
+    </div>
+  </div>
+@endsection
+
+

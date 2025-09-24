@@ -1,7 +1,12 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4">✏️ Edit Contact Info</h2>
-    </x-slot>
+@extends('layouts.admin')
+
+@section('title','Dashboard')
+
+@section('content')
+  <div class="card shadow-sm">
+    <div class="card-body">
+             <h2 class="h4">✏️ Edit Contact Info</h2>
+
 <div class="container py-4">
     <h2>Add Project</h2>
 
@@ -62,4 +67,7 @@
         <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
-</x-app-layout>
+    </div>
+  </div>
+@endsection
+
