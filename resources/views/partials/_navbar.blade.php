@@ -1,13 +1,5 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-  <!-- Brand -->
-  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-    <a class="navbar-brand brand-logo" href="{{ route('dashboard') }}">
-      <img src="{{ asset('admin/assets/images/logo.svg') }}" alt="logo" />
-    </a>
-    <a class="navbar-brand brand-logo-mini" href="{{ route('dashboard') }}">
-      <img src="{{ asset('admin/assets/images/logo-mini.svg') }}" alt="logo" />
-    </a>
-  </div>
+
 
   <!-- Navbar Menu -->
   <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
