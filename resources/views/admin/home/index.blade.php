@@ -5,8 +5,8 @@
 @section('content')
 <div class="content-centered">
     <div class="card-body table-overlay">
-        <h2 class="h4 mb-0 text-white">🏠 Manage Homepage Sections</h2>
-        <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-info my-3">
+        <h2 class="h3 mb-0 text-white fw-bold">🏠 Manage Homepage Sections</h2>
+        <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-info my-3 btn-lg">
             👀 View Home Page
         </a>
 
@@ -50,26 +50,27 @@
 <style>
     /* Centered container */
     .content-centered {
-        max-width: 1000px; /* control page width */
-        margin: 40px auto; /* center horizontally + space from top */
-        padding: 0 20px; /* safe spacing on small screens */
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
     }
 
     /* Black glassy overlay */
     .table-overlay {
-        background: rgba(0, 0, 0, 0.6);
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.65);
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(6px);
     }
 
-    /* Table header styling */
+    /* Table header */
     .custom-table thead {
         background: linear-gradient(135deg, #0d6efd, #6610f2);
     }
     .custom-table th {
         color: #fff !important;
+        font-weight: 600;
         border: none;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -78,6 +79,7 @@
     /* Table rows */
     .custom-table td {
         color: #f8f9fa !important;
+        font-size: 1rem;
         border-top: 1px solid rgba(255,255,255,0.1);
     }
 
@@ -86,15 +88,16 @@
         transition: background 0.3s ease, transform 0.2s ease;
     }
     .custom-table tbody tr:hover {
-        background: rgba(13, 110, 253, 0.8) !important;
+        background: rgba(13, 110, 253, 0.85) !important;
         color: #fff !important;
         transform: scale(1.01);
     }
 
     /* Badges */
     .badge {
-        font-size: 0.85rem;
-        padding: 6px 10px;
+        font-size: 0.9rem;
+        padding: 6px 12px;
+        border-radius: 6px;
     }
 </style>
 @endpush

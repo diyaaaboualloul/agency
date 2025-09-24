@@ -3,53 +3,74 @@
 @section('title','Dashboard')
 
 @section('content')
-  <div class="card shadow-sm">
-    <div class="card-body">
-         <div class="container">
-        <h1>Add Team</h1>
+<div class="content-centered">
+    <div class="table-overlay">
+        <h2 class="h3 fw-bold text-white mb-4">➕ Add Team</h2>
 
-        {{-- عرض رسائل الأخطاء --}}
+        {{-- 🔴 Validation Errors --}}
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul class="mb-0">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
+        {{-- ✍️ Add Form --}}
         <form method="POST" action="{{ route('admin.teams.store') }}" enctype="multipart/form-data">
             @csrf
+
             <div class="mb-3">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control" required>
+                <label class="form-label fw-semibold">Name</label>
+                <input type="text" name="name" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label for="insta_link">Instagram Link</label>
-                <input type="text" name="insta_link" id="insta_link" class="form-control">
+                <label class="form-label fw-semibold">Instagram Link</label>
+                <input type="url" name="insta_link" class="form-control" placeholder="https://instagram.com/...">
             </div>
 
             <div class="mb-3">
-                <label for="facebook_link">Facebook Link</label>
-                <input type="text" name="facebook_link" id="facebook_link" class="form-control">
+                <label class="form-label fw-semibold">Facebook Link</label>
+                <input type="url" name="facebook_link" class="form-control" placeholder="https://facebook.com/...">
             </div>
 
             <div class="mb-3">
-                <label for="title_job">Job Title</label>
-                <input type="text" name="title_job" id="title_job" class="form-control" required>
+                <label class="form-label fw-semibold">Job Title</label>
+                <input type="text" name="title_job" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label for="image">Image</label>
-                <input type="file" name="image" id="image" class="form-control">
+                <label class="form-label fw-semibold">Image</label>
+                <input type="file" name="image" class="form-control" accept="image/*">
             </div>
 
-            <button type="submit" class="btn btn-success">Save</button>
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-success shadow">💾 Save</button>
+                <a href="{{ route('admin.teams.index') }}" class="btn btn-secondary shadow">⬅ Cancel</a>
+            </div>
         </form>
     </div>
-    </div>
-  </div>
+</div>
 @endsection
 
+@push('styles')
+<style>
+    .content-centered {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .table-overlay {
+        background: rgba(0, 0, 0, 0.65);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        backdrop-filter: blur(6px);
+    }
+</style>
+@endpush

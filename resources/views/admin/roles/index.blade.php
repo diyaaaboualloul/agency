@@ -3,65 +3,58 @@
 @section('title','Dashboard')
 
 @section('content')
-  <div class="card shadow-sm">
-    <div class="card-body">
-     <h2 class="h4 mb-0 fw-bold text-primary">
+<div class="content-centered">
+    <div class="table-overlay mb-5">
+        <h2 class="h3 fw-bold text-white mb-4">
             🔑 Manage Roles & Permissions
         </h2>
-          <div class="container py-5">
 
         {{-- ✅ Success Alert --}}
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
                 {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         {{-- ➕ Create Role Form --}}
-        <div class="card shadow-lg border-0 mb-5">
-            <div class="card-header bg-primary text-white fw-semibold">
-                Create New Role
-            </div>
-            <div class="card-body">
-                <form method="POST" action="{{ route('admin.roles.store') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Role Name</label>
-                        <input type="text" name="name" placeholder="e.g. Editor" class="form-control" required>
-                    </div>
+        <div class="table-overlay mb-5">
+            <h4 class="fw-semibold text-white mb-3">➕ Create New Role</h4>
+            <form method="POST" action="{{ route('admin.roles.store') }}">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-white">Role Name</label>
+                    <input type="text" name="name" placeholder="e.g. Editor" class="form-control">
+                </div>
 
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Assign Permissions:</label>
-                        <div class="row">
-                            @foreach($permissions as $permission)
-                                <div class="col-md-4 mb-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->name }}" id="perm-{{ $permission->id }}">
-                                        <label class="form-check-label" for="perm-{{ $permission->id }}">
-                                            {{ ucfirst($permission->name) }}
-                                        </label>
-                                    </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-white">Assign Permissions:</label>
+                    <div class="row">
+                        @foreach($permissions as $permission)
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->name }}" id="perm-{{ $permission->id }}">
+                                    <label class="form-check-label text-white" for="perm-{{ $permission->id }}">
+                                        {{ ucfirst($permission->name) }}
+                                    </label>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
+                </div>
 
-                    <button type="submit" class="btn btn-success px-4">
-                        <i class="bi bi-plus-circle"></i> Create Role
-                    </button>
-                </form>
-            </div>
+                <button type="submit" class="btn btn-success shadow px-4">
+                    💾 Create Role
+                </button>
+            </form>
         </div>
 
         {{-- 📋 Roles Table --}}
-        <div class="card shadow-lg border-0">
-            <div class="card-header bg-secondary text-white fw-semibold">
-                Existing Roles
-            </div>
-            <div class="card-body table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
+        <div class="table-overlay">
+            <h4 class="fw-semibold text-white mb-3">📋 Existing Roles</h4>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle custom-table">
+                    <thead>
                         <tr>
                             <th scope="col">Role</th>
                             <th scope="col">Permissions</th>
@@ -75,7 +68,7 @@
                                 <td>
                                     @if($role->permissions->isNotEmpty())
                                         @foreach($role->permissions as $perm)
-                                            <span class="badge bg-info text-dark me-1">
+                                            <span class="badge bg-info text-dark me-1 shadow-sm">
                                                 {{ ucfirst($perm->name) }}
                                             </span>
                                         @endforeach
@@ -87,8 +80,8 @@
                                     <form method="POST" action="{{ route('admin.roles.destroy', $role->id) }}" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger px-3" onclick="return confirm('Are you sure you want to delete this role?')">
-                                            <i class="bi bi-trash"></i> Delete
+                                        <button class="btn btn-sm btn-danger shadow px-3" onclick="return confirm('Are you sure you want to delete this role?')">
+                                            🗑️ Delete
                                         </button>
                                     </form>
                                 </td>
@@ -102,9 +95,57 @@
                 @endif
             </div>
         </div>
-
     </div>
-    </div>
-  </div>
+</div>
 @endsection
 
+@push('styles')
+<style>
+    .content-centered {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    /* Glassy overlay */
+    .table-overlay {
+        background: rgba(0, 0, 0, 0.65);
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+    }
+
+    /* Table header */
+    .custom-table thead {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+    }
+    .custom-table th {
+        color: #fff !important;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* Table body */
+    .custom-table td {
+        color: #f8f9fa !important;
+    }
+
+    /* Hover effect */
+    .custom-table tbody tr {
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .custom-table tbody tr:hover {
+        background: rgba(13, 110, 253, 0.8) !important;
+        color: #fff !important;
+        transform: scale(1.01);
+    }
+
+    /* Buttons */
+    .btn {
+        border-radius: 6px;
+    }
+</style>
+@endpush
