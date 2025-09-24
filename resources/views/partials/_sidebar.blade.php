@@ -1,18 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     {{-- Profile --}}
-    <li class="nav-item nav-profile">
-      <a href="#" class="nav-link">
-        <div class="profile-image">
-          <img class="img-xs rounded-circle" src="{{ asset('admin/assets/images/faces/face8.jpg') }}" alt="profile image">
-          <div class="dot-indicator bg-success"></div>
-        </div>
-        <div class="text-wrapper">
-          <p class="profile-name">{{ Auth::user()->name }}</p>
-          <p class="designation">{{ Auth::user()->getRoleNames()->first() }}</p>
-        </div>
-      </a>
-    </li>
+   
 
     <li class="nav-item nav-category">Main Menu</li>
 
@@ -94,7 +83,7 @@
             <a class="nav-link" href="{{ route('admin.services.index') }}">👁 View Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.services.create') }}">✏️ Edit Services</a>
+            <a class="nav-link" href="{{ route('admin.services.create') }}">✏️ Add Services</a>
           </li>
         </ul>
       </div>
@@ -113,7 +102,7 @@
             <a class="nav-link" href="{{ route('admin.projects.index') }}">👁 View Portfolio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.projects.create') }}">✏️ Edit Portfolio</a>
+            <a class="nav-link" href="{{ route('admin.projects.create') }}">✏️ Add Portfolio</a>
           </li>
         </ul>
       </div>
@@ -129,7 +118,7 @@
       <div class="collapse" id="teamsMenu">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.teams.index') }}">👁 Edit Teams</a>
+            <a class="nav-link" href="{{ route('admin.teams.index') }}">👁 Add Teams</a>
           </li>
          
         </ul>
@@ -149,7 +138,7 @@
             <a class="nav-link" href="{{ route('admin.blogs.index') }}">👁 View Blogs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.blogs.create') }}">✏️ Edit Blogs</a>
+            <a class="nav-link" href="{{ route('admin.blogs.create') }}">✏️ Add Blogs</a>
           </li>
         </ul>
       </div>
