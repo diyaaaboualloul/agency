@@ -13,14 +13,14 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest()->paginate(6);
-        return view('blog', compact('blogs'));
+        return view('blog', compact('blogs')); // استخدم مجلد blogs لصفحة القائمة
     }
 
     // Single public blog
     public function show($id)
     {
         $blog = Blog::findOrFail($id);
-        return view('single-blog', compact('blog'));
+        return view('single-blog', compact('blog')); // صفحة عرض البلوج
     }
 
     /* ------------------ Admin ------------------ */
@@ -43,7 +43,7 @@ class BlogController extends Controller
     {
         $data = $request->validate([
             'title'       => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'required|string', // HTML سيحفظ كما هو
         ]);
 
         Blog::create($data);
@@ -63,7 +63,7 @@ class BlogController extends Controller
 
         $data = $request->validate([
             'title'       => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'required|string', // HTML سيحفظ كما هو
         ]);
 
         $blog->update($data);

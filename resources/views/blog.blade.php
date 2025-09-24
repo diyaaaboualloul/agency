@@ -39,7 +39,8 @@
         <a href="{{ route('blogs.show', $blog->id) }}" class="text-decoration-none">
           <h3 class="entry-title fw-bold mb-2">{{ $blog->title }}</h3>
         </a>
-        <p class="mb-3">{{ Str::limit($blog->description, 150) }}</p>
+        <p class="mb-3">{!! Str::limit($blog->description, 150) !!}</p>
+
         <a class="post-read-more fw-bold" href="{{ route('blogs.show', $blog->id) }}">
           Read more →
         </a>
