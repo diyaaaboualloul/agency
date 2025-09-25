@@ -58,6 +58,11 @@
     </ul>
   </div>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="{{ route('admin.messages.index') }}">
+    <span class="menu-title">Contact Messages</span>
+  </a>
+</li>
 @endif
 
 {{-- User Links --}}
@@ -74,6 +79,7 @@
     <span class="menu-title">🙍 My Profile</span>
   </a>
 </li>
+
 
 <li class="nav-item">
   <form method="POST" action="{{ route('logout') }}">

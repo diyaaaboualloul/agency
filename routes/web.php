@@ -151,7 +151,14 @@ require __DIR__ . '/auth.php';
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
+use App\Http\Controllers\Admin\ContactMessageController;
 
+Route::prefix('admin')->name('admin.')->middleware(['auth','role:admin'])->group(function () {
+    Route::resource('messages', ContactMessageController::class)->only(['index','show','destroy']);
+    
+    Route::post('messages/{id}/mark-read', [ContactMessageController::class, 'markRead'])
+         ->name('messages.markRead');
+});
 
 // ========================================================================
 // ROLE PERMISSIONS
