@@ -8,10 +8,11 @@
     </a>
 
     {{-- Sidebar Toggler --}}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar"
-      aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+ <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar"
+  aria-controls="mobileSidebar" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
 
   </div>
 </nav>

@@ -24,6 +24,7 @@
   @stack('styles')
 
   <style>
+    
     /* Background Image */
     body {
       background: url('{{ asset("admin/assets/images/dashboard-bg.jpeg") }}') no-repeat center center fixed;
@@ -135,6 +136,7 @@
   border-radius: 8px;
   padding: 20px;
 }
+
   </style>
 </head>
 <body>
