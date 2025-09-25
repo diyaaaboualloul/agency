@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    /* ----------------- Public ----------------- */
+    /* ----------- ------ Public ----------------- */
     public function index()
     {
         $services = Service::whereNull('deleted_at')->get(); // exclude trashed

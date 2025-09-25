@@ -4,7 +4,7 @@
 
 @section('content')
   <div class="card shadow-sm">
-    <div class="card-body">
+    <div class="card-body ">
              <h2 class="h4">➕ Add Service</h2>
 
     <div class="container py-5">
@@ -18,9 +18,9 @@
                         <input type="text" name="name" class="form-control" placeholder="Enter service name" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div  class="mb-3">
                         <label class="form-label">Description</label>
-                        <textarea name="description" class="form-control" rows="4" placeholder="Enter service description"></textarea>
+                       <textarea name="description" class="form-control" rows="4" placeholder="Enter service description"></textarea>
                     </div>
 
                     <div class="mb-3">
