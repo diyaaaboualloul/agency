@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{ asset('admin/assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/assets/vendors/css/vendor.bundle.base.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/assets/vendors/css/vendor.bundle.addons.css') }}">
+<!-- Bootstrap 5.3 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/shared/style.css') }}">
@@ -28,7 +30,9 @@
       background-size: cover;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
+    .page-body-wrapper{
+    padding-top: 20px !important;
+}
     /* Semi-transparent overlay for readability */
     .content-wrapper {
       background: rgba(255, 255, 255, 0.85);
@@ -116,7 +120,7 @@
   <div class="container-scroller">
 
 
-
+ @include('partials._navbar')
     <div class="container-fluid page-body-wrapper">
       
       {{-- Sidebar --}}
@@ -134,8 +138,12 @@
   </div>
 
   <!-- plugins:js -->
+   <!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <script src="{{ asset('admin/assets/vendors/js/vendor.bundle.base.js') }}"></script>
   <script src="{{ asset('admin/assets/vendors/js/vendor.bundle.addons.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- inject:js -->
   <script src="{{ asset('admin/assets/js/shared/off-canvas.js') }}"></script>
