@@ -4,7 +4,6 @@
 
 @section('content')
 
-
 <div class="section aximo-section-padding2">
   <div class="container">
     <div class="row">
@@ -17,9 +16,12 @@
               </div>
             </div>
             <h2 class="entry-title mb-3">{{ $blog->title }}</h2>
-            <p style="font-size: 1.1rem; line-height: 1.7;">
-              {!! nl2br(e($blog->description)) !!}
-            </p>
+            
+            <!-- عرض HTML مباشرة -->
+            <div style="font-size: 1.1rem; line-height: 1.7;">
+              {!! $blog->description !!}
+            </div>
+            
           </div>
         </article>
 
@@ -30,4 +32,5 @@
     </div>
   </div>
 </div>
+
 @endsection

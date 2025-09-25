@@ -157,5 +157,34 @@
   <script src="{{ asset('admin/assets/js/shared/jquery.cookie.js') }}" type="text/javascript"></script>
 
   @stack('scripts')
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('img').forEach(function(img) {
+        // إذا ما فيها خاصية loading
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+});
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('img').forEach(function(img) {
+        if (!img.hasAttribute('alt') || img.getAttribute('alt').trim() === "") {
+            let src = img.getAttribute('src');
+            if (src) {
+                // استخرج اسم الملف بدون الامتداد
+                let fileName = src.split('/').pop().split('.')[0];
+                img.setAttribute('alt', fileName.replace(/[-_]/g, ' '));
+            } else {
+                img.setAttribute('alt', 'Image');
+            }
+        }
+    });
+    console.log("✅ Missing alt attributes filled automatically");
+});
+</script>
+
+</script>
+
 </body>
 </html>
