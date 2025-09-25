@@ -31,8 +31,15 @@
                         <td class="fw-semibold">{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <span class="badge bg-info text-dark">
-                                {{ $user->roles->pluck('name')->implode(', ') ?: 'No role' }}
+                            @php
+                                $roleName = $user->roles->pluck('name')->implode(', ') ?: 'No role';
+                            @endphp
+                            <span class="role-badge 
+                                {{ strtolower($roleName) === 'admin' ? 'bg-danger' : '' }}
+                                {{ strtolower($roleName) === 'editor' ? 'bg-primary' : '' }}
+                                {{ strtolower($roleName) === 'viewer' ? 'bg-primary' : '' }}
+                                ">
+                                {{ ucfirst($roleName) }}
                             </span>
                         </td>
                         <td class="text-center">
@@ -114,6 +121,18 @@
         background: rgba(13, 110, 253, 0.8) !important;
         color: #fff !important;
         transform: scale(1.01);
+    }
+
+    /* Role Badges */
+    .role-badge {
+        display: inline-block;
+        font-size: 1rem;       /* larger */
+        font-weight: 700;      /* bold */
+        padding: 0.4rem 0.8rem;
+        border-radius: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #fff !important;
     }
 
     /* Buttons */

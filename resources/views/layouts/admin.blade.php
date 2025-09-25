@@ -68,6 +68,27 @@
       color: rgba(255,255,255,0.7);
       font-size: 13px;
     }
+/* Reset table text colors inside overlays */
+.table-overlay table {
+    color: #212529 !important; /* Bootstrap default dark text */
+}
+
+.table-overlay th {
+    color: #000 !important; /* Strong headers */
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.85); /* light header background */
+}
+
+.table-overlay td {
+    color: #212529 !important;
+    background: rgba(255, 255, 255, 0.9); /* light cell background */
+}
+
+/* Buttons inside tables */
+.table-overlay .btn {
+    color: #fff !important;
+    font-weight: 500;
+}
 
     /* Text glow animation */
     @keyframes glowText {
