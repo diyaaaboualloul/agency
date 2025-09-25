@@ -8,31 +8,30 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    /* ----------- ------ Public ----------------- */
+    /* ------------------ Public ------------------ */
     public function index()
     {
         $services = Service::whereNull('deleted_at')->get(); // exclude trashed
         return view('services', compact('services'));
     }
 
-    /* ----------------- Admin ----------------- */
-// Public: show single service
-public function show($id)
-{
-    $service = Service::findOrFail($id);
+    // Public: show single service
+    public function show($id)
+    {
+        $service = Service::findOrFail($id);
 
-    // Previous service
-    $previous = Service::where('id', '<', $service->id)
-        ->orderBy('id', 'desc')
-        ->first();
+        $previous = Service::where('id', '<', $service->id)
+            ->orderBy('id', 'desc')
+            ->first();
 
-    // Next service
-    $next = Service::where('id', '>', $service->id)
-        ->orderBy('id', 'asc')
-        ->first();
+        $next = Service::where('id', '>', $service->id)
+            ->orderBy('id', 'asc')
+            ->first();
 
-    return view('single-service', compact('service', 'previous', 'next'));
-}
+        return view('single-service', compact('service', 'previous', 'next'));
+    }
+
+    /* ------------------ Admin ------------------ */
 
     // List services
     public function adminIndex()
@@ -55,11 +54,11 @@ public function show($id)
         $data = $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:4096',
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('services', 'public');
+            $data['image'] = $this->convertToWebp($request->file('image'));
         }
 
         Service::create($data);
@@ -82,14 +81,16 @@ public function show($id)
         $data = $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:4096',
         ]);
 
         if ($request->hasFile('image')) {
+            // حذف الصورة القديمة
             if ($service->image && Storage::disk('public')->exists($service->image)) {
                 Storage::disk('public')->delete($service->image);
             }
-            $data['image'] = $request->file('image')->store('services', 'public');
+
+            $data['image'] = $this->convertToWebp($request->file('image'));
         }
 
         $service->update($data);
@@ -97,12 +98,11 @@ public function show($id)
         return redirect()->route('admin.services.index')->with('success', 'Service updated successfully!');
     }
 
-    // Soft delete (move to Trash)
+    // Soft delete
     public function destroy($id)
     {
         $service = Service::findOrFail($id);
-        $service->delete(); // sets deleted_at
-
+        $service->delete();
         return redirect()->route('admin.services.index')->with('success', 'Service moved to Trash.');
     }
 
@@ -134,5 +134,40 @@ public function show($id)
         $service->forceDelete();
 
         return redirect()->route('admin.services.trash')->with('success', 'Service permanently deleted.');
+    }
+
+    /* ------------------ Helper ------------------ */
+    private function convertToWebp($image)
+    {
+        $fileName = 'services/' . time() . '.webp';
+        $path = storage_path('app/public/' . $fileName);
+
+        $info = getimagesize($image);
+
+        switch ($info['mime']) {
+            case 'image/jpeg':
+                $img = imagecreatefromjpeg($image);
+                break;
+            case 'image/png':
+                $img = imagecreatefrompng($image);
+                imagepalettetotruecolor($img);
+                imagealphablending($img, true);
+                imagesavealpha($img, true);
+                break;
+            case 'image/gif':
+                $img = imagecreatefromgif($image);
+                break;
+            case 'image/webp':
+                // لو أصلاً WebP → انسخ كما هو
+                $image->storeAs('services', $fileName, 'public');
+                return $fileName;
+            default:
+                return null;
+        }
+
+        imagewebp($img, $path, 90);
+        imagedestroy($img);
+
+        return $fileName;
     }
 }
