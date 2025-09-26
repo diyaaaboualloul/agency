@@ -27,7 +27,7 @@
     
     /* Background Image */
     body {
-      background: url('{{ asset("admin/assets/images/dashboard-bg.jpeg") }}') no-repeat center center fixed;
+      background: url('{{ asset("admin/assets/images/pngtree-dark-simple-business-background-picture-image_1615924.jpg") }}') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
