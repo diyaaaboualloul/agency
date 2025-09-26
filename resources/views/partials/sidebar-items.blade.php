@@ -53,7 +53,6 @@
 </li>
 
 {{-- Admin Tools --}}
-@if(Auth::user()->hasRole('admin'))
 <li class="nav-item">
   <a class="nav-link {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.roles.*') ? 'active' : '' }}" 
      data-bs-toggle="collapse" href="#adminTools" 
@@ -77,7 +76,6 @@
     <span class="menu-title">📩 Contact Messages</span>
   </a>
 </li>
-@endif
 
 {{-- User Links --}}
 <li class="nav-item mt-3">

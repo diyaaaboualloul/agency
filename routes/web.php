@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\Admin\ContactMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,77 +66,135 @@ Route::middleware('auth')->group(function () {
 // =======================
 // 🔹 Admin Only
 // =======================
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-    // User Management
-    Route::get('/users', [UserManagementController::class, 'index'])->name('admin.users.index');
-    Route::post('/users/{id}/assign-role', [UserManagementController::class, 'assignRole'])->name('admin.users.assignRole');
-    Route::delete('/users/{id}', [UserManagementController::class, 'destroy'])->name('admin.users.destroy');
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        // User Management
+        Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
+        Route::post('/users/{id}/assign-role', [UserManagementController::class, 'assignRole'])->name('users.assignRole');
+        Route::delete('/users/{id}', [UserManagementController::class, 'destroy'])->name('users.destroy');
 
-    // Contact Info
-    Route::get('/contact-info', [ContactInfoController::class, 'edit'])->name('admin.contact-info.edit');
-    Route::put('/contact-info', [ContactInfoController::class, 'update'])->name('admin.contact-info.update');
-
-    // Roles
-    Route::get('/roles', [RoleController::class, 'index'])->name('admin.roles.index');
-    Route::post('/roles', [RoleController::class, 'store'])->name('admin.roles.store');
-    Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('admin.roles.destroy');
-});
+        // Roles
+        Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+        Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+        Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    });
 
 
 // =======================
-// 🔹 Admin + Editor
+// 🔹 Admin + Editor (Permissions enforced)
 // =======================
-Route::middleware(['auth', 'role:admin|editor'])->prefix('admin')->group(function () {
-    // Services
-    Route::get('/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
-    Route::get('/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
-    Route::post('/services', [ServiceController::class, 'store'])->name('admin.services.store');
-    Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
-    Route::put('/services/{id}', [ServiceController::class, 'update'])->name('admin.services.update');
-    Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
-    Route::get('/services/trash', [ServiceController::class, 'trash'])->name('admin.services.trash');
-    Route::put('/services/{id}/restore', [ServiceController::class, 'restore'])->name('admin.services.restore');
-    Route::delete('/services/{id}/force-delete', [ServiceController::class, 'forceDelete'])->name('admin.services.forceDelete');
-
-    // Projects
-    Route::get('/projects', [ProjectController::class, 'adminIndex'])->name('admin.projects.index');
-    Route::get('/projects/create', [ProjectController::class, 'create'])->name('admin.projects.create');
-    Route::post('/projects', [ProjectController::class, 'store'])->name('admin.projects.store');
-    Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('admin.projects.edit');
-    Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('admin.projects.update');
-    Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
-    Route::get('/projects/trash', [ProjectController::class, 'trash'])->name('admin.projects.trash');
-    Route::put('/projects/{id}/restore', [ProjectController::class, 'restore'])->name('admin.projects.restore');
-    Route::delete('/projects/{id}/force-delete', [ProjectController::class, 'forceDelete'])->name('admin.projects.forceDelete');
-
-    // Blogs
-    Route::get('/blogs', [BlogController::class, 'adminIndex'])->name('admin.blogs.index');
-    Route::get('/blogs/create', [BlogController::class, 'create'])->name('admin.blogs.create');
-    Route::post('/blogs', [BlogController::class, 'store'])->name('admin.blogs.store');
-    Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('admin.blogs.edit');
-    Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('admin.blogs.update');
-    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('admin.blogs.destroy');
-    Route::get('/blogs/trash', [BlogController::class, 'trash'])->name('admin.blogs.trash');
-    Route::put('/blogs/{id}/restore', [BlogController::class, 'restore'])->name('admin.blogs.restore');
-    Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])->name('admin.blogs.forceDelete');
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
     // Home Sections
-    Route::get('/home-sections', [HomeSectionController::class, 'index'])->name('admin.home.index');
-    Route::get('/home-sections/{homeSection}/edit', [HomeSectionController::class, 'edit'])->name('admin.home.edit');
-    Route::put('/home-sections/{homeSection}', [HomeSectionController::class, 'update'])->name('admin.home.update');
+    Route::get('/home-sections', [HomeSectionController::class, 'index'])
+        ->middleware('permission:view portfolio|create portfolio|edit portfolio|delete portfolio')
+        ->name('home.index');
+    Route::get('/home-sections/{homeSection}/edit', [HomeSectionController::class, 'edit'])
+        ->middleware('permission:edit portfolio')->name('home.edit');
+    Route::put('/home-sections/{homeSection}', [HomeSectionController::class, 'update'])
+        ->middleware('permission:edit portfolio')->name('home.update');
 
     // About Sections
-    Route::get('/about-sections', [AboutSectionController::class, 'index'])->name('admin.about.index');
-    Route::get('/about-sections/{aboutSection}/edit', [AboutSectionController::class, 'edit'])->name('admin.about.edit');
-    Route::put('/about-sections/{aboutSection}', [AboutSectionController::class, 'update'])->name('admin.about.update');
+    Route::get('/about-sections', [AboutSectionController::class, 'index'])
+        ->middleware('permission:view portfolio|create portfolio|edit portfolio|delete portfolio')
+        ->name('about.index');
+    Route::get('/about-sections/{aboutSection}/edit', [AboutSectionController::class, 'edit'])
+        ->middleware('permission:edit portfolio')->name('about.edit');
+    Route::put('/about-sections/{aboutSection}', [AboutSectionController::class, 'update'])
+        ->middleware('permission:edit portfolio')->name('about.update');
+
+    // Services
+    Route::get('/services', [ServiceController::class, 'adminIndex'])
+        ->middleware('permission:view services|create services|edit services|delete services')
+        ->name('services.index');
+    Route::get('/services/create', [ServiceController::class, 'create'])
+        ->middleware('permission:create services')->name('services.create');
+    Route::post('/services', [ServiceController::class, 'store'])
+        ->middleware('permission:create services')->name('services.store');
+    Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])
+        ->middleware('permission:edit services')->name('services.edit');
+    Route::put('/services/{id}', [ServiceController::class, 'update'])
+        ->middleware('permission:edit services')->name('services.update');
+    Route::delete('/services/{id}', [ServiceController::class, 'destroy'])
+        ->middleware('permission:delete services')->name('services.destroy');
+    Route::get('/services/trash', [ServiceController::class, 'trash'])
+        ->middleware('permission:delete services|edit services')->name('services.trash');
+    Route::put('/services/{id}/restore', [ServiceController::class, 'restore'])
+        ->middleware('permission:delete services|edit services')->name('services.restore');
+    Route::delete('/services/{id}/force-delete', [ServiceController::class, 'forceDelete'])
+        ->middleware('permission:delete services')->name('services.forceDelete');
+
+    // Projects
+    Route::get('/projects', [ProjectController::class, 'adminIndex'])
+        ->middleware('permission:view projects|create projects|edit projects|delete projects')
+        ->name('projects.index');
+    Route::get('/projects/create', [ProjectController::class, 'create'])
+        ->middleware('permission:create projects')->name('projects.create');
+    Route::post('/projects', [ProjectController::class, 'store'])
+        ->middleware('permission:create projects')->name('projects.store');
+    Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])
+        ->middleware('permission:edit projects')->name('projects.edit');
+    Route::put('/projects/{id}', [ProjectController::class, 'update'])
+        ->middleware('permission:edit projects')->name('projects.update');
+    Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])
+        ->middleware('permission:delete projects')->name('projects.destroy');
+    Route::get('/projects/trash', [ProjectController::class, 'trash'])
+        ->middleware('permission:delete projects|edit projects')->name('projects.trash');
+    Route::put('/projects/{id}/restore', [ProjectController::class, 'restore'])
+        ->middleware('permission:delete projects|edit projects')->name('projects.restore');
+    Route::delete('/projects/{id}/force-delete', [ProjectController::class, 'forceDelete'])
+        ->middleware('permission:delete projects')->name('projects.forceDelete');
+
+    // Blogs
+    Route::get('/blogs', [BlogController::class, 'adminIndex'])
+        ->middleware('permission:view blogs|create blogs|edit blogs|delete blogs')
+        ->name('blogs.index');
+    Route::get('/blogs/create', [BlogController::class, 'create'])
+        ->middleware('permission:create blogs')->name('blogs.create');
+    Route::post('/blogs', [BlogController::class, 'store'])
+        ->middleware('permission:create blogs')->name('blogs.store');
+    Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])
+        ->middleware('permission:edit blogs')->name('blogs.edit');
+    Route::put('/blogs/{id}', [BlogController::class, 'update'])
+        ->middleware('permission:edit blogs')->name('blogs.update');
+    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])
+        ->middleware('permission:delete blogs')->name('blogs.destroy');
+    Route::get('/blogs/trash', [BlogController::class, 'trash'])
+        ->middleware('permission:delete blogs|edit blogs')->name('blogs.trash');
+    Route::put('/blogs/{id}/restore', [BlogController::class, 'restore'])
+        ->middleware('permission:delete blogs|edit blogs')->name('blogs.restore');
+    Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])
+        ->middleware('permission:delete blogs')->name('blogs.forceDelete');
 
     // Teams
-    Route::get('/teams', [TeamController::class, 'index'])->name('admin.teams.index');
-    Route::get('/teams/create', [TeamController::class, 'create'])->name('admin.teams.create');
-    Route::post('/teams', [TeamController::class, 'store'])->name('admin.teams.store');
-    Route::get('/teams/{id}/edit', [TeamController::class, 'edit'])->name('admin.teams.edit');
-    Route::put('/teams/{id}', [TeamController::class, 'update'])->name('admin.teams.update');
-    Route::delete('/teams/{id}', [TeamController::class, 'destroy'])->name('admin.teams.destroy');
+    Route::get('/teams', [TeamController::class, 'index'])
+        ->middleware('permission:view teams|create teams|edit teams|delete teams')
+        ->name('teams.index');
+    Route::get('/teams/create', [TeamController::class, 'create'])
+        ->middleware('permission:create teams')->name('teams.create');
+    Route::post('/teams', [TeamController::class, 'store'])
+        ->middleware('permission:create teams')->name('teams.store');
+    Route::get('/teams/{id}/edit', [TeamController::class, 'edit'])
+        ->middleware('permission:edit teams')->name('teams.edit');
+    Route::put('/teams/{id}', [TeamController::class, 'update'])
+        ->middleware('permission:edit teams')->name('teams.update');
+    Route::delete('/teams/{id}', [TeamController::class, 'destroy'])
+        ->middleware('permission:delete teams')->name('teams.destroy');
+
+    // Contact Info
+    Route::get('/contact-info', [ContactInfoController::class, 'edit'])
+        ->middleware('permission:edit contact info')->name('contact-info.edit');
+    Route::put('/contact-info', [ContactInfoController::class, 'update'])
+        ->middleware('permission:edit contact info')->name('contact-info.update');
+
+    // Contact Messages
+    Route::resource('messages', ContactMessageController::class)
+        ->only(['index','show','destroy'])
+        ->middleware('permission:view messages|delete messages');
+    Route::post('messages/{id}/mark-read', [ContactMessageController::class, 'markRead'])
+        ->middleware('permission:view messages')->name('messages.markRead');
 });
 
 
@@ -151,33 +210,3 @@ require __DIR__ . '/auth.php';
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
-use App\Http\Controllers\Admin\ContactMessageController;
-
-Route::prefix('admin')->name('admin.')->middleware(['auth','role:admin'])->group(function () {
-    Route::resource('messages', ContactMessageController::class)->only(['index','show','destroy']);
-    
-    Route::post('messages/{id}/mark-read', [ContactMessageController::class, 'markRead'])
-         ->name('messages.markRead');
-});
-
-// ========================================================================
-// ROLE PERMISSIONS
-// ========================================================================
-// 🔑 Admin:
-// - Full access to everything (users, roles, contact info, all CRUD).
-// - Can manage Users & Roles (assign/delete), Contact Info, Services,
-//   Projects, Blogs, Teams, Home Sections, About Sections.
-// - Can restore and permanently delete items from trash.
-// - Unlimited control.
-//
-// ✏️ Editor:
-// - Can access dashboard and manage content only.
-// - Can manage Services, Projects, Blogs, Teams, Home Sections, About Sections.
-// - Can create, edit, delete (soft delete), restore content.
-// - Cannot manage Users, Roles/Permissions, or Contact Info.
-//
-// 👀 Viewer:
-// - Public visitor only.
-// - Can see frontend pages (Home, Services, Portfolio, Blogs, About, Contact).
-// - Cannot access dashboard or any admin routes.
-// ========================================================================

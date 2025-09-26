@@ -11,50 +11,79 @@ class RolePermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Define permissions
+        // Clear cache
+        app(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+        // --- Permissions ---
+
         $permissions = [
+            // Projects
             'create projects', 'edit projects', 'delete projects', 'view projects',
+
+            // Blogs
             'create blogs', 'edit blogs', 'delete blogs', 'view blogs',
+
+            // Services
             'create services', 'edit services', 'delete services', 'view services',
-            'create portfolio', 'edit portfolio', 'delete portfolio', 'view portfolio',
+
+            // Teams
+            'create teams', 'edit teams', 'delete teams', 'view teams',
+
+            // Home Sections
+            'view home', 'edit home',
+
+            // About Sections
+            'view about', 'edit about',
+
+            // Contact Info
+            'edit contact info',
+
+            // Contact Messages
+            'view messages', 'delete messages',
         ];
 
-        // 2. Create permissions
+        // Create permissions if not exists
         foreach ($permissions as $perm) {
             Permission::firstOrCreate(['name' => $perm, 'guard_name' => 'web']);
         }
 
-        // 3. Create roles
+        // --- Roles ---
         $admin   = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
         $editor  = Role::firstOrCreate(['name' => 'editor', 'guard_name' => 'web']);
         $viewer  = Role::firstOrCreate(['name' => 'viewer', 'guard_name' => 'web']);
 
-        // 4. Assign all permissions to admin
+        // --- Assign Permissions ---
+        // Admin → everything
         $admin->syncPermissions(Permission::all());
 
-        // 5. Assign limited permissions to editor (example)
+        // Editor → only content management
         $editor->syncPermissions([
             'create projects', 'edit projects', 'view projects',
             'create blogs', 'edit blogs', 'view blogs',
             'create services', 'edit services', 'view services',
-            'create portfolio', 'edit portfolio', 'view portfolio',
+            'create teams', 'edit teams', 'delete teams', 'view teams',
+            'view home', 'edit home',
+            'view about', 'edit about',
         ]);
 
-        // 6. Assign only view permissions to viewer
+        // Viewer → frontend only (no admin permissions)
         $viewer->syncPermissions([
-            'view projects', 'view blogs', 'view services', 'view portfolio'
+            'view projects', 'view blogs', 'view services', 'view teams',
+            'view home', 'view about',
         ]);
 
-        // 7. Create default admin user
+        // --- Default Super Admin user ---
         $adminUser = User::firstOrCreate(
-            ['email' => 'diyaa@gmail.com'], // 👈 change this
+            ['email' => 'diyaa@gmail.com'], // change if needed
             [
                 'name' => 'Super Admin',
-                'password' => bcrypt('123456789'), // 👈 change this
+                'password' => bcrypt('123456789'), // change if needed
             ]
         );
 
-        // 8. Assign admin role
         $adminUser->assignRole($admin);
+
+        // Clear cache again
+        app(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
     }
 }
