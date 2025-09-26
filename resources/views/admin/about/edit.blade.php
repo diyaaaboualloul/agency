@@ -18,12 +18,7 @@
             </div>
 
             {{-- Subtitle (only if NOT hero) --}}
-            @if($aboutSection->section_key !== 'hero')
-                <div class="mb-3">
-                    <label class="form-label text-white fw-semibold fs-5">Subtitle</label>
-                    <input type="text" name="subtitle" value="{{ old('subtitle', $aboutSection->subtitle) }}" class="form-control custom-input">
-                </div>
-            @endif
+        
 
             {{-- Description --}}
             <div class="mb-3">

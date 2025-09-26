@@ -28,11 +28,7 @@
                 @error('heading') <div class="text-danger small">{{ $message }}</div> @enderror
             </div>
 
-            <div class="mb-4">
-                <label class="form-label text-white fs-5 fw-bold">Subtitle</label>
-                <input type="text" name="subtitle" value="{{ old('subtitle', $homeSection->subtitle) }}" class="form-control form-control-lg">
-                @error('subtitle') <div class="text-danger small">{{ $message }}</div> @enderror
-            </div>
+      
 
             <div class="mb-4">
                 <label class="form-label text-white fs-5 fw-bold">Description</label>
