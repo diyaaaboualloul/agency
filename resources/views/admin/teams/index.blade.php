@@ -38,12 +38,12 @@
                             <td>{{ $team->title_job }}</td>
                             <td>
                                 @if($team->insta_link)
-                                    <a href="{{ $team->insta_link }}" target="_blank" class="btn btn-sm btn-outline-info">IG</a>
+                                    <a href="{{ $team->insta_link }}" target="_blank" class="btn btn-sm btn-success shadow">IG</a>
                                 @endif
                             </td>
                             <td>
                                 @if($team->facebook_link)
-                                    <a href="{{ $team->facebook_link }}" target="_blank" class="btn btn-sm btn-outline-primary">FB</a>
+                                    <a href="{{ $team->facebook_link }}" target="_blank" class="btn btn-sm btn-success shadow">FB</a>
                                 @endif
                             </td>
                             <td>
@@ -113,6 +113,12 @@
         background: rgba(13, 110, 253, 0.8) !important;
         color: #fff !important;
         transform: scale(1.01);
+    }
+
+    /* Optional: make green buttons darker on hover */
+    .btn-success:hover {
+        background-color: #198754 !important;
+        border-color: #157347 !important;
     }
 </style>
 @endpush

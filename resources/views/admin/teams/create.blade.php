@@ -24,28 +24,28 @@
             @csrf
 
             <div class="mb-3">
-                <label class="form-label fw-semibold">Name</label>
-                <input type="text" name="name" class="form-control" required>
+                <label class="form-label fw-semibold text-white">Name</label>
+                <input type="text" name="name" class="form-control text-white" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-semibold">Instagram Link</label>
-                <input type="url" name="insta_link" class="form-control" placeholder="https://instagram.com/...">
+                <label class="form-label fw-semibold text-white">Instagram Link</label>
+                <input type="url" name="insta_link" class="form-control text-white" placeholder="https://instagram.com/...">
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-semibold">Facebook Link</label>
-                <input type="url" name="facebook_link" class="form-control" placeholder="https://facebook.com/...">
+                <label class="form-label fw-semibold text-white">Facebook Link</label>
+                <input type="url" name="facebook_link" class="form-control text-white" placeholder="https://facebook.com/...">
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-semibold">Job Title</label>
-                <input type="text" name="title_job" class="form-control" required>
+                <label class="form-label fw-semibold text-white">Job Title</label>
+                <input type="text" name="title_job" class="form-control text-white" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-semibold">Image</label>
-                <input type="file" name="image" class="form-control" accept="image/*">
+                <label class="form-label fw-semibold text-white">Image</label>
+                <input type="file" name="image" class="form-control text-white" accept="image/*">
             </div>
 
             <div class="d-flex gap-2 mt-4">
@@ -71,6 +71,31 @@
         padding: 30px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.6);
         backdrop-filter: blur(6px);
+    }
+
+    /* White labels */
+    .form-label {
+        color: #fff !important;
+    }
+
+    /* White inputs */
+    .form-control {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: #fff !important;
+    }
+
+    /* White placeholders */
+    .form-control::placeholder {
+        color: rgba(255,255,255,0.6);
+    }
+
+    /* Focus effect */
+    .form-control:focus {
+        background: rgba(255,255,255,0.15);
+        border-color: #0d6efd;
+        color: #fff;
+        box-shadow: 0 0 8px rgba(13,110,253,0.6);
     }
 </style>
 @endpush
