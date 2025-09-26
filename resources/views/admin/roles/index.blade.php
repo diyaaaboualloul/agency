@@ -77,14 +77,20 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <form method="POST" action="{{ route('admin.roles.destroy', $role->id) }}" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger shadow px-3" onclick="return confirm('Are you sure you want to delete this role?')">
-                                            🗑️ Delete
-                                        </button>
-                                    </form>
-                                </td>
+    @if(!in_array(strtolower($role->name), ['admin', 'editor', 'viewer']))
+        <form method="POST" action="{{ route('admin.roles.destroy', $role->id) }}" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-sm btn-danger shadow px-3"
+                    onclick="return confirm('Are you sure you want to delete this role?')">
+                🗑️ Delete
+            </button>
+        </form>
+    @else
+        <span class="badge bg-secondary">Protected</span>
+    @endif
+</td>
+
                             </tr>
                         @endforeach
                     </tbody>

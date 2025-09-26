@@ -61,15 +61,26 @@
                             </form>
 
                             {{-- Delete --}}
-                            <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                        onclick="return confirm('Are you sure you want to delete this user?')"
-                                        class="btn btn-sm btn-danger shadow">
-                                    Delete
-                                </button>
-                            </form>
+                            @php
+                                // Count how many admins exist
+                                $adminCount = \App\Models\User::role('admin')->count();
+                                $isAdmin = $user->hasRole('admin');
+                            @endphp
+
+                            @if($isAdmin && $adminCount <= 1)
+                                {{-- Protected if this is the last admin --}}
+                                <span class="badge bg-secondary">🚫 Cannot Delete</span>
+                            @else
+                                <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            onclick="return confirm('Are you sure you want to delete this user?')"
+                                            class="btn btn-sm btn-danger shadow">
+                                        Delete
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
