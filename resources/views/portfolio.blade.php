@@ -23,8 +23,10 @@
 </div>
 <!-- End breadcrumb -->
 
+{{-- 🔹 Portfolio Section --}}
+@if($projects->isNotEmpty())
 <div class="row g-4 px-3 py-4">
-    @forelse($projects as $project)
+    @foreach($projects as $project)
         <div class="col-sm-6 col-lg-3"> <!-- smaller cards (4 per row on desktop) -->
             <div class="card portfolio-card border-0 shadow-sm h-100">
                 <a href="{{ route('singleportfolio', $project->slug) }}" class="text-decoration-none">
@@ -52,9 +54,8 @@
                 </a>
             </div>
         </div>
-    @empty
-        <p class="text-center text-muted">No projects available yet.</p>
-    @endforelse
+    @endforeach
 </div>
+@endif
 
 @endsection

@@ -24,8 +24,9 @@
 </div>
 <!-- End breadcrumb -->
 
-
-  <div class="section py-5">
+{{-- 🔹 Services Section --}}
+@if($services->isNotEmpty())
+<div class="section py-5">
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="fw-bold">
@@ -33,14 +34,14 @@
                 <span class="text-primary position-relative">
                     Services
                     <span class="position-absolute top-0 start-100 translate-middle">
-                        <img src="{{ asset('assets/images/v1/star2.png') }}" alt="" style="width:25px;">
+                        <img src="{{ asset('assets/images/v1/star2.png') }}" alt="star" style="width:25px;">
                     </span>
                 </span>
             </h2>
         </div>
 
         <div class="row">
-            @forelse($services as $service)
+            @foreach($services as $service)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card border-0 shadow-lg h-100 text-center service-card animate__animated animate__fadeInUp">
                         {{-- Service Image / Icon --}}
@@ -74,10 +75,9 @@
                         </div>
                     </div>
                 </div>
-            @empty
-                <p class="text-center text-muted">No services available at the moment.</p>
-            @endforelse
+            @endforeach
         </div>
     </div>
-  </div>
+</div>
+@endif
 @endsection

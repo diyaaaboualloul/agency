@@ -64,6 +64,7 @@
 @endif
 
 {{-- Team Section --}}
+@if($teamMembers->isNotEmpty())
 <section class="team py-5">
     <div class="container text-center">
         <h2 class="fw-bold mb-4">{{ $sections['team']->heading ?? 'Meet Our Team' }}</h2>
@@ -105,6 +106,7 @@
         </div>
     </div>
 </section>
+@endif
 
 
 @endsection

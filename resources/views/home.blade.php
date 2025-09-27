@@ -53,11 +53,15 @@
 @endif
 
 {{-- 🔹 Services Section --}}
+@php
+    $services = \App\Models\Service::latest()->take(4)->get();
+@endphp
+@if($services->isNotEmpty())
 <section class="services py-5 bg-light">
     <div class="container text-center">
         <h2 class="fw-bold mb-4">Our Services</h2>
         <div class="row">
-            @foreach(\App\Models\Service::latest()->take(4)->get() as $service)
+            @foreach($services as $service)
                 <div class="col-md-3 mb-4">
                     <div class="card h-100 shadow-sm border-0">
                         @if($service->image)
@@ -75,13 +79,19 @@
         <a href="{{ route('services') }}" class="btn btn-primary mt-3">View All Services</a>
     </div>
 </section>
+@endif
+
 
 {{-- 🔹 Projects Section --}}
+@php
+    $projects = \App\Models\Project::latest()->take(4)->get();
+@endphp
+@if($projects->isNotEmpty())
 <section class="projects py-5">
     <div class="container text-center">
         <h2 class="fw-bold mb-4">Our Projects</h2>
         <div class="row">
-            @foreach(\App\Models\Project::latest()->take(4)->get() as $project)
+            @foreach($projects as $project)
                 <div class="col-md-3 mb-4">
                     <div class="card shadow-sm h-100 border-0">
                         @if($project->cover_image)
@@ -99,12 +109,19 @@
         <a href="{{ route('portfolio') }}" class="btn btn-primary mt-3">View All Projects</a>
     </div>
 </section>
+@endif
+
+
 {{-- 🔹 Blogs Section --}}
+@php
+    $blogs = \App\Models\Blog::latest()->take(3)->get();
+@endphp
+@if($blogs->isNotEmpty())
 <section class="blogs py-5 bg-light">
     <div class="container text-center">
         <h2 class="fw-bold mb-4">Latest Blogs</h2>
         <div class="row">
-            @foreach(\App\Models\Blog::latest()->take(3)->get() as $blog)
+            @foreach($blogs as $blog)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0">
                         <div class="card-body">
@@ -126,5 +143,7 @@
         <a href="{{ route('blogs.index') }}" class="btn btn-primary mt-3">View All Blogs</a>
     </div>
 </section>
+@endif
+
 
 @endsection

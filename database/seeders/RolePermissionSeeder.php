@@ -76,7 +76,7 @@ class RolePermissionSeeder extends Seeder
         $adminUser = User::firstOrCreate(
             ['email' => 'diyaa@gmail.com'], // change if needed
             [
-                'name' => 'Super Admin',
+                'name' => 'Admin',
                 'password' => bcrypt('123456789'), // change if needed
             ]
         );
