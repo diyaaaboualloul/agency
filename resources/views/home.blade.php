@@ -126,9 +126,7 @@
                     <div class="card h-100 shadow-sm border-0">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">{{ $blog->title }}</h5>
-                            <p class="card-text text-muted">
-                                {{ Str::limit($blog->description, 120) }}
-                            </p>
+                         <p class="mb-3">{{ Str::limit(strip_tags($blog->description), 150) }}</p>
                             <a href="{{ route('blogs.show', $blog->id) }}" class="btn btn-sm btn-outline-primary">
                                 Read More
                             </a>

@@ -6,11 +6,7 @@
 {{-- Breadcrumb with background image & overlay --}}
 <div class="aximo-breadcrumb position-relative" 
      style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
-
-    {{-- Dark overlay --}}
-    <div class="position-absolute top-0 start-0 w-100 h-100" 
-         style="background: rgba(0,0,0,0.6);"></div>
-
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.6);"></div>
     <div class="container text-center position-relative" style="z-index: 2;">
         <h1 class="post__title fw-bold text-white">Blogs</h1>
         <nav class="breadcrumbs">
@@ -23,7 +19,6 @@
 </div>
 <!-- End breadcrumb -->
 
-{{-- 🔹 Blog Section (only show if blogs exist) --}}
 @if($blogs->isNotEmpty())
 <div class="section aximo-section-padding2">
   <div class="container">
@@ -42,7 +37,11 @@
               <a href="{{ route('blogs.show', $blog->id) }}" class="text-decoration-none">
                 <h3 class="entry-title fw-bold mb-2">{{ $blog->title }}</h3>
               </a>
-              <p class="mb-3">{!! Str::limit($blog->description, 150) !!}</p>
+
+              {{-- 🔹 Show excerpt (strip HTML so lists don’t break here) --}}
+<div class="mb-3 blog-excerpt">
+  {!! Str::limit($blog->description, 150) !!}
+</div>
 
               <a class="post-read-more fw-bold" href="{{ route('blogs.show', $blog->id) }}">
                 Read more →
@@ -80,3 +79,18 @@
 </div>
 @endif
 @endsection
+@push('styles')
+<style>
+  .blog-excerpt ul {
+    list-style: disc;
+    margin-left: 1.2rem;
+  }
+  .blog-excerpt ol {
+    list-style: decimal;
+    margin-left: 1.2rem;
+  }
+  .blog-excerpt li {
+    margin-bottom: 0.3rem;
+  }
+</style>
+@endpush

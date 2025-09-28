@@ -198,5 +198,6 @@
       console.log("✅ Lazy loading + alt text applied");
   });
   </script>
+
 </body>
 </html>
