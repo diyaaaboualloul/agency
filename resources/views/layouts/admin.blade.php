@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="{{ asset('admin/assets/css/demo_1/style.css') }}">
   <!-- End Layout styles -->
 
-  <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.ico') }}" />
+<link rel="icon" href="{{ asset('iconn.png') }}" type="image/png">
   @stack('styles')
 
   <style>

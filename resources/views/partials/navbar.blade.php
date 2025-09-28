@@ -4,7 +4,7 @@
     <!-- Brand Logo -->
     <div class="brand-logo">
       <a href="{{ route('home') }}">
-        <img src="{{ asset('assets/images/logo/logo-white.svg') }}" 
+        <img src="{{ asset('assets/images/logo/logo.png') }}" 
              alt="Logo" class="light-version-logo" id="navbarLogo">
       </a>
     </div>
@@ -29,17 +29,6 @@
       <li class="{{ $is('blogs*') }}"><a href="{{ route('blogs.index') }}" class="nav-link-item">Blogs</a></li>
       <li class="{{ $is('contact') }}"><a href="{{ route('contact') }}" class="nav-link-item">Contact</a></li>
 
-      @guest
-        <li><a href="{{ route('login') }}" class="nav-link-item btn-login">Login</a></li>
-        <li><a href="{{ route('register') }}" class="nav-link-item btn-register">Register</a></li>
-      @else
-        <li>
-          <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="nav-link-item btn btn-link btn-logout">Logout</button>
-          </form>
-        </li>
-      @endguest
-    </ul>
+      </ul>
   </nav>
 </div>

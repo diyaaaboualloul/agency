@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Aximo || Responsive HTML 5 Template')</title>
 
-  <link rel="icon" href="{{ asset('iconnnnn.png') }}" type="image/png">
+  <link rel="icon" href="{{ asset('iconn.png') }}" type="image/png">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">

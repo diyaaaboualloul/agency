@@ -155,7 +155,7 @@ h3 { font-weight: 600; }
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--primary);
+  background: whitesmoke;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
   padding: 12px 0;
@@ -168,7 +168,7 @@ h3 { font-weight: 600; }
 
 /* Menu Items */
 #navbarMenu .nav-link-item {
-  color: #fff;
+  color:var(--primary)!important;
   font-weight: 600;
   margin: 0 12px;
   text-decoration: none;
