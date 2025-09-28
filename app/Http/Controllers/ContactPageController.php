@@ -15,7 +15,8 @@ class ContactPageController extends Controller
         return view('contact', compact('contactInfo'));
     }
 
-    public function store(Request $request)
+
+   public function store(Request $request)
     {
         // ✅ Validate form data
         $data = $request->validate([
@@ -28,23 +29,40 @@ class ContactPageController extends Controller
         // ✅ Save message into database
         $message = ContactMessage::create($data);
 
-        // ✅ Get agency contact email from ContactInfo table
-        // $agencyEmail = ContactInfo::value('email');
+        // ✅ Get agency contact email (fallback if not set in DB)
+        $agencyEmail = ContactInfo::value('email') ?? 'agency@atoz.com';
 
-        // ✅ Send confirmation email to user
-        // Mail::raw("Thank you {$data['name']}! We received your message: \"{$data['message']}\".", function ($mail) use ($data) {
-        //     $mail->to($data['email'])
-        //          ->subject('We Received Your Message');
-        // });
+        try {
+            // ✅ Send confirmation email to the user
+            Mail::raw(
+                "Hi {$data['name']},\n\nThank you for contacting AtoZ! We received your message:\n\"{$data['message']}\"\n\nOur team will get back to you shortly.\n\nBest regards,\nAtoZ Team",
+                function ($mail) use ($data) {
+                    $mail->to($data['email'])
+                         ->subject('✅ We Received Your Message');
+                }
+            );
 
-        // ✅ Send notification email to agency
-        // if ($agencyEmail) {
-        //     Mail::raw("New contact form submission:\n\nName: {$data['name']}\nEmail: {$data['email']}\nPhone: {$data['phone']}\nMessage: {$data['message']}", function ($mail) use ($agencyEmail) {
-        //         $mail->to($agencyEmail)
-        //              ->subject('New Contact Form Submission');
-        //     });
-        // }
+            // ✅ Send notification email to agency
+            Mail::raw(
+                "📩 New contact form submission:\n\n".
+                "Name: {$data['name']}\n".
+                "Email: {$data['email']}\n".
+                "Phone: {$data['phone']}\n".
+                "Message: {$data['message']}\n",
+                function ($mail) use ($agencyEmail) {
+                    $mail->to($agencyEmail)
+                         ->subject('📬 New Contact Form Submission');
+                }
+            );
 
-        return redirect()->back()->with('success', 'Your message has been sent successfully!');
+        } catch (\Exception $e) {
+            // Log error for debugging
+            \Log::error('Mail sending failed: '.$e->getMessage());
+
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.');
+        }
+
+        return redirect()->back()->with('success', '✅ Your message has been sent successfully!');
     }
+
 }
