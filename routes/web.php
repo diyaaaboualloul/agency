@@ -48,7 +48,7 @@ Route::get('/about', [AboutSectionController::class, 'frontend'])->name('about')
 // =======================
 // 🔹 Dashboard (Admin + Editor)
 // =======================
-Route::get('/dashboard', function () {
+Route::get('/AtoZdashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

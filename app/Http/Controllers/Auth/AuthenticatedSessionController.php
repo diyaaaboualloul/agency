@@ -23,13 +23,9 @@ class AuthenticatedSessionController extends Controller
 
     $user = Auth::user();
 
-    // 🔹 Redirect admins & editors to dashboard
-    if ($user->hasRole('admin') || $user->hasRole('editor')) {
-        return redirect()->route('dashboard');
-    }
+   
 
-    // 🔹 Everyone else (like viewers) goes home
-    return redirect()->route('home');
+    return redirect()->route('dashboard');
 }
 
 
@@ -40,6 +36,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login-panel');
     }
 }
