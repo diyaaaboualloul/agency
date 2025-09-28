@@ -22,9 +22,7 @@
   <div class="collapse {{ request()->routeIs('home') || request()->routeIs('about') || request()->routeIs('admin.home.*') || request()->routeIs('admin.about.*') || request()->routeIs('admin.contact-info.*') ? 'show' : '' }}" 
        id="sitePages" data-bs-parent="#sidebar">
     <ul class="nav flex-column sub-menu">
-      <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">👁 View Home</a></li>
       <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.home.*') ? 'active' : '' }}" href="{{ route('admin.home.index') }}">✏️ Edit Home</a></li>
-      <li class="nav-item"><a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">👁 View About</a></li>
       <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.about.*') ? 'active' : '' }}" href="{{ route('admin.about.index') }}">✏️ Edit About</a></li>
       <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.contact-info.*') ? 'active' : '' }}" href="{{ route('admin.contact-info.edit') }}">📞 Contact Info</a></li>
     </ul>

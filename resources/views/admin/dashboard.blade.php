@@ -13,29 +13,11 @@
             <span class="badge bg-primary">
                 {{ Auth::user()->roles->pluck('name')->implode(', ') ?: 'User' }}
             </span>
+                        role
+
         </p>
 
-        {{-- Role-Specific Messages --}}
-        @if(Auth::user()->hasRole('admin'))
-            <div class="alert alert-success shadow-sm fw-semibold">
-                ⚡ You are an <strong>Admin</strong>.  
-                You have <u>full access</u> to manage everything in the system.
-            </div>
-        @elseif(Auth::user()->hasRole('editor'))
-            <div class="alert alert-info shadow-sm fw-semibold">
-                ✏️ You are an <strong>Editor</strong>.  
-                You can edit and manage content, but not system settings.
-            </div>
-        @elseif(Auth::user()->hasRole('viewer'))
-            <div class="alert alert-danger shadow-sm fw-semibold">
-                👀 You are a <strong>Viewer</strong>.  
-                You cannot access the dashboard. Please return to the <a href="{{ route('home') }}" class="text-decoration-underline text-dark">website</a>.
-            </div>
-        @else
-            <div class="alert alert-warning shadow-sm fw-semibold">
-                ⚠️ Role not recognized. Please contact the administrator.
-            </div>
-        @endif
+      
     </div>
 </div>
 @endsection

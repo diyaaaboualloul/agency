@@ -50,7 +50,7 @@ Route::get('/about', [AboutSectionController::class, 'frontend'])->name('about')
 // =======================
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
-})->middleware(['auth', 'verified', 'role:admin|editor'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 // =======================
@@ -89,21 +89,21 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Home Sections
     Route::get('/home-sections', [HomeSectionController::class, 'index'])
-        ->middleware('permission:view portfolio|create portfolio|edit portfolio|delete portfolio')
+        ->middleware('permission: edit home')
         ->name('home.index');
     Route::get('/home-sections/{homeSection}/edit', [HomeSectionController::class, 'edit'])
-        ->middleware('permission:edit portfolio')->name('home.edit');
+        ->middleware('permission:edit home')->name('home.edit');
     Route::put('/home-sections/{homeSection}', [HomeSectionController::class, 'update'])
-        ->middleware('permission:edit portfolio')->name('home.update');
+        ->middleware('permission:edit home')->name('home.update');
 
     // About Sections
     Route::get('/about-sections', [AboutSectionController::class, 'index'])
-        ->middleware('permission:view portfolio|create portfolio|edit portfolio|delete portfolio')
+        ->middleware('permission:edit about')
         ->name('about.index');
     Route::get('/about-sections/{aboutSection}/edit', [AboutSectionController::class, 'edit'])
-        ->middleware('permission:edit portfolio')->name('about.edit');
+        ->middleware('permission:edit about')->name('about.edit');
     Route::put('/about-sections/{aboutSection}', [AboutSectionController::class, 'update'])
-        ->middleware('permission:edit portfolio')->name('about.update');
+        ->middleware('permission:edit about')->name('about.update');
 
     // Services
     Route::get('/services', [ServiceController::class, 'adminIndex'])
