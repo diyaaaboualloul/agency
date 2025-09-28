@@ -41,4 +41,34 @@ class UserManagementController extends Controller
 
         return redirect()->back()->with('success', 'User deleted successfully!');
     }
+    // App/Http/Controllers/Admin/UserManagementController.php
+
+
+public function create()
+{
+    $roles = Role::all(); // fetch all roles from DB
+    return view('admin.users.create', compact('roles'));
+}
+
+
+public function store(Request $request)
+{
+    $data = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+        'role' => 'required|string'
+    ]);
+
+    $user = \App\Models\User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => bcrypt($data['password']),
+    ]);
+
+    $user->assignRole($data['role']); // assign admin/editor/viewer
+
+    return redirect()->route('admin.users.index')->with('success', 'User created successfully!');
+}
+
 }

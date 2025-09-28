@@ -3,14 +3,19 @@
 @section('title','Dashboard')
 
 @section('content')
-<div class="content-centered">
-    <!-- Header Block -->
-    <div class="d-flex justify-content-between align-items-center mb-4 table-overlay">
-        <h2 class="h3 fw-bold text-white mb-0">👥 Manage Users & Roles</h2>
-        <a href="{{ route('admin.roles.index') }}" class="btn btn-sm btn-success shadow">
-            ➕ Manage Roles & Permissions
+<div class="d-flex justify-content-between align-items-center mb-4 table-overlay">
+    <h2 class="h3 fw-bold text-white mb-0">👥 Manage Users & Roles</h2>
+    
+    <div class="d-flex gap-2">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-dashboard btn-create shadow">
+            ➕ Create User
+        </a>
+        <a href="{{ route('admin.roles.index') }}" class="btn btn-dashboard btn-roles shadow">
+            ⚙️ Manage Roles
         </a>
     </div>
+</div>
+
 
     <!-- Users Table -->
     <div class="card-body table-overlay">
@@ -150,5 +155,37 @@
     .btn {
         border-radius: 6px;
     }
+    /* Dashboard Action Buttons */
+.btn-dashboard {
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+/* Create User button */
+.btn-create {
+    background: linear-gradient(135deg, #32B768, #1d974e); /* your global greens */
+    color: #fff;
+}
+.btn-create:hover {
+    background: linear-gradient(135deg, #1d974e, #14823d);
+    transform: translateY(-2px);
+}
+
+/* Manage Roles button */
+.btn-roles {
+    background: linear-gradient(135deg, #2C63F4, #1b4edb); /* your primary blue */
+    color: #fff;
+}
+.btn-roles:hover {
+    background: linear-gradient(135deg, #1b4edb, #153aa7);
+    transform: translateY(-2px);
+}
+
 </style>
 @endpush
