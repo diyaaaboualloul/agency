@@ -35,10 +35,10 @@
                 <textarea name="summary" class="form-control" rows="2"></textarea>
             </div>
 
-            {{-- Description --}}
+            {{-- Description (CKEditor) --}}
             <div class="mb-3">
                 <label class="form-label text-white">Description</label>
-                <textarea name="description" class="form-control" rows="5"></textarea>
+                <textarea id="editor" name="description" class="form-control" rows="5"></textarea>
             </div>
 
             {{-- Row with client, location, date --}}
@@ -112,4 +112,30 @@
         box-shadow: 0 0 6px rgba(13, 110, 253, 0.6);
     }
 </style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+    let ckeditorInstance;
+
+    ClassicEditor.create(document.querySelector('#editor'))
+        .then(editor => {
+            ckeditorInstance = editor;
+
+            // Sync content to textarea so Laravel receives it
+            const textarea = document.querySelector('#editor');
+            const syncToTextarea = () => {
+                textarea.value = editor.getData();
+                if (!textarea.value.trim()) {
+                    textarea.setCustomValidity('Description is required');
+                } else {
+                    textarea.setCustomValidity('');
+                }
+            };
+            editor.model.document.on('change:data', syncToTextarea);
+            syncToTextarea();
+        })
+        .catch(error => console.error(error));
+</script>
 @endpush

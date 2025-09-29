@@ -304,11 +304,7 @@ content: " (" attr(title) ")";
     page-break-after: avoid;
   }
 }
-ul, ol, li {
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-}
+
 
 button {
   padding: 0px;

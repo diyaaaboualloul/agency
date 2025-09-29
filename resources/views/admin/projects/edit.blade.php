@@ -36,10 +36,10 @@
                 <textarea name="summary" class="form-control" rows="2">{{ $project->summary }}</textarea>
             </div>
 
-            {{-- Description --}}
+            {{-- Description (CKEditor) --}}
             <div class="mb-3">
                 <label class="form-label text-white fw-semibold fs-5">Description</label>
-                <textarea name="description" class="form-control" rows="5">{{ $project->description }}</textarea>
+                <textarea id="editor" name="description" class="form-control" rows="5">{{ $project->description }}</textarea>
             </div>
 
             {{-- Extra Info --}}
@@ -115,4 +115,30 @@
         box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.5);
     }
 </style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+    let ckeditorInstance;
+
+    ClassicEditor.create(document.querySelector('#editor'))
+        .then(editor => {
+            ckeditorInstance = editor;
+
+            // Keep textarea synced
+            const textarea = document.querySelector('#editor');
+            const syncToTextarea = () => {
+                textarea.value = editor.getData();
+                if (!textarea.value.trim()) {
+                    textarea.setCustomValidity('Description is required');
+                } else {
+                    textarea.setCustomValidity('');
+                }
+            };
+            editor.model.document.on('change:data', syncToTextarea);
+            syncToTextarea();
+        })
+        .catch(error => console.error(error));
+</script>
 @endpush

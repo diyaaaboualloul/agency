@@ -79,6 +79,8 @@
     object-fit: cover !important;
     display: block;
 }
+  
+
 
     #scrollTopBtn {
       position: fixed;
@@ -96,6 +98,14 @@
     }
     #scrollTopBtn:hover {
       color: #0d6efd;
+    }
+      .project-description ul {
+        padding-left: 1.5rem !important;
+        list-style-type: disc !important;
+    }
+    .project-description ol {
+        padding-left: 1.5rem !important;
+        list-style-type: decimal !important;
     }
   </style>
 

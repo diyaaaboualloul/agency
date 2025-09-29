@@ -3,30 +3,30 @@
 @section('title', $project->title)
 
 @section('content')
+<div class="container py-5">
 
-<div class="container py-5" style="margin-top: 0px;">
-
-    <!-- Project Title -->
+    <!-- 🔹 Project Title -->
     <div class="text-center mb-5">
         <h1 class="fw-bold text-primary">{{ $project->title }}</h1>
-        <p class="text-muted fs-5">{{ $project->summary }}</p>
+        @if($project->summary)
+            <p class="text-muted fs-5">{{ $project->summary }}</p>
+        @endif
     </div>
 
-    <!-- Image + Info -->
+    <!-- 🔹 Image + Quick Info -->
     <div class="row g-4 align-items-start">
         <!-- Image -->
         <div class="col-lg-7">
-        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-    <img src="{{ $project->cover_url ?: asset('assets/images/placeholder.png') }}" 
-         alt="{{ $project->title }}" 
-         class="img-fluid w-100" 
-         style="max-height: 450px; object-fit: cover;"
-         onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
-</div>
-
+            <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+                <img src="{{ $project->cover_url ?: asset('assets/images/placeholder.png') }}" 
+                     alt="{{ $project->title }}" 
+                     class="img-fluid w-100" 
+                     style="max-height: 450px; object-fit: cover;"
+                     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+            </div>
         </div>
 
-        <!-- Info -->
+        <!-- Quick Facts -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm rounded-3 p-4 h-100">
                 <h4 class="fw-bold text-secondary mb-3">Quick Facts</h4>
@@ -54,15 +54,17 @@
         </div>
     </div>
 
-    <!-- Project Details -->
-    <div class="card border-0 shadow-sm rounded-3 mt-5 p-4">
-        <h3 class="fw-bold text-primary mb-3">Project Details</h3>
-        <p class="mb-0 fs-5" style="line-height: 1.7;">
-            {!! nl2br(e($project->description)) !!}
-        </p>
+  <!-- Project Details -->
+<div class="card border-0 shadow-sm rounded-3 mt-5 p-4">
+    <h3 class="fw-bold text-primary mb-3">Project Details</h3>
+    <div class="project-description fs-5" style="line-height: 1.7;">
+        {!! $project->description !!}
     </div>
+</div>
 
-    <!-- Navigation -->
+
+
+    <!-- 🔹 Navigation (Previous / Next) -->
     <div class="d-flex justify-content-between mt-5">
         @if($previous)
             <a href="{{ route('singleportfolio', $previous->slug) }}" 
@@ -81,12 +83,33 @@
         @endif
     </div>
 
-    <!-- Back to Portfolio -->
+    <!-- 🔹 Back to Portfolio -->
     <div class="text-center mt-4">
-        <a href="{{ route('portfolio') }}" class="btn btn-primary btn-lg rounded-pill shadow-sm px-4">
+        <a href="{{ route('portfolio') }}" 
+           class="btn btn-primary btn-lg rounded-pill shadow-sm px-4">
             ← Back to Portfolio
         </a>
     </div>
-</div>
 
+</div>
 @endsection
+@push('styles')
+<style>
+    .project-description ul,
+    .project-description ol {
+        list-style-type: disc !important;   /* bullets */
+        padding-left: 1.5rem !important;    /* space before bullets */
+        margin-left: 1rem !important;
+    }
+
+    .project-description ol {
+        list-style-type: decimal !important; /* numbers for ordered lists */
+    }
+
+    .project-description li {
+        display: list-item !important;  /* ensures bullets are shown */
+        margin-bottom: 0.5rem;
+    }
+</style>
+@endpush
+
