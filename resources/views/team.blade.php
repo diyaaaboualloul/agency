@@ -8,7 +8,9 @@
     <div class="row">
         @foreach($teams as $team)
             <div class="col-md-3 text-center">
-                <img src="{{ asset('storage/'.$team->image) }}" class="img-fluid rounded-circle mb-2">
+<img src="{{ $team->image ? asset('storage/'.$team->image) : asset('assets/images/placeholder.png') }}"
+     class="img-fluid rounded-circle mb-2"
+     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
                 <h4>{{ $team->name }}</h4>
                 <p>{{ $team->title_job }}</p>
             </div>

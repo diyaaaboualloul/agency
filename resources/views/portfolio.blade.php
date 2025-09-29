@@ -22,7 +22,6 @@
     </div>
 </div>
 <!-- End breadcrumb -->
-
 {{-- 🔹 Portfolio Section --}}
 @if($projects->isNotEmpty())
 <div class="row g-4 px-3 py-4">
@@ -31,9 +30,11 @@
             <div class="card portfolio-card border-0 shadow-sm h-100">
                 <a href="{{ route('singleportfolio', $project->slug) }}" class="text-decoration-none">
                     <div class="portfolio-img-wrapper">
-                        <img src="{{ $project->cover_url }}" 
-                             alt="{{ $project->title }}" 
-                             class="card-img-top">
+                        <img src="{{ $project->cover_url ?: asset('assets/images/placeholder.png') }}" 
+     alt="{{ $project->title }}" 
+     class="card-img-top"
+     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+
                         <div class="portfolio-overlay d-flex flex-column justify-content-center align-items-center">
                             <h6 class="text-white fw-bold mb-2">{{ $project->title }}</h6>
                             <span class="btn btn-sm btn-light">🔗 View</span>
@@ -57,5 +58,6 @@
     @endforeach
 </div>
 @endif
+
 
 @endsection

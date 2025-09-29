@@ -16,12 +16,14 @@
     <div class="row g-4 align-items-start">
         <!-- Image -->
         <div class="col-lg-7">
-            <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
-                <img src="{{ $project->cover_url }}" 
-                     alt="{{ $project->title }}" 
-                     class="img-fluid w-100" 
-                     style="max-height: 450px; object-fit: cover;">
-            </div>
+        <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+    <img src="{{ $project->cover_url ?: asset('assets/images/placeholder.png') }}" 
+         alt="{{ $project->title }}" 
+         class="img-fluid w-100" 
+         style="max-height: 450px; object-fit: cover;"
+         onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+</div>
+
         </div>
 
         <!-- Info -->

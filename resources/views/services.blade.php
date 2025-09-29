@@ -47,7 +47,9 @@
                         {{-- Service Image / Icon --}}
                         <div class="card-img-top d-flex justify-content-center align-items-center p-4">
                             @if($service->image)
-                                <img src="{{ asset('storage/' . $service->image) }}"
+<img src="{{ $service->image ? asset('storage/' . $service->image) : asset('assets/images/placeholder.png') }}"
+     class="img-fluid"
+     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
                                      alt="{{ $service->name }}"
                                      class="rounded-circle shadow-sm img-fluid"
                                      style="width:200px; height:200px; object-fit:cover;">
