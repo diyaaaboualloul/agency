@@ -69,6 +69,17 @@
   </a>
 
   <style>
+.img-fixed-wrapper {
+    height: 200px !important; /* 🔹 Adjust once, applies everywhere */
+    overflow: hidden !important;
+}
+.img-fixed {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    display: block;
+}
+
     #scrollTopBtn {
       position: fixed;
       bottom: 20px;

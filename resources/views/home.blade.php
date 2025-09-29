@@ -66,10 +66,13 @@
             @foreach($services as $service)
                 <div class="col-md-3 mb-4">
                     <div class="card h-100 shadow-sm border-0">
-                        <img src="{{ $service->image ? asset('storage/'.$service->image) : asset('assets/images/placeholder.jpg') }}" 
-                             class="card-img-top" 
-                             alt="{{ $service->name }}"
-                             onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+                       <div class="img-fixed-wrapper">
+    <img src="{{ asset('storage/'.$service->image) }}" 
+         alt="{{ $service->name }}" 
+         class="img-fixed"
+         onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+</div>
+
                         <div class="card-body">
                             <h5 class="card-title fw-bold">{{ $service->name }}</h5>
                             <p class="card-text text-muted">{{ Str::limit($service->description, 80) }}</p>
@@ -85,6 +88,9 @@
 @endif
 
 
+
+
+
 {{-- 🔹 Projects Section --}}
 @php
     $projects = \App\Models\Project::latest()->take(4)->get();
@@ -97,10 +103,15 @@
             @foreach($projects as $project)
                 <div class="col-md-3 mb-4">
                     <div class="card shadow-sm h-100 border-0">
-                        <img src="{{ $project->cover_image ? asset('storage/'.$project->cover_image) : asset('assets/images/placeholder.jpg') }}" 
-                             class="card-img-top" 
-                             alt="{{ $project->title }}"
-                             onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+                        
+                        {{-- 🔹 Image with fixed height & placeholder --}}
+                        <div class="img-fixed-wrapper">
+                            <img src="{{ $project->cover_image ? asset('storage/'.$project->cover_image) : asset('assets/images/placeholder.png') }}" 
+                                 alt="{{ $project->title }}"
+                                 class="img-fixed"
+                                 onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+                        </div>
+
                         <div class="card-body">
                             <h5 class="card-title fw-bold">{{ $project->title }}</h5>
                             <p class="card-text text-muted">{{ Str::limit($project->summary, 80) }}</p>
@@ -148,3 +159,16 @@
 @endif
 
 @endsection
+@push('styles')
+<style>
+    .service-img-wrapper {
+        height: 200px !important; /* fixed height */
+        overflow: hidden !important;
+    }
+    .service-img {
+        height: 100% !important;
+        width: 100% !important;
+        object-fit: cover !important; /* ensures image fills space without distortion */
+    }
+</style>
+@endpush

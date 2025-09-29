@@ -44,18 +44,15 @@
             @foreach($services as $service)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card border-0 shadow-lg h-100 text-center service-card animate__animated animate__fadeInUp">
-                        {{-- Service Image / Icon --}}
+                        
+                        {{-- Service Image --}}
                         <div class="card-img-top d-flex justify-content-center align-items-center p-4">
-                            @if($service->image)
-<img src="{{ $service->image ? asset('storage/' . $service->image) : asset('assets/images/placeholder.png') }}"
-     class="img-fluid"
-     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+                            <div class="img-fixed-wrapper rounded-circle shadow-sm" style="width:200px; height:200px;">
+                                <img src="{{ $service->image ? asset('storage/' . $service->image) : asset('assets/images/placeholder.png') }}"
                                      alt="{{ $service->name }}"
-                                     class="rounded-circle shadow-sm img-fluid"
-                                     style="width:200px; height:200px; object-fit:cover;">
-                            @else
-                                <i class="icon-design-tools text-primary" style="font-size:80px;"></i>
-                            @endif
+                                     class="img-fixed rounded-circle"
+                                     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+                            </div>
                         </div>
 
                         {{-- Service Info --}}
@@ -75,6 +72,7 @@
                                 <i class="bi bi-arrow-right ms-2"></i>
                             </a>
                         </div>
+
                     </div>
                 </div>
             @endforeach
@@ -82,4 +80,5 @@
     </div>
 </div>
 @endif
+
 @endsection
