@@ -89,7 +89,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Home Sections
     Route::get('/home-sections', [HomeSectionController::class, 'index'])
-        ->middleware('permission: edit home')
+        ->middleware('permission:edit home')
         ->name('home.index');
     Route::get('/home-sections/{homeSection}/edit', [HomeSectionController::class, 'edit'])
         ->middleware('permission:edit home')->name('home.edit');
