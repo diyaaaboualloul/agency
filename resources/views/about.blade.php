@@ -7,7 +7,11 @@
 {{-- 🔹 Hero Section --}}
 @if(isset($sections['hero']) && $sections['hero']->is_active)
 <section class="hero d-flex align-items-center text-white"
-    style="background-image: url('{{ $sections['hero']->bg_image ? asset('storage/'.$sections['hero']->bg_image) : '' }}'); background-size:cover; background-position:center; min-height:60vh; position:relative;">
+    style="background-image: url('{{ $sections['hero']->bg_image ? asset('storage/'.$sections['hero']->bg_image) : asset('assets/images/placeholder.png') }}'); 
+           background-size:cover; 
+           background-position:center; 
+           min-height:60vh; 
+           position:relative;">
     
     {{-- Dark overlay --}}
     <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6);"></div>
@@ -31,9 +35,10 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
-                @if($sections['mission']->image)
-                    <img src="{{ asset('storage/'.$sections['mission']->image) }}" alt="Our Mission" class="img-fluid rounded shadow">
-                @endif
+                <img src="{{ $sections['mission']->image ? asset('storage/'.$sections['mission']->image) : asset('assets/images/placeholder.png') }}" 
+                     alt="Our Mission" 
+                     class="img-fluid rounded shadow"
+                     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
             </div>
             <div class="col-md-6">
                 <h2 class="fw-bold">{{ $sections['mission']->heading }}</h2>
@@ -50,9 +55,10 @@
     <div class="container">
         <div class="row align-items-center flex-md-row-reverse">
             <div class="col-md-6 mb-4 mb-md-0">
-                @if($sections['vision']->image)
-                    <img src="{{ asset('storage/'.$sections['vision']->image) }}" alt="Our Vision" class="img-fluid rounded shadow">
-                @endif
+                <img src="{{ $sections['vision']->image ? asset('storage/'.$sections['vision']->image) : asset('assets/images/placeholder.png') }}" 
+                     alt="Our Vision" 
+                     class="img-fluid rounded shadow"
+                     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
             </div>
             <div class="col-md-6">
                 <h2 class="fw-bold">{{ $sections['vision']->heading }}</h2>
@@ -63,7 +69,7 @@
 </section>
 @endif
 
-{{-- Team Section --}}
+{{-- 🔹 Team Section --}}
 @if($teamMembers->isNotEmpty())
 <section class="team py-5">
     <div class="container text-center">
@@ -74,13 +80,10 @@
                 <div class="col-md-4 mb-3">
                     <div class="card shadow-sm h-100">
                         {{-- Image --}}
-                        @if($member->image)
-                            <img src="{{ asset('storage/'.$member->image) }}" 
-                                 class="card-img-top" alt="{{ $member->name }}">
-                        @else
-                            <img src="https://via.placeholder.com/400x300" 
-                                 class="card-img-top" alt="Team Member">
-                        @endif
+                        <img src="{{ $member->image ? asset('storage/'.$member->image) : asset('assets/images/placeholder.png') }}" 
+                             class="card-img-top" 
+                             alt="{{ $member->name ?? 'Team Member' }}"
+                             onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
 
                         <div class="card-body">
                             <h5 class="fw-bold">{{ $member->name }}</h5>
@@ -107,6 +110,5 @@
     </div>
 </section>
 @endif
-
 
 @endsection

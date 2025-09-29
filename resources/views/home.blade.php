@@ -7,7 +7,7 @@
 {{-- 🔹 Hero Section --}}
 @if($hero && $hero->is_active)
 <section class="hero d-flex align-items-center text-white position-relative" 
-    style="background-image: url('{{ $hero->bg_image ? asset('storage/'.$hero->bg_image) : '' }}'); 
+    style="background-image: url('{{ $hero->bg_image ? asset('storage/'.$hero->bg_image) : asset('assets/images/placeholder.png') }}'); 
            background-size:cover; 
            background-position:center; 
            min-height:95vh;">
@@ -36,9 +36,10 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
-                @if($about->image)
-                    <img src="{{ asset('storage/'.$about->image) }}" alt="About Us" class="img-fluid rounded shadow">
-                @endif
+                <img src="{{ $about->image ? asset('storage/'.$about->image) : asset('assets/images/placeholder.png') }}" 
+                     alt="About Us" 
+                     class="img-fluid rounded shadow"
+                     onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
             </div>
             <div class="col-md-6">
                 <h2 class="fw-bold">{{ $about->heading }}</h2>
@@ -52,6 +53,7 @@
 </section>
 @endif
 
+
 {{-- 🔹 Services Section --}}
 @php
     $services = \App\Models\Service::latest()->take(4)->get();
@@ -64,9 +66,10 @@
             @foreach($services as $service)
                 <div class="col-md-3 mb-4">
                     <div class="card h-100 shadow-sm border-0">
-                        @if($service->image)
-                            <img src="{{ asset('storage/'.$service->image) }}" class="card-img-top" alt="{{ $service->name }}">
-                        @endif
+                        <img src="{{ $service->image ? asset('storage/'.$service->image) : asset('assets/images/placeholder.jpg') }}" 
+                             class="card-img-top" 
+                             alt="{{ $service->name }}"
+                             onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">{{ $service->name }}</h5>
                             <p class="card-text text-muted">{{ Str::limit($service->description, 80) }}</p>
@@ -94,9 +97,10 @@
             @foreach($projects as $project)
                 <div class="col-md-3 mb-4">
                     <div class="card shadow-sm h-100 border-0">
-                        @if($project->cover_image)
-                            <img src="{{ asset('storage/'.$project->cover_image) }}" class="card-img-top" alt="{{ $project->title }}">
-                        @endif
+                        <img src="{{ $project->cover_image ? asset('storage/'.$project->cover_image) : asset('assets/images/placeholder.jpg') }}" 
+                             class="card-img-top" 
+                             alt="{{ $project->title }}"
+                             onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">{{ $project->title }}</h5>
                             <p class="card-text text-muted">{{ Str::limit($project->summary, 80) }}</p>
@@ -126,7 +130,7 @@
                     <div class="card h-100 shadow-sm border-0">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">{{ $blog->title }}</h5>
-                         <p class="mb-3">{{ Str::limit(strip_tags($blog->description), 150) }}</p>
+                            <p class="mb-3">{{ Str::limit(strip_tags($blog->description), 150) }}</p>
                             <a href="{{ route('blogs.show', $blog->id) }}" class="btn btn-sm btn-outline-primary">
                                 Read More
                             </a>
@@ -142,6 +146,5 @@
     </div>
 </section>
 @endif
-
 
 @endsection

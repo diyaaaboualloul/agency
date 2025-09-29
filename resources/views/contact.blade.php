@@ -4,8 +4,10 @@
 
 @section('content')
 
+{{-- 🔹 Breadcrumb with fallback placeholder --}}
 <div class="aximo-breadcrumb position-relative" 
-     style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
+     style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;"
+     onerror="this.style.backgroundImage='url({{ asset('assets/images/placeholder.png') }})'">
     <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.6);"></div>
     <div class="container text-center position-relative" style="z-index: 2;">
         <h1 class="post__title fw-bold text-white">Contact</h1>
@@ -22,6 +24,7 @@
     <div class="container">
         <div class="row g-4 align-items-stretch">
 
+            {{-- Contact Form --}}
             <div class="col-lg-6">
                 <div class="mb-4">
                     <h2 class="fw-bold">Let’s Talk 📩</h2>
@@ -54,6 +57,7 @@
                 </form>
             </div>
 
+            {{-- Map --}}
             <div class="col-lg-6" id="map-section">
                 <div class="h-100 shadow rounded overflow-hidden">
                     @if($contactInfo && $contactInfo->latitude && $contactInfo->longitude)
@@ -73,7 +77,12 @@
                             </a>
                         </div>
                     @else
-                        <p class="text-center text-muted py-5">📍 Map location not available yet.</p>
+                        {{-- Placeholder fallback if no map --}}
+                        <img src="{{ asset('assets/images/placeholder.png') }}" 
+                             alt="Map Placeholder" 
+                             class="w-100" 
+                             style="min-height:500px; object-fit:cover;">
+                        <p class="text-center text-muted py-3">📍 Map location not available yet.</p>
                     @endif
                 </div>
             </div>
@@ -82,6 +91,7 @@
     </div>
 </div>
 
+{{-- 🔹 Contact Cards --}}
 <div class="section py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5 mt-5">
@@ -97,8 +107,8 @@
                     </div>
                     <h5 class="fw-bold">WhatsApp</h5>
                     <p class="mb-0">
-                        <a href="https://wa.me/{{ preg_replace('/\D/', '', $contactInfo->whatsapp) }}" target="_blank" class="text-decoration-none">
-                            {{ $contactInfo->whatsapp }}
+                        <a href="https://wa.me/{{ preg_replace('/\D/', '', $contactInfo->whatsapp ?? '') }}" target="_blank" class="text-decoration-none">
+                            {{ $contactInfo->whatsapp ?? 'Not Available' }}
                         </a>
                     </p>
                 </div>
@@ -111,7 +121,9 @@
                     </div>
                     <h5 class="fw-bold">Email Us</h5>
                     <p class="mb-0">
-                        <a href="mailto:{{ $contactInfo->email }}" class="text-decoration-none">{{ $contactInfo->email }}</a>
+                        <a href="mailto:{{ $contactInfo->email ?? '' }}" class="text-decoration-none">
+                            {{ $contactInfo->email ?? 'Not Available' }}
+                        </a>
                     </p>
                 </div>
             </div>
@@ -123,10 +135,14 @@
                     </div>
                     <h5 class="fw-bold">Visit Us</h5>
                     <p class="mb-0">
-                        <a href="#map-section" class="text-decoration-none text-dark">
-                            {{ $contactInfo->address_line1 }} <br>
-                            {{ $contactInfo->city }}, {{ $contactInfo->state }}
-                        </a>
+                        @if($contactInfo && $contactInfo->address_line1)
+                            <a href="#map-section" class="text-decoration-none text-dark">
+                                {{ $contactInfo->address_line1 }} <br>
+                                {{ $contactInfo->city }}, {{ $contactInfo->state }}
+                            </a>
+                        @else
+                            <span class="text-muted">Address not available</span>
+                        @endif
                     </p>
                 </div>
             </div>
@@ -135,6 +151,7 @@
     </div>
 </div>
 
+{{-- 🔹 Ajax Contact Form --}}
 <script>
 document.getElementById("contactForm").addEventListener("submit", async function(e) {
     e.preventDefault();
