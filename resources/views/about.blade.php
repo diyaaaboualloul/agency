@@ -35,7 +35,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
-                <img src="{{ $sections['mission']->image ? asset('storage/'.$sections['mission']->image) : asset('assets/images/placeholder.png') }}" 
+                <img style="width:100% !important" src="{{ $sections['mission']->image ? asset('storage/'.$sections['mission']->image) : asset('assets/images/placeholder.png') }}" 
                      alt="Our Mission" 
                      class="img-fluid rounded shadow"
                      onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
