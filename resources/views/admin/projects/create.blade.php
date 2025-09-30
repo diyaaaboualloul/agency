@@ -56,6 +56,11 @@
                     <input type="date" name="completed_at" class="form-control">
                 </div>
             </div>
+{{-- Project Link --}}
+<div class="mb-3">
+    <label class="form-label text-white">Project Link</label>
+    <input type="url" name="link" class="form-control" placeholder="https://example.com">
+</div>
 
             {{-- Cover image --}}
             <div class="mb-3">

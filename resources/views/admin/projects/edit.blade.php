@@ -58,6 +58,10 @@
                            value="{{ $project->completed_at ? $project->completed_at->format('Y-m-d') : '' }}">
                 </div>
             </div>
+<div class="mb-3">
+    <label class="form-label text-white">Project Link</label>
+    <input type="url" name="link" class="form-control" value="{{ $project->link }}">
+</div>
 
             {{-- Cover Image --}}
             <div class="mb-3">

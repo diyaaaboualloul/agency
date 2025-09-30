@@ -66,6 +66,7 @@ class ProjectController extends Controller
             'title'        => 'required|string|max:255',
             'summary'      => 'nullable|string|max:500',
             'description'  => 'nullable|string',
+            'link'         => 'nullable|url|max:500',   // ✅ new rule
             'client'       => 'nullable|string|max:255',
             'location'     => 'nullable|string|max:255',
             'completed_at' => 'nullable|date',
@@ -98,6 +99,7 @@ class ProjectController extends Controller
             'title'        => 'required|string|max:255',
             'summary'      => 'nullable|string|max:500',
             'description'  => 'nullable|string',
+                'link'         => 'nullable|url|max:500',  // ✅ Add this
             'client'       => 'nullable|string|max:255',
             'location'     => 'nullable|string|max:255',
             'completed_at' => 'nullable|date',

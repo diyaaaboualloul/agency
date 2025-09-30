@@ -17,6 +17,7 @@ class Project extends Model
         'title',
         'summary',
         'description',
+        'link',          // ✅ new
         'client',
         'location',
         'completed_at',

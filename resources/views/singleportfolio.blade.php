@@ -49,6 +49,15 @@
                     <li class="list-group-item">
                         <strong>Service:</strong> {{ $project->service->name }}
                     </li>
+                    @if($project->link)
+    <li class="list-group-item">
+        <strong>Link:</strong> 
+        <a href="{{ $project->link }}" target="_blank" class="text-decoration-underline text-primary">
+            Visit Project 🔗
+        </a>
+    </li>
+@endif
+
                 </ul>
             </div>
         </div>
