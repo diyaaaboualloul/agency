@@ -9,7 +9,6 @@
     <!-- Service Title -->
     <div class="text-center mb-5">
         <h1 class="fw-bold text-primary">{{ $service->name }}</h1>
-        <p class="text-muted fs-5">{{ $service->description }}</p>
     </div>
 
     <!-- Image + Content -->
