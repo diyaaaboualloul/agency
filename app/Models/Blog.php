@@ -12,10 +12,17 @@ class Blog extends Model
 
     protected $fillable = [
         'title',
+        'short_description',
+        'image_path',
         'description',
     ];
 
     protected $casts = [
         'deleted_at' => 'datetime',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(BlogImage::class)->orderBy('sort_order');
+    }
 }

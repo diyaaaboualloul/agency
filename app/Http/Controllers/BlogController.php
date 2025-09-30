@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\BlogImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -13,14 +15,14 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest()->paginate(6);
-        return view('blog', compact('blogs')); // استخدم مجلد blogs لصفحة القائمة
+        return view('blog', compact('blogs'));
     }
 
     // Single public blog
     public function show($id)
     {
-        $blog = Blog::findOrFail($id);
-        return view('single-blog', compact('blog')); // صفحة عرض البلوج
+        $blog = Blog::with('images')->findOrFail($id);
+        return view('single-blog', compact('blog'));
     }
 
     /* ------------------ Admin ------------------ */
@@ -42,31 +44,74 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'required|string', // HTML سيحفظ كما هو
+            'title'             => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:255',
+            'description'       => 'required|string',
+            'image'             => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'gallery.*'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        Blog::create($data);
+        // 🔹 Handle main image upload
+        if ($request->hasFile('image')) {
+            $data['image_path'] = $request->file('image')->store('blogs', 'public');
+        }
+
+        $blog = Blog::create($data);
+
+        // 🔹 Handle gallery uploads
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $index => $file) {
+                $path = $file->store('blogs/gallery', 'public');
+                BlogImage::create([
+                    'blog_id'    => $blog->id,
+                    'path'       => $path,
+                    'sort_order' => $index,
+                ]);
+            }
+        }
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully!');
     }
 
     public function edit($id)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::with('images')->findOrFail($id);
         return view('admin.blogs.edit', compact('blog'));
     }
 
     public function update(Request $request, $id)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::with('images')->findOrFail($id);
 
         $data = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'required|string', // HTML سيحفظ كما هو
+            'title'             => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:255',
+            'description'       => 'required|string',
+            'image'             => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'gallery.*'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        // 🔹 Replace main image if uploaded
+        if ($request->hasFile('image')) {
+            if ($blog->image_path && Storage::disk('public')->exists($blog->image_path)) {
+                Storage::disk('public')->delete($blog->image_path);
+            }
+            $data['image_path'] = $request->file('image')->store('blogs', 'public');
+        }
+
         $blog->update($data);
+
+        // 🔹 Add new gallery images (if any)
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $index => $file) {
+                $path = $file->store('blogs/gallery', 'public');
+                BlogImage::create([
+                    'blog_id'    => $blog->id,
+                    'path'       => $path,
+                    'sort_order' => $blog->images()->count() + $index,
+                ]);
+            }
+        }
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully!');
     }
@@ -75,7 +120,7 @@ class BlogController extends Controller
     public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
-        $blog->delete(); // sets deleted_at
+        $blog->delete();
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog moved to Trash.');
     }
@@ -100,6 +145,20 @@ class BlogController extends Controller
     public function forceDelete($id)
     {
         $blog = Blog::withTrashed()->findOrFail($id);
+
+        // 🔹 Delete main image file
+        if ($blog->image_path && Storage::disk('public')->exists($blog->image_path)) {
+            Storage::disk('public')->delete($blog->image_path);
+        }
+
+        // 🔹 Delete gallery images
+        foreach ($blog->images as $img) {
+            if (Storage::disk('public')->exists($img->path)) {
+                Storage::disk('public')->delete($img->path);
+            }
+            $img->delete();
+        }
+
         $blog->forceDelete();
 
         return redirect()->route('admin.blogs.trash')->with('success', 'Blog permanently deleted.');

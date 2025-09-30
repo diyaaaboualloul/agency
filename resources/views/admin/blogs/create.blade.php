@@ -7,7 +7,7 @@
     <div class="table-overlay">
         <h2 class="h3 fw-bold text-white mb-4">➕ Add Blog</h2>
 
-        {{-- 🔴 Validation errors (server-side) --}}
+        {{-- 🔴 Validation errors --}}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul class="mb-0">
@@ -19,19 +19,43 @@
         @endif
 
         {{-- ✅ Blog Form --}}
-        <form id="blogForm" action="{{ route('admin.blogs.store') }}" method="POST" class="mt-3">
+        <form id="blogForm" action="{{ route('admin.blogs.store') }}" method="POST" 
+              enctype="multipart/form-data" class="mt-3">
             @csrf
 
             {{-- Title --}}
             <div class="mb-3">
                 <label class="form-label fw-semibold text-white">Title</label>
-                <input type="text" name="title" class="form-control" placeholder="Enter blog title" value="{{ old('title') }}" required>
+                <input type="text" name="title" class="form-control" 
+                       placeholder="Enter blog title" value="{{ old('title') }}" required>
+            </div>
+
+            {{-- Short Description --}}
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Short Description</label>
+                <textarea name="short_description" rows="3" class="form-control" 
+                          placeholder="Brief summary (max 255 chars)">{{ old('short_description') }}</textarea>
+            </div>
+
+            {{-- Main Image --}}
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Main Image</label>
+                <input type="file" name="image" class="form-control">
+            </div>
+
+            {{-- Gallery Images --}}
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Gallery Images</label>
+                <input type="file" name="gallery[]" class="form-control" multiple>
+                <small class="text-light">You can select multiple images</small>
             </div>
 
             {{-- Description (CKEditor) --}}
             <div class="mb-3">
                 <label class="form-label fw-semibold text-white">Description</label>
-                <textarea id="editor" name="description" rows="6" class="form-control" placeholder="Enter blog content" required>{{ old('description') }}</textarea>
+                <textarea id="editor" name="description" rows="6" class="form-control" required>
+                    {{ old('description') }}
+                </textarea>
             </div>
 
             {{-- Actions --}}

@@ -19,7 +19,8 @@
         @endif
 
         {{-- ✅ Edit Form --}}
-        <form id="blogForm" action="{{ route('admin.blogs.update', $blog->id) }}" method="POST" class="mt-3">
+        <form id="blogForm" action="{{ route('admin.blogs.update', $blog->id) }}" 
+              method="POST" enctype="multipart/form-data" class="mt-3">
             @csrf 
             @method('PUT')
 
@@ -27,15 +28,45 @@
             <div class="mb-3">
                 <label class="form-label fw-semibold text-white">Title</label>
                 <input type="text" name="title" class="form-control" 
-                       value="{{ old('title', $blog->title) }}" 
-                       placeholder="Enter blog title" required>
+                       value="{{ old('title', $blog->title) }}" required>
+            </div>
+
+            {{-- Short Description --}}
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Short Description</label>
+                <textarea name="short_description" rows="3" class="form-control">{{ old('short_description', $blog->short_description) }}</textarea>
+            </div>
+
+            {{-- Main Image --}}
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Main Image</label>
+                @if($blog->image_path)
+                    <div class="mb-2">
+                        <img src="{{ asset('storage/'.$blog->image_path) }}" 
+                             alt="Current Image" style="max-width:200px;border-radius:8px;">
+                    </div>
+                @endif
+                <input type="file" name="image" class="form-control">
+                <small class="text-light">Upload to replace current image</small>
+            </div>
+
+            {{-- Gallery Images --}}
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Gallery Images</label>
+                <div class="d-flex flex-wrap gap-2 mb-2">
+                    @foreach($blog->images as $img)
+                        <img src="{{ asset('storage/'.$img->path) }}" 
+                             alt="Gallery Image" style="max-width:120px;border-radius:6px;">
+                    @endforeach
+                </div>
+                <input type="file" name="gallery[]" class="form-control" multiple>
+                <small class="text-light">Upload more images (existing ones remain)</small>
             </div>
 
             {{-- Description (CKEditor) --}}
             <div class="mb-3">
                 <label class="form-label fw-semibold text-white">Description</label>
-                <textarea id="editor" name="description" rows="6" 
-                          class="form-control" placeholder="Enter blog content" required>
+                <textarea id="editor" name="description" rows="6" class="form-control" required>
                     {{ old('description', $blog->description) }}
                 </textarea>
             </div>
@@ -49,6 +80,7 @@
     </div>
 </div>
 @endsection
+
 
 @push('styles')
 <style>
