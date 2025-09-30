@@ -131,6 +131,7 @@
 @php
     $blogs = \App\Models\Blog::latest()->take(3)->get();
 @endphp
+
 @if($blogs->isNotEmpty())
 <section class="blogs py-5 bg-light">
     <div class="container text-center">
@@ -139,13 +140,31 @@
             @foreach($blogs as $blog)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0">
+                           <div class="img-fixed-wrapper">
+
+                        {{-- Blog Image with Placeholder --}}
+                        <img src="{{ $blog->image_path ? asset('storage/'.$blog->image_path) : asset('assets/images/placeholder.png') }}" 
+                             alt="{{ $blog->title }}"
+                             class="card-img-top rounded-top img-fixed"
+                                      class="img-fixed"
+
+                             style="height:200px; object-fit:cover;"
+                             onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+                           </div>
+
                         <div class="card-body">
                             <h5 class="card-title fw-bold">{{ $blog->title }}</h5>
-                            <p class="mb-3">{{ Str::limit(strip_tags($blog->description), 150) }}</p>
+
+                            {{-- Short Description --}}
+                            @if($blog->short_description)
+                                <p class="text-muted">{{ Str::limit($blog->short_description, 100) }}</p>
+                            @endif
+
                             <a href="{{ route('blogs.show', $blog->id) }}" class="btn btn-sm btn-outline-primary">
                                 Read More
                             </a>
                         </div>
+
                         <div class="card-footer text-muted small">
                             {{ $blog->created_at->format('M d, Y') }}
                         </div>
@@ -153,10 +172,13 @@
                 </div>
             @endforeach
         </div>
+
         <a href="{{ route('blogs.index') }}" class="btn btn-primary mt-3">View All Blogs</a>
     </div>
 </section>
 @endif
+
+
 
 @endsection
 @push('styles')
