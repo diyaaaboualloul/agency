@@ -4,10 +4,9 @@
 
 @section('content')
 
-{{-- 🔹 Breadcrumb with fallback placeholder --}}
+{{-- 🔹 Breadcrumb --}}
 <div class="aximo-breadcrumb position-relative" 
-     style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;"
-     onerror="this.style.backgroundImage='url({{ asset('assets/images/placeholder.png') }})'">
+     style="background: url('{{ asset('assets/images/contact/braedcrupm imgg.jpg') }}') center/cover no-repeat; padding: 80px 0; color: #fff;">
     <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.6);"></div>
     <div class="container text-center position-relative" style="z-index: 2;">
         <h1 class="post__title fw-bold text-white">Contact</h1>
@@ -30,10 +29,17 @@
                     <h2 class="fw-bold">Let’s Talk 📩</h2>
                     <p class="text-muted">We’d love to hear from you! Fill in the form and our team will get back to you as soon as possible.</p>
                 </div>
+{{-- ✅ Flash Success / Error Messages --}}
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+@if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
 
                 <div id="form-message"></div>
 
-                <form id="contactForm" class="p-4 bg-light shadow rounded h-80">
+                <form id="contactForm" method="POST" action="{{ route('contact.store') }}" class="p-4 bg-light shadow rounded h-80">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Your Name</label>
@@ -51,6 +57,15 @@
                         <label class="form-label">Message</label>
                         <textarea name="message" class="form-control" rows="4" placeholder="Write your message..." required></textarea>
                     </div>
+
+                    {{-- 🔹 reCAPTCHA --}}
+                    <div class="mb-3">
+                        {!! NoCaptcha::display() !!}
+                        @if ($errors->has('g-recaptcha-response'))
+                            <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+                        @endif
+                    </div>
+
                     <button id="aximo-main-btn" type="submit" class="btn btn-primary w-100 fw-semibold">
                         Send Message 🚀
                     </button>
@@ -77,7 +92,6 @@
                             </a>
                         </div>
                     @else
-                        {{-- Placeholder fallback if no map --}}
                         <img src="{{ asset('assets/images/placeholder.png') }}" 
                              alt="Map Placeholder" 
                              class="w-100" 
@@ -99,12 +113,9 @@
             <p class="text-muted">Here’s how you can reach us directly.</p>
         </div>
         <div class="row g-4">
-            
             <div class="col-md-4">
                 <div class="card shadow h-100 border-0 text-center p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-whatsapp text-success fs-1"></i>
-                    </div>
+                    <div class="mb-3"><i class="bi bi-whatsapp text-success fs-1"></i></div>
                     <h5 class="fw-bold">WhatsApp</h5>
                     <p class="mb-0">
                         <a href="https://wa.me/{{ preg_replace('/\D/', '', $contactInfo->whatsapp ?? '') }}" target="_blank" class="text-decoration-none">
@@ -113,12 +124,9 @@
                     </p>
                 </div>
             </div>
-
             <div class="col-md-4">
                 <div class="card shadow h-100 border-0 text-center p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-envelope-fill text-success fs-1"></i>
-                    </div>
+                    <div class="mb-3"><i class="bi bi-envelope-fill text-success fs-1"></i></div>
                     <h5 class="fw-bold">Email Us</h5>
                     <p class="mb-0">
                         <a href="mailto:{{ $contactInfo->email ?? '' }}" class="text-decoration-none">
@@ -127,12 +135,9 @@
                     </p>
                 </div>
             </div>
-
             <div class="col-md-4">
                 <div class="card shadow h-100 border-0 text-center p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-geo-alt-fill text-danger fs-1"></i>
-                    </div>
+                    <div class="mb-3"><i class="bi bi-geo-alt-fill text-danger fs-1"></i></div>
                     <h5 class="fw-bold">Visit Us</h5>
                     <p class="mb-0">
                         @if($contactInfo && $contactInfo->address_line1)
@@ -146,12 +151,16 @@
                     </p>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-{{-- 🔹 Ajax Contact Form --}}
+{{-- reCAPTCHA script --}}
+{!! NoCaptcha::renderJs() !!}
+
+@endsection
+
+@push('scripts')
 <script>
 document.getElementById("contactForm").addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -173,11 +182,11 @@ document.getElementById("contactForm").addEventListener("submit", async function
         messageBox.innerHTML =
             `<div class="alert alert-success mt-3">✅ Your message has been sent successfully!</div>`;
         form.reset();
+        grecaptcha.reset(); // 🔹 reset captcha after success
     } else {
         messageBox.innerHTML =
             `<div class="alert alert-danger mt-3">❌ Something went wrong. Please try again.</div>`;
     }
 });
 </script>
-
-@endsection
+@endpush

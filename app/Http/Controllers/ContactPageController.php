@@ -15,15 +15,15 @@ class ContactPageController extends Controller
         return view('contact', compact('contactInfo'));
     }
 
-
-   public function store(Request $request)
+    public function store(Request $request)
     {
-        // ✅ Validate form data
+        // ✅ Validate form data with reCAPTCHA
         $data = $request->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|max:255',
             'phone'   => 'nullable|string|max:20',
             'message' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         // ✅ Save message into database
@@ -56,13 +56,10 @@ class ContactPageController extends Controller
             );
 
         } catch (\Exception $e) {
-            // Log error for debugging
             \Log::error('Mail sending failed: '.$e->getMessage());
-
             return redirect()->back()->with('error', 'Something went wrong. Please try again.');
         }
 
         return redirect()->back()->with('success', '✅ Your message has been sent successfully!');
     }
-
 }
