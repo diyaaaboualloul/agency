@@ -21,12 +21,13 @@
         </a>
       </div>
 
-      <!-- Decorative Image -->
-      <div class="col-md-3">
-        <img src="{{ asset('assets/images/contact/meet-iconn.png') }}" 
-             alt="Get in Touch" 
-             class="img-fluid rounded shadow-sm">
-      </div>
+     <!-- Decorative Image -->
+<div class="col-md-3 text-center">
+    <img src="{{ asset('assets/images/contact/meet-iconn.png') }}" 
+         alt="Get in Touch" 
+         class="img-fluid rounded shadow-sm w-25">
+</div>
+
     </div>
   </div>
 </div>

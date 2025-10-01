@@ -107,6 +107,26 @@
         padding-left: 1.5rem !important;
         list-style-type: decimal !important;
     }
+
+    .btnn{
+      background-color: lightgrey !important;
+    }
+
+
+    .btnn:hover{
+      color: #0d6efd !important;
+    }
+     h2{
+            font-size:53px !important;
+        }
+        h5{
+          font-size: 22px !important;
+        }
+
+         p{
+          font-size: 17px !important;
+          line-height: 25px !important;
+        }
   </style>
 
   <script>
