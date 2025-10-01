@@ -17,7 +17,7 @@ class ProjectController extends Controller
         $projects = Project::where('is_published', true)
             ->with('service')
             ->latest()
-            ->paginate(9);
+            ->paginate(25);
 
         return view('portfolio', compact('projects'));
     }

@@ -47,8 +47,8 @@ class BlogController extends Controller
             'title'             => 'required|string|max:255',
             'short_description' => 'nullable|string|max:255',
             'description'       => 'required|string',
-            'image'             => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'gallery.*'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image'             => 'nullable|image|mimes:jpg,jpeg,png,webp||max:2048',
+            'gallery.*'         => 'nullable|image|mimes:jpg,jpeg,png,webp||max:2048',
         ]);
 
         // 🔹 Handle main image upload
@@ -87,8 +87,8 @@ class BlogController extends Controller
             'title'             => 'required|string|max:255',
             'short_description' => 'nullable|string|max:255',
             'description'       => 'required|string',
-            'image'             => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'gallery.*'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image'             => 'nullable|image|mimes:jpg,jpeg,png,webp||max:2048',
+            'gallery.*'         => 'nullable|image|mimes:jpg,jpeg,png,webp||max:2048',
         ]);
 
         // 🔹 Replace main image if uploaded
