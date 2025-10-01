@@ -39,24 +39,26 @@
         </div>
       </article>
 
-      {{-- Gallery Section --}}
-      @if($blog->images->count())
-        <section class="blog-gallery mb-5">
-          <h3 class="fw-bold mb-3">Gallery</h3>
-          <div class="row g-3">
-            @foreach($blog->images as $img)
-              <div class="col-md-4 col-sm-6">
-                <a href="{{ asset('storage/'.$img->path) }}" target="_blank">
-                  <img src="{{ $img->path ? asset('storage/'.$img->path) : asset('assets/images/placeholder.png') }}" 
-                       alt="Gallery Image" 
-                       class="img-fluid rounded shadow-sm gallery-img"
-                       onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
-                </a>
-              </div>
-            @endforeach
-          </div>
-        </section>
-      @endif
+{{-- Gallery Section --}}
+@if($blog->images->count())
+  <section class="blog-gallery mb-5">
+    <h3 class="fw-bold mb-3">Gallery</h3>
+    <div class="row g-3">
+      @foreach($blog->images as $img)
+        <div class="col-md-4 col-sm-6">
+          <a href="{{ asset('storage/'.$img->path) }}" target="_blank">
+            <img src="{{ $img->path ? asset('storage/'.$img->path) : asset('assets/images/placeholder.png') }}" 
+                 alt="Gallery Image" 
+                 class="gallery-img rounded shadow-sm"
+                 onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
+          </a>
+        </div>
+      @endforeach
+    </div>
+  </section>
+@endif
+
+
 
       {{-- Back Button --}}
       <div class="text-center">
@@ -123,15 +125,19 @@
 
   /* Gallery */
   .gallery-img {
+    width: 100%;
+    height: 220px !important; /* unified height */
+    object-fit: cover; /* crop & center */
+    border-radius: 8px;
     transition: transform .3s ease, box-shadow .3s ease;
     cursor: pointer;
-    height: 180px;
-    object-fit: cover;
-  }
-  .gallery-img:hover {
+    display: block; /* removes inline spacing */
+}
+.gallery-img:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-  }
+}
+
 
   /* Back Button */
   .btn-primary {
