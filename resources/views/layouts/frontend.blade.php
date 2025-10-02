@@ -132,6 +132,19 @@
           font-size: 17px !important;
           line-height: 25px !important;
         }
+      h1{
+   font-size: 65px !important;
+
+          line-height: 65px !important;
+        }
+@media (max-width: 767px) {
+          h1{
+                      font-size: 35px !important;
+
+          line-height: 50px !important;
+        }
+}
+     
   </style>
 
   <script>
