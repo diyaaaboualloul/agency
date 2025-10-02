@@ -10,8 +10,8 @@ return new class extends Migration {
         Schema::create('blog_images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('blog_id')->constrained()->cascadeOnDelete();
-            $table->string('path');
-            $table->string('caption')->nullable();
+            $table->string('path');                       
+            $table->string('caption')->nullable();        
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();
         });
