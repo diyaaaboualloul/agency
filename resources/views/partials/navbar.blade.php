@@ -28,7 +28,31 @@
       <li class="{{ $is('portfolio*') }}"><a href="{{ route('portfolio') }}" class="nav-link-item">Portfolio</a></li>
       <li class="{{ $is('blogs*') }}"><a href="{{ route('blogs.index') }}" class="nav-link-item">Blogs</a></li>
       <li class="{{ $is('contact') }}"><a href="{{ route('contact') }}" class="nav-link-item">Contact</a></li>
-
-      </ul>
+    </ul>
   </nav>
 </div>
+
+<!-- CSS خاص للموبايل فقط -->
+<style>
+@media (max-width: 991px) {
+  #navbarMenu {
+    text-align: left !important;
+  }
+  #navbarMenu li {
+    width: 100%;
+    margin: 0px;
+  }
+  #navbarMenu a {
+    display: block;
+    text-align: left !important;
+    padding-left: 20px; /* مسافة صغيرة من اليسار */
+    margin: 0px;
+  }
+  #navbarMenu{
+    background:white !important;
+  }
+  #menuToggle{
+    background-color: blue !important;
+  }
+}
+</style>
