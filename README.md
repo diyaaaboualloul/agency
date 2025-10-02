@@ -1,6 +1,6 @@
 # # 🚀 AtoZ Digital Agency
 
-This is a Laravel-based web application with features like database migrations, seeding, email configuration, Google reCAPTCHA integration, and a full CMS-style dashboard for managing content.
+This project is a Laravel-based web application built for a digital/creative agency. It serves as a professional online presence where the agency can present its brand, services, projects, blog posts, and contact information in one unified platform.
 
 ---
 
@@ -8,8 +8,7 @@ This is a Laravel-based web application with features like database migrations, 
 
 - PHP >= 8.1
 - Composer
-- MySQL or another supported database
-- Node.js & NPM
+- MySQL 
 - Git
 
 ---
@@ -58,7 +57,6 @@ This is a Laravel-based web application with features like database migrations, 
 
 ## ✨ Features
 
-- ✅ Database migrations & seeders  
 - ✅ User authentication & roles/permissions (admin/editor)  
 - ✅ Email notifications (Mailtrap / SMTP supported)  
 - ✅ Google reCAPTCHA v2/v3 integration  
@@ -114,10 +112,7 @@ This is a Laravel-based web application with features like database migrations, 
 
 If you run the seeders (`php artisan db:seed`), a default **Admin user** will be created:
 
-```text
-Email: diyaa@gmail.com
-Password: 123456789
-```
+
 
 ⚠️ Make sure to change these credentials immediately after first login.
 
