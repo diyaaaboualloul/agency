@@ -63,7 +63,7 @@
   <div class="collapse {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.roles.*') ? 'show' : '' }}" 
        id="adminTools" data-bs-parent="#sidebar">
     <ul class="nav flex-column sub-menu">
-      <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">🔑 Assign Roles</a></li>
+      <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">🔑 Users</a></li>
       <li class="nav-item"><a class="nav-link {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}">⚙️ Manage Roles</a></li>
     </ul>
   </div>

@@ -3,10 +3,10 @@
 @section('title','Dashboard')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4 table-overlay">
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 table-overlay gap-3">
     <h2 class="h3 fw-bold text-white mb-0">👥 Manage Users & Roles</h2>
     
-    <div class="d-flex gap-2">
+    <div class="d-flex flex-wrap gap-2">
         <a href="{{ route('admin.users.create') }}" class="btn btn-dashboard btn-create shadow">
             ➕ Create User
         </a>
@@ -15,6 +15,7 @@
         </a>
     </div>
 </div>
+
 
 
     <!-- Users Table -->
@@ -185,6 +186,31 @@
 .btn-roles:hover {
     background: linear-gradient(135deg, #1b4edb, #153aa7);
     transform: translateY(-2px);
+}
+/* Make the top bar responsive */
+.table-overlay {
+    background: rgba(0,0,0,0.65);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+/* On small screens, stack title and buttons */
+@media (max-width: 768px) {
+    .table-overlay {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px;
+    }
+
+    .table-overlay h2 {
+        font-size: 1.25rem;
+    }
+
+    .table-overlay .btn {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 </style>

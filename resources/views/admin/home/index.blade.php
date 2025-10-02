@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="content-centered">
+    
     <div class="card-body table-overlay">
         <h2 class="h3 mb-0 text-white fw-bold">🏠 Manage Homepage Sections</h2>
         <a href="{{ route('home') }}" target="_blank" class="btn btn-outline-info my-3 btn-lg">

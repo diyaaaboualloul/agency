@@ -145,6 +145,27 @@
       border-radius: 8px;
       padding: 20px;
     }
+    /* Force responsive scroll on small screens */
+.table-overlay {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* smooth mobile scrolling */
+}
+
+.table-overlay table {
+  width: 100%;
+  min-width: 600px; /* keep columns readable, adjust as needed */
+  display: block;   /* force table to behave like block */
+  overflow-x: auto;
+  white-space: nowrap; /* prevent text wrapping in cells */
+}
+@media (max-width: 768px) {
+  .content-wrapper {
+    margin: 10px;
+    padding: 15px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -159,7 +180,6 @@
         <div class="content-wrapper glass-bg">
           @yield('content')
         </div>
-        {{-- Footer --}}
       </div>
     </div>
   </div>
