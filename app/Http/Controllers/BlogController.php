@@ -163,4 +163,20 @@ class BlogController extends Controller
 
         return redirect()->route('admin.blogs.trash')->with('success', 'Blog permanently deleted.');
     }
+public function deleteGallery($id)
+{
+    $image = BlogImage::findOrFail($id);
+
+    if (Storage::disk('public')->exists($image->path)) {
+        Storage::disk('public')->delete($image->path);
+    }
+
+    $image->delete();
+
+    return back()->with('success', 'Gallery image deleted successfully!');
+}
+
+
+
+
 }

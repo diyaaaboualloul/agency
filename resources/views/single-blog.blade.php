@@ -46,10 +46,13 @@
     <div class="row g-3">
       @foreach($blog->images as $img)
         <div class="col-md-4 col-sm-6">
-          <a href="{{ asset('storage/'.$img->path) }}" target="_blank">
+          <a data-fancybox="blog-gallery" 
+             data-caption="{{ $blog->title }}" 
+             href="{{ asset('storage/'.$img->path) }}">
             <img src="{{ $img->path ? asset('storage/'.$img->path) : asset('assets/images/placeholder.png') }}" 
-                 alt="Gallery Image" 
-                 class="gallery-img rounded shadow-sm"
+                 alt="Gallery Image"
+                 class="rounded shadow-sm w-100"
+                 style="height:220px; object-fit:cover; border-radius:8px;"
                  onerror="this.onerror=null;this.src='{{ asset('assets/images/placeholder.png') }}';">
           </a>
         </div>
@@ -60,9 +63,10 @@
 
 
 
+
       {{-- Back Button --}}
       <div class="text-center">
-        <a href="{{ route('blogs.index') }}" class="btn btn-lg btn-primary shadow px-4">
+        <a href="{{ route('blogs.index') }}" style="margin-bottom:50px;" class="btn btn-lg btn-primary shadow px-4">
           ← Back to Blogs
         </a>
       </div>

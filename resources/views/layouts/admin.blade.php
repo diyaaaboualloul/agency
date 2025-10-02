@@ -15,6 +15,8 @@
   <!-- Bootstrap 5.3 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.2.2/css/dropify.min.css"/>
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/shared/style.css') }}">
   <!-- Layout styles -->
@@ -198,6 +200,46 @@
       console.log("✅ Lazy loading + alt text applied");
   });
   </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.2.2/js/dropify.min.js"></script>
+<script>
+    $('.dropify').dropify();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.2.2/js/dropify.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+    // ✅ CKEditor Init
+    ClassicEditor.create(document.querySelector('#editor'))
+        .catch(error => console.error(error));
 
+    // ✅ Dropify Init
+    $('.dropify').dropify();
+
+    // ✅ Handle Gallery Delete (AJAX)
+   document.querySelectorAll('.delete-gallery-img').forEach(button => {
+    button.addEventListener('click', function() {
+        if(confirm('Are you sure you want to delete this image?')) {
+            let imageId = this.dataset.id;
+            let imageWrapper = this.closest('.position-relative');
+
+            fetch(`/admin/blogs/gallery/${imageId}`, {
+                method: "DELETE",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json"
+                }
+            })
+            .then(response => {
+                if(response.ok) {
+                    imageWrapper.remove();
+                } else {
+                    alert('❌ Failed to delete image.');
+                }
+            })
+            .catch(() => alert('❌ Error deleting image.'));
+        }
+    });
+});
+
+</script>
 </body>
 </html>

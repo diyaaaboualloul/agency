@@ -167,6 +167,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->middleware('permission:delete blogs|edit blogs')->name('blogs.restore');
     Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])
         ->middleware('permission:delete blogs')->name('blogs.forceDelete');
+            // Gallery image delete
+    Route::delete('/blogs/gallery/{id}', [\App\Http\Controllers\BlogController::class, 'deleteGallery'])
+        ->name('blogs.gallery.delete');
 
     // Teams
     Route::get('/teams', [TeamController::class, 'index'])
@@ -204,6 +207,8 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/users/create', [UserManagementController::class, 'create'])->name('users.create');
         Route::post('/users', [UserManagementController::class, 'store'])->name('users.store');
     });
+
+
 
 // =======================
 // 🔹 Auth Routes
