@@ -165,16 +165,18 @@ class BlogController extends Controller
     }
 public function deleteGallery($id)
 {
-    $image = BlogImage::findOrFail($id);
+    $image = \App\Models\BlogImage::findOrFail($id);
 
-    if (Storage::disk('public')->exists($image->path)) {
-        Storage::disk('public')->delete($image->path);
+    // delete file if present
+    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($image->path)) {
+        \Illuminate\Support\Facades\Storage::disk('public')->delete($image->path);
     }
 
     $image->delete();
 
     return back()->with('success', 'Gallery image deleted successfully!');
 }
+
 
 
 

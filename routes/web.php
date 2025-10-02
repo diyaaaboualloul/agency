@@ -168,8 +168,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::delete('/blogs/{id}/force-delete', [BlogController::class, 'forceDelete'])
         ->middleware('permission:delete blogs')->name('blogs.forceDelete');
             // Gallery image delete
-    Route::delete('/blogs/gallery/{id}', [\App\Http\Controllers\BlogController::class, 'deleteGallery'])
-        ->name('blogs.gallery.delete');
+// Blogs – delete a single gallery image
+Route::delete('/blogs/gallery/{id}', [\App\Http\Controllers\BlogController::class, 'deleteGallery'])
+    ->name('blogs.gallery.delete');
+
 
     // Teams
     Route::get('/teams', [TeamController::class, 'index'])
