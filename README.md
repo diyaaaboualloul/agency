@@ -1,15 +1,18 @@
-# # 🚀 AtoZ Digital Agency
+# 🚀 AtoZ Digital Agency
 
-This project is a Laravel-based web application built for a digital/creative agency. It serves as a professional online presence where the agency can present its brand, services, projects, blog posts, and contact information in one unified platform.
+This project is a Laravel-based web application built for a digital/creative agency.
 
----
-## our website is live!!
-https://agency.dee-tronics.com/
+## 🌐 Live Website
+[https://agency.dee-tronics.com/](https://agency.dee-tronics.com/)
 
+### 🖼️ Screenshots
 
-https://i.imgur.com/D25Zp5p.png
+#### 🏠 Homepage
+![Homepage Screenshot](https://i.imgur.com/D25Zp5p.png)
 
-https://i.imgur.com/e8Wmr0x.png
+#### 🧭 Dashboard
+![Dashboard Screenshot](https://i.imgur.com/e8Wmr0x.png)
+
 ## 📦 Requirements
 
 - PHP >= 8.1
