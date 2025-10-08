@@ -3,6 +3,13 @@
 This project is a Laravel-based web application built for a digital/creative agency. It serves as a professional online presence where the agency can present its brand, services, projects, blog posts, and contact information in one unified platform.
 
 ---
+## our website is live!!
+https://agency.dee-tronics.com/
+
+
+## imgs screenshots
+https://imgur.com/a/TfvvIRM
+https://imgur.com/a/dC1Oiyb
 
 ## 📦 Requirements
 
