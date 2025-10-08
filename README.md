@@ -7,10 +7,9 @@ This project is a Laravel-based web application built for a digital/creative age
 https://agency.dee-tronics.com/
 
 
-## imgs screenshots
-https://imgur.com/a/TfvvIRM
-https://imgur.com/a/dC1Oiyb
+https://i.imgur.com/D25Zp5p.png
 
+https://i.imgur.com/e8Wmr0x.png
 ## 📦 Requirements
 
 - PHP >= 8.1
