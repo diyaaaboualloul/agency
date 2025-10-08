@@ -1,61 +1,191 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# # 🚀 AtoZ Digital Agency
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a Laravel-based web application built for a digital/creative agency. It serves as a professional online presence where the agency can present its brand, services, projects, blog posts, and contact information in one unified platform.
 
-## About Laravel
+---
+## our website is live!!
+https://agency.dee-tronics.com/
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## imgs screenshots
+https://imgur.com/a/TfvvIRM
+https://imgur.com/a/dC1Oiyb
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📦 Requirements
 
-## Learning Laravel
+- PHP >= 8.1
+- Composer
+- MySQL 
+- Git
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## ⚙️ Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone the repository**
+   ```bash
+   git clone git@github.com:diyaaaboualloul/agency.git
+   cd agency
+   ```
 
-## Laravel Sponsors
+2. **Install dependencies**
+   ```bash
+   composer install
+   npm install && npm run build
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. **Create environment file**
+   ```bash
+   cp .env.example .env
+   ```
+   - Update `.env` with your database, mail, and reCAPTCHA keys.
 
-### Premium Partners
+4. **Generate application key**
+   ```bash
+   php artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+5. **Run database migrations**
+   ```bash
+   php artisan migrate
+   ```
 
-## Contributing
+6. **Run seeders (optional but recommended)**
+   ```bash
+   php artisan db:seed
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. **Start local development server**
+   ```bash
+   php artisan serve
+   ```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## ✨ Features
 
-## Security Vulnerabilities
+- ✅ User authentication & roles/permissions (admin/editor)  
+- ✅ Email notifications (Mailtrap / SMTP supported)  
+- ✅ Google reCAPTCHA v2/v3 integration  
+- ✅ Contact form with message management  
+- ✅ CMS Dashboard for Home, About, Services, Projects, Blogs, Teams, Contact Info  
+- ✅ Soft delete + restore + force delete for services, projects, and blogs  
+- ✅ 404 fallback error page  
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 📍 Routes Overview
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 🔹 Public
+- `/` → Home page  
+- `/about` → About page  
+- `/services` → Services listing  
+- `/services/{id}` → Single service  
+- `/portfolio` → Portfolio listing  
+- `/portfolio/{slug}` → Single portfolio project  
+- `/blogs` → Blog listing  
+- `/blogs/{id}` → Single blog post  
+- `/contact` → Contact page (with form submission)  
+
+### 🔹 Authentication
+- `/login` → User login  
+- `/register` → User registration  
+- `/forgot-password` → Reset password  
+
+### 🔹 Dashboard
+- `/AtoZdashboard` → Main dashboard (requires auth + verified email)  
+- `/profile` → Profile management (edit, update, delete account)  
+
+### 🔹 Admin Only
+- `/admin/users` → Manage users (list, assign roles, delete, create)  
+- `/admin/roles` → Manage roles  
+
+### 🔹 Admin + Editor (Permissions required)
+- `/admin/home-sections` → Manage homepage content  
+- `/admin/about-sections` → Manage about page content  
+- `/admin/services` → Manage services (CRUD + trash/restore/force delete)  
+- `/admin/projects` → Manage projects (CRUD + trash/restore/force delete)  
+- `/admin/blogs` → Manage blogs (CRUD + trash/restore/force delete + gallery image delete)  
+- `/admin/teams` → Manage team members  
+- `/admin/contact-info` → Edit contact info  
+- `/admin/messages` → View/delete contact messages + mark as read  
+
+### 🔹 Fallback
+- Any undefined route → Custom `errors.404` page  
+
+---
+
+## 👤 Default Admin Login (Seeder)
+
+If you run the seeders (`php artisan db:seed`), a default **Admin user** will be created:
+
+
+
+⚠️ Make sure to change these credentials immediately after first login.
+
+---
+
+## 📧 Mail Setup
+
+Configure your `.env`:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your-username
+MAIL_PASSWORD=your-password
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="noreply@example.com"
+MAIL_FROM_NAME="AtoZ Agency"
+```
+
+Use [Mailtrap](https://mailtrap.io/) for local testing or SMTP for production.
+
+---
+
+## 🔐 Google reCAPTCHA Setup
+
+1. Get your keys from [Google reCAPTCHA Admin Console](https://www.google.com/recaptcha/admin/create).  
+2. Add them in `.env`:
+
+```env
+NOCAPTCHA_SITEKEY=your-site-key
+NOCAPTCHA_SECRET=your-secret-key
+```
+
+---
+
+## 🛠 Useful Artisan Commands
+
+- Run migrations:  
+  ```bash
+  php artisan migrate
+  ```
+
+- Run seeders:  
+  ```bash
+  php artisan db:seed
+  ```
+
+- Refresh DB (drop & reseed):  
+  ```bash
+  php artisan migrate:fresh --seed
+  ```
+
+- Clear caches:  
+  ```bash
+  php artisan optimize:clear
+  ```
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you’d like to change.
+
+---
+
+## 📄 License
+
+This project is open-sourced under the [MIT License](https://opensource.org/licenses/MIT).
